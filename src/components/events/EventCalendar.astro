@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  showUpcoming?: boolean;
+}
+
+const { showUpcoming = false } = Astro.props;
+
+const entries = await getCollection("veranstaltungen");
+
+const events = entries
+  .map((entry) => ({
+    id: entry.id,
+    title: entry.data.title,
+    description: entry.data.description,
+    start: entry.data.start.toISOString(),
+    end: entry.data.end?.toISOString(),
+    location: entry.data.location,
+    admission: entry.data.admission,
+    image: entry.data.image
+      ? { src: entry.data.image.src, width: entry.data.image.width, height: entry.data.image.height }
+      : undefined
+  }))
+  .sort((a, b) => a.start.localeCompare(b.start));
+---
+
+<div class="rounded-3xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6 shadow-sm">
+  <div id="event-calendar" data-show-upcoming={showUpcoming ? "true" : "false"}></div>
+</div>
+
+<script type="application/json" id="event-calendar-data" set:html={JSON.stringify(events)} is:inline />
+
+<script>
+  import { initEventCalendar } from "@lib/eventCalendar";
+  import { initEventModal } from "@lib/eventModal";
+  import { parseCalendarEvent } from "@lib/calendar";
+
+  const dataEl = document.querySelector("#event-calendar-data");
+  const raw = dataEl?.textContent ? JSON.parse(dataEl.textContent) : [];
+  const events = raw.map(parseCalendarEvent);
+
+  const container = document.querySelector<HTMLElement>("#event-calendar");
+  const showUpcoming = container?.getAttribute("data-show-upcoming") === "true";
+
+  const modal = initEventModal();
+
+  if (container) {
+    initEventCalendar(container, events, {
+      showUpcoming,
+      onSelect: (event) => modal?.open(event)
+    });
+  }
+</script>

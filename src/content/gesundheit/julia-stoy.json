@@ -1,0 +1,19 @@
+{
+  "name": "Dr. med. Julia Stoy",
+  "type": "arzt",
+  "role": [
+    "Hausärztin",
+    "Fachärztin für Innere Medizin"
+  ],
+  "address": "Hans-Beimler-Straße 15, 14554 Seddiner See",
+  "phone": [
+    "033205 / 63022"
+  ],
+  "fax": "033205 / 21724",
+  "website": "praxis-stoy.de",
+  "hours": [
+    { "day": "Montag–Freitag", "time": "08.00–12.00 Uhr" },
+    { "day": "Dienstag", "time": "15.00–19.00 Uhr" }
+  ],
+  "hoursNote": "und nach Vereinbarung"
+}

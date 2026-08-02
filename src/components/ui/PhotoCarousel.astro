@@ -1,0 +1,67 @@
+---
+import Icon from "@components/ui/Icon.astro";
+
+interface Props {
+  id: string;
+  images: { src: string; alt: string }[];
+}
+
+const { id, images } = Astro.props;
+---
+
+{images.length > 0 && (
+
+<div data-photo-carousel={id} class="relative">
+
+  <button
+    type="button"
+    data-carousel-image
+    aria-label="Bild vergrößern"
+    class="block w-full cursor-zoom-in overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800"
+  >
+    <img data-carousel-img src={images[0].src} alt={images[0].alt} class="aspect-[21/9] w-full object-cover" />
+  </button>
+
+  {images.length > 1 && (
+    <>
+
+      <button
+        type="button"
+        data-carousel-prev
+        aria-label="Vorheriges Bild"
+        class="absolute left-3 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-gray-900 shadow transition hover:bg-white md:flex"
+      >
+        <Icon name="arrow-left" class="h-4 w-4" />
+      </button>
+
+      <button
+        type="button"
+        data-carousel-next
+        aria-label="Nächstes Bild"
+        class="absolute right-3 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-gray-900 shadow transition hover:bg-white md:flex"
+      >
+        <Icon name="arrow-right" class="h-4 w-4" />
+      </button>
+
+      <div class="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
+        {images.map((_, index) => (
+          <button
+            type="button"
+            aria-label={`Bild ${index + 1} von ${images.length}`}
+            data-carousel-dot
+            class:list={[
+              "h-2.5 w-2.5 rounded-full transition",
+              index === 0 ? "bg-white" : "bg-white/40 hover:bg-white/70"
+            ]}
+          />
+        ))}
+      </div>
+
+    </>
+  )}
+
+</div>
+
+<script type="application/json" id={`photo-gallery-data-${id}`} set:html={JSON.stringify(images)} is:inline />
+
+)}

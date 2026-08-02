@@ -1,0 +1,54 @@
+{
+  "name": "Grundschule „Friedrich List\"",
+  "subtitle": "Verlässliche Halbtagsgrundschule",
+  "highlights": [
+    "Verlässliche Halbtagsgrundschule",
+    "Hortbetreuung vor und nach dem Unterricht",
+    "Über 15 Arbeitsgemeinschaften",
+    "Schulsozialarbeit"
+  ],
+  "description": [
+    "Bei unserer Schule handelt es sich um eine verlässliche Halbtagsgrundschule. Weitere Informationen erhalten Sie unter grundschule-seddiner-see.de."
+  ],
+  "features": [
+    "Verlässliche Halbtagsgrundschule",
+    "Flexible Schuleingangsphase",
+    "Sonderpädagogische Betreuung",
+    "Förderunterricht und individuelle Lernzeit",
+    "Hortbetreuung vor und nach dem Unterricht",
+    "über 15 Arbeitsgemeinschaftsangebote",
+    "Schulbibliothek, Schülerclub",
+    "Teilnahme an Wettbewerben und Wettkämpfen",
+    "Schulprojekte und Schulfeste",
+    "Kooperationspartner (Kita „Waldsternchen\", Kita „Seepferdchen\", ESV Lok Seddin u. a.)",
+    "Schulsozialarbeit",
+    "Schulförderverein"
+  ],
+  "images": [
+    "/images/school/Grundschule Friedrich List.png",
+    "/images/school/Grundschule Friedrich List 2.png"
+  ],
+  "address": "Hans-Beimler-Str. 17, 14554 Seddiner See, OT Neuseddin",
+  "phone": "033205 / 7330",
+  "fax": "033205 / 7338",
+  "email": "grundschule@seddiner-see.de",
+  "website": "grundschule-seddiner-see.de",
+  "contacts": [
+    {
+      "role": "Schulleiterin",
+      "name": "Sandra Leopold"
+    },
+    {
+      "role": "Sekretariat / Hortleiter",
+      "name": "Bianca Grieger, Eric Papzien"
+    },
+    {
+      "role": "Sozialarbeiterinnen",
+      "name": "Heike Bach, Helene Escher"
+    },
+    {
+      "role": "Schulförderverein",
+      "name": "Schulförderverein der Grundschule „Friedrich-List\" Seddiner See e. V., c/o Bianca Grieger, Hans-Beimler-Str. 17, 14554 Seddiner See, OT Neuseddin, E-Mail: sfv.friedrich-list.seddinersee@web.de"
+    }
+  ]
+}

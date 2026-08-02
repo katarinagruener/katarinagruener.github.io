@@ -1,0 +1,238 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+import EmployeeCard from "@components/administration/EmployeeCard.astro";
+
+import { bauhof } from "@data/verwaltung";
+
+import { groupBy } from "@lib/groupBy";
+import { getPageHero } from "@lib/pageHero";
+
+const staff = (await getCollection("verwaltung-mitarbeiter")).sort((a, b) =>
+  a.id.localeCompare(b.id)
+);
+
+const hero = await getPageHero("verwaltung");
+
+const departments = groupBy(staff, (entry) => entry.data.department).map(
+  ({ key, items }) => ({
+    title: key,
+    employees: items.map((entry) => entry.data)
+  })
+);
+---
+
+
+<BaseLayout
+  title="Verwaltung"
+  description="Gemeindeverwaltung Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Verwaltung" }]} />
+
+
+<PageHero
+  title={hero?.title ?? "Verwaltung"}
+  subtitle={hero?.subtitle ?? "Gemeindeverwaltung Seddiner See"}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+<!-- Telefonverzeichnis -->
+
+<section class="mt-12">
+
+<h2
+  class="
+    mb-6
+    text-2xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Telefonverzeichnis der Gemeindeverwaltung
+</h2>
+
+{
+  departments.map(department => (
+
+<div class="mb-10">
+
+<h3
+  class="
+    mb-5
+    text-xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+{department.title}
+</h3>
+
+<div
+  class="
+    grid
+    gap-5
+    md:grid-cols-2
+  "
+>
+
+{
+  department.employees.map(employee => (
+    <EmployeeCard employee={employee} />
+  ))
+}
+
+</div>
+
+</div>
+
+  ))
+}
+
+</section>
+
+
+<!-- Bauhof -->
+
+<section
+  class="
+    mt-12
+    border-l-4
+    border-primary
+    bg-gray-50 dark:bg-gray-800
+    px-6
+    py-6
+    rounded-r-2xl
+  "
+>
+
+<h2
+  class="
+    text-xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+{bauhof.title}
+</h2>
+
+<div
+  class="
+    mt-4
+    space-y-2
+    text-gray-700 dark:text-gray-300
+  "
+>
+
+<p>
+<span class="font-medium">Adresse:</span>
+{bauhof.address}
+</p>
+
+<p>
+<span class="font-medium">Telefon:</span>
+<a href={`tel:${bauhof.phone}`} class="ml-1 text-primary hover:underline">
+{bauhof.phone}
+</a>
+</p>
+
+<p>
+<span class="font-medium">Fax:</span>
+{bauhof.fax}
+</p>
+
+</div>
+
+</section>
+
+
+<!-- Kontakt & Bürgerservice A-Z -->
+
+<div class="mt-12 grid gap-6 sm:grid-cols-2">
+
+<div
+  class="
+    rounded-2xl
+    bg-gray-50 dark:bg-gray-800
+    p-6
+    text-center
+  "
+>
+
+<p class="text-gray-700 dark:text-gray-300">
+Adresse, Sprechzeiten und Anfahrt zur Gemeindeverwaltung
+</p>
+
+<a
+  href="/kontakt"
+  class="
+    mt-3
+    inline-flex
+    items-center
+    gap-1
+    text-sm
+    font-semibold
+    text-primary
+    hover:text-primary-dark
+  "
+>
+  Zum Kontakt <Icon name="arrow-right" class="h-4 w-4" />
+</a>
+
+</div>
+
+<div
+  class="
+    rounded-2xl
+    bg-gray-50 dark:bg-gray-800
+    p-6
+    text-center
+  "
+>
+
+<p class="text-gray-700 dark:text-gray-300">
+Nicht gefunden, wer für Ihr Anliegen zuständig ist?
+</p>
+
+<a
+  href="/gemeinde/buergerservice"
+  class="
+    mt-3
+    inline-flex
+    items-center
+    gap-1
+    text-sm
+    font-semibold
+    text-primary
+    hover:text-primary-dark
+  "
+>
+  Bürgerservice ansehen <Icon name="arrow-right" class="h-4 w-4" />
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

@@ -1,0 +1,165 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+import NewspaperCard from "@components/documents/NewspaperCard.astro";
+
+import { groupByYear } from "@lib/groupByYear";
+import { getPageHero } from "@lib/pageHero";
+
+export async function getStaticPaths() {
+  const years = groupByYear(await getCollection("see-kurier"));
+
+  return years.map((yearGroup, index) => ({
+    params: { page: index === 0 ? undefined : String(index + 1) },
+    props: { yearGroup, currentIndex: index, totalPages: years.length }
+  }));
+}
+
+interface YearGroup {
+  year: string;
+  items: CollectionEntry<"see-kurier">[];
+}
+
+interface Props {
+  yearGroup: YearGroup;
+  currentIndex: number;
+  totalPages: number;
+}
+
+const { yearGroup, currentIndex, totalPages } = Astro.props;
+
+const currentPage = currentIndex + 1;
+const prevPage = currentIndex > 0 ? currentIndex : null;
+const nextPage = currentIndex < totalPages - 1 ? currentIndex + 2 : null;
+
+const pageHref = (page: number) => (page === 1 ? "/gemeinde/see-kurier" : `/gemeinde/see-kurier/${page}`);
+const hero = await getPageHero("see-kurier");
+---
+
+
+<BaseLayout
+  title="See-Kurier"
+  description="Die Gemeindezeitung See-Kurier der Gemeinde Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "See-Kurier" }]} />
+
+<PageHero
+  title={hero?.title ?? "See-Kurier"}
+  subtitle={hero?.subtitle ?? "Gemeindezeitung"}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+<h2 class="mt-10 text-xl font-bold text-gray-900 dark:text-gray-100">
+Jahrgang {yearGroup.year}
+</h2>
+
+<div
+  class="
+    mt-6
+    grid
+    grid-cols-2
+    gap-3
+    sm:gap-6
+    lg:grid-cols-4
+  "
+>
+
+{
+  yearGroup.items.map(entry => (
+    <NewspaperCard
+      title={entry.data.title}
+      file={entry.data.file}
+      cover={entry.data.cover}
+    />
+  ))
+}
+
+</div>
+
+
+{totalPages > 1 && (
+
+<nav aria-label="Seiten" class="mt-12 flex items-center justify-center gap-4">
+
+  {prevPage ? (
+    <a
+      href={pageHref(prevPage)}
+      class="
+        inline-flex
+        items-center
+        gap-1
+        rounded-full
+        border
+        border-gray-200 dark:border-gray-700
+        px-4
+        py-2
+        text-sm
+        font-medium
+        text-gray-700 dark:text-gray-300
+        transition
+        hover:border-primary
+        hover:text-primary
+      "
+    >
+      <Icon name="arrow-left" class="h-4 w-4" /> Zurück
+    </a>
+  ) : (
+    <span class="w-24" aria-hidden="true"></span>
+  )}
+
+  <span class="text-sm text-gray-500 dark:text-gray-400">
+    Seite {currentPage} von {totalPages}
+  </span>
+
+  {nextPage ? (
+    <a
+      href={pageHref(nextPage)}
+      class="
+        inline-flex
+        items-center
+        gap-1
+        rounded-full
+        border
+        border-gray-200 dark:border-gray-700
+        px-4
+        py-2
+        text-sm
+        font-medium
+        text-gray-700 dark:text-gray-300
+        transition
+        hover:border-primary
+        hover:text-primary
+      "
+    >
+      Weiter <Icon name="arrow-right" class="h-4 w-4" />
+    </a>
+  ) : (
+    <span class="w-24" aria-hidden="true"></span>
+  )}
+
+</nav>
+
+)}
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

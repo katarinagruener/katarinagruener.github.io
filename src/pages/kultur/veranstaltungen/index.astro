@@ -1,0 +1,63 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import EventCalendar from "@components/events/EventCalendar.astro";
+import EventList from "@components/events/EventList.astro";
+import EventModal from "@components/events/EventModal.astro";
+import { getPageHero } from "@lib/pageHero";
+
+const hero = await getPageHero("veranstaltungen");
+---
+
+<BaseLayout
+  title="Veranstaltungen"
+  description="Veranstaltungskalender der Gemeinde Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Veranstaltungen" }]} />
+
+<PageHero
+  title={hero?.title ?? "Veranstaltungen"}
+  subtitle={hero?.subtitle ?? "Der Veranstaltungskalender der Gemeinde Seddiner See"}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+<div class="mt-12">
+
+<EventCalendar showUpcoming />
+
+</div>
+
+
+<div class="mt-16">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Alle Veranstaltungen
+</h2>
+
+<EventList />
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<EventModal />
+
+
+</BaseLayout>

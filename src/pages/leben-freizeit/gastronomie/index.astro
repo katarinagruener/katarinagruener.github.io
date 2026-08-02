@@ -1,0 +1,121 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("gastronomie")).map((entry) => entry.data);
+const hero = await getPageHero("gastronomie");
+
+const restaurants = entries.filter((entry) => entry.type === "restaurant" || entry.type === "cafe");
+const imbisseKantinen = entries.filter((entry) => entry.type === "imbiss" || entry.type === "kantine");
+
+const ICONS = {
+  restaurant: "restaurant",
+  cafe: "restaurant",
+  kantine: "restaurant",
+  imbiss: "restaurant"
+} as const;
+
+function iconFor(entry: { type?: keyof typeof ICONS; icon?: string }, fallback: IconName): IconName {
+  return (entry.icon ?? (entry.type ? ICONS[entry.type] : undefined) ?? fallback) as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Gastronomie"
+  description="Restaurants, Cafés und Imbisse in der Gemeinde Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Gastronomie" }]} />
+
+<PageHero
+  title={hero?.title ?? "Gastronomie"}
+  subtitle={hero?.subtitle ?? "Restaurants, Cafés und Imbisse in der Gemeinde Seddiner See"}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+{restaurants.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Restaurants & Cafés
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {restaurants.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry, "restaurant")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{imbisseKantinen.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Imbisse & Kantinen
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {imbisseKantinen.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry, "restaurant")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

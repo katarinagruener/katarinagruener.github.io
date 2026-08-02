@@ -1,0 +1,130 @@
+---
+import Icon from "@components/ui/Icon.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import HoursList from "@components/ui/HoursList.astro";
+
+interface Props {
+  name: string;
+  icon: IconName;
+  role?: string[];
+  address?: string;
+  phone?: string[];
+  mobile?: string[];
+  fax?: string;
+  email?: string;
+  website?: string;
+  note?: string;
+  hours?: { day: string; time: string }[];
+  hoursNote?: string;
+  hoursLabel?: string;
+  bookingUrl?: string;
+}
+
+const {
+  name,
+  icon,
+  role,
+  address,
+  phone,
+  mobile,
+  fax,
+  email,
+  website,
+  note,
+  hours,
+  hoursNote,
+  hoursLabel = "Öffnungszeiten",
+  bookingUrl
+} = Astro.props;
+---
+
+<div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6">
+
+  <div class="flex items-start gap-4">
+    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+      <Icon name={icon} class="h-6 w-6" />
+    </span>
+
+    <div>
+      <h3 class="font-bold text-gray-900 dark:text-gray-100">{name}</h3>
+      {role?.map((line) => (
+        <p class="text-sm text-gray-600 dark:text-gray-400">{line}</p>
+      ))}
+
+      <div class="mt-4 grid gap-x-6 gap-y-1 text-sm text-gray-700 dark:text-gray-300 sm:grid-cols-2">
+        <div class="space-y-1">
+          {address && (
+            <p class="flex items-start gap-2">
+              <Icon name="location" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <span>
+                {address.split(", ").map((line, index, lines) => (
+                  <>
+                    {line}
+                    {index < lines.length - 1 && <br />}
+                  </>
+                ))}
+              </span>
+            </p>
+          )}
+          {website && (
+            <p class="flex items-center gap-2">
+              <Icon name="link" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <a href={website.startsWith("http") ? website : `https://${website}`} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
+                {website}
+              </a>
+            </p>
+          )}
+          {email && (
+            <p class="flex items-center gap-2">
+              <Icon name="email" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <a href={`mailto:${email}`} class="hover:text-primary">{email}</a>
+            </p>
+          )}
+        </div>
+        <div class="space-y-1">
+          {phone?.map((entry) => (
+            <p class="flex items-center gap-2">
+              <Icon name="phone" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <a href={`tel:${entry}`} class="hover:text-primary">{entry}</a>
+            </p>
+          ))}
+          {mobile?.map((entry) => (
+            <p class="flex items-center gap-2">
+              <Icon name="mobile" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <a href={`tel:${entry}`} class="hover:text-primary">{entry}</a>
+            </p>
+          ))}
+          {fax && (
+            <p class="flex items-center gap-2">
+              <Icon name="fax" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> {fax}
+            </p>
+          )}
+          {bookingUrl && (
+            <p class="flex items-center gap-2">
+              <Icon name="calendar" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
+                Termin vereinbaren
+              </a>
+            </p>
+          )}
+        </div>
+      </div>
+
+      {hours && (
+        <div class="mt-4 border-t border-gray-100 dark:border-gray-800 pt-4">
+          <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">{hoursLabel}</p>
+          <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            <HoursList hours={hours} note={hoursNote} />
+          </div>
+        </div>
+      )}
+
+      {note && (
+        <p class="mt-4 border-t border-gray-100 dark:border-gray-800 pt-4 text-sm text-gray-600 dark:text-gray-400">
+          {note}
+        </p>
+      )}
+    </div>
+  </div>
+
+</div>

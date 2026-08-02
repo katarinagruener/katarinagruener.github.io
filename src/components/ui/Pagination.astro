@@ -1,0 +1,100 @@
+---
+import type { Page } from "astro";
+import Icon from "@components/ui/Icon.astro";
+
+interface Props {
+  page: Page<unknown>;
+}
+
+const { page } = Astro.props;
+
+const basePath = page.currentPage > 1
+  ? page.url.current.replace(new RegExp(`/${page.currentPage}$`), "")
+  : page.url.current;
+
+const firstUrl = basePath;
+const lastUrl = page.currentPage === page.lastPage ? page.url.current : `${basePath}/${page.lastPage}`;
+
+const linkClasses = `
+  inline-flex
+  items-center
+  gap-1
+  rounded-full
+  border
+  border-gray-200 dark:border-gray-700
+  px-3 sm:px-4
+  py-2
+  text-sm
+  font-medium
+  text-gray-700 dark:text-gray-300
+  transition
+  hover:border-primary
+  hover:text-primary
+`;
+
+const disabledClasses = `
+  inline-flex
+  items-center
+  gap-1
+  rounded-full
+  border
+  border-gray-100 dark:border-gray-800
+  px-3 sm:px-4
+  py-2
+  text-sm
+  font-medium
+  text-gray-300 dark:text-gray-700
+`;
+---
+
+{page.lastPage > 1 && (
+
+<nav aria-label="Seiten" class="mt-12 flex flex-wrap items-center justify-center gap-2">
+
+  {page.url.prev ? (
+    <a href={firstUrl} class={linkClasses} aria-label="Erste Seite">
+      <Icon name="chevrons-left" class="h-4 w-4" />
+    </a>
+  ) : (
+    <span class={disabledClasses} aria-hidden="true">
+      <Icon name="chevrons-left" class="h-4 w-4" />
+    </span>
+  )}
+
+  {page.url.prev ? (
+    <a href={page.url.prev} class={linkClasses} aria-label="Zurück">
+      <Icon name="arrow-left" class="h-4 w-4" /> <span class="hidden sm:inline">Zurück</span>
+    </a>
+  ) : (
+    <span class={disabledClasses} aria-hidden="true">
+      <Icon name="arrow-left" class="h-4 w-4" /> <span class="hidden sm:inline">Zurück</span>
+    </span>
+  )}
+
+  <span class="px-1 sm:px-2 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
+    Seite {page.currentPage} von {page.lastPage}
+  </span>
+
+  {page.url.next ? (
+    <a href={page.url.next} class={linkClasses} aria-label="Weiter">
+      <span class="hidden sm:inline">Weiter</span> <Icon name="arrow-right" class="h-4 w-4" />
+    </a>
+  ) : (
+    <span class={disabledClasses} aria-hidden="true">
+      <span class="hidden sm:inline">Weiter</span> <Icon name="arrow-right" class="h-4 w-4" />
+    </span>
+  )}
+
+  {page.url.next ? (
+    <a href={lastUrl} class={linkClasses} aria-label="Letzte Seite">
+      <Icon name="chevrons-right" class="h-4 w-4" />
+    </a>
+  ) : (
+    <span class={disabledClasses} aria-hidden="true">
+      <Icon name="chevrons-right" class="h-4 w-4" />
+    </span>
+  )}
+
+</nav>
+
+)}

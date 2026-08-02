@@ -1,0 +1,59 @@
+---
+import Icon from "@components/ui/Icon.astro";
+import { DOCUMENT_CATEGORIES } from "@data/documentFilters";
+import type { DocumentCategory } from "@data/documentFilters";
+
+interface Props {
+  title: string;
+  description?: string;
+  file?: string;
+  date?: Date;
+  category?: DocumentCategory;
+}
+
+const { title, description, file, date, category } = Astro.props;
+
+const categoryMeta = category ? DOCUMENT_CATEGORIES[category] : undefined;
+
+const formattedDate = date?.toLocaleDateString("de-DE", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric"
+});
+---
+
+<div class="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-primary/30 hover:shadow-md dark:border-gray-700 dark:bg-gray-900">
+
+  <span
+    class:list={[
+      "flex h-11 w-11 shrink-0 items-center justify-center rounded-full",
+      categoryMeta ? categoryMeta.badgeClasses : "bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500"
+    ]}
+  >
+    <Icon name={categoryMeta?.icon ?? "document"} class="h-5 w-5" />
+  </span>
+
+  <div class="min-w-0 flex-1">
+    <h3 class="font-semibold leading-snug text-gray-900 dark:text-gray-100">{title}</h3>
+    {description && <p class="mt-0.5 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{description}</p>}
+  </div>
+
+  <div class="flex shrink-0 flex-col items-end gap-1">
+    {formattedDate && <span class="text-xs text-gray-400 dark:text-gray-500">{formattedDate}</span>}
+    {file ? (
+      <a
+        href={file}
+        download
+        class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark"
+      >
+        <span class="hidden sm:inline">PDF herunterladen</span>
+        <span class="sm:hidden">PDF</span>
+      </a>
+    ) : (
+      <span class="rounded-xl bg-gray-100 px-3 py-1.5 text-sm font-semibold text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+        Dokument folgt
+      </span>
+    )}
+  </div>
+
+</div>

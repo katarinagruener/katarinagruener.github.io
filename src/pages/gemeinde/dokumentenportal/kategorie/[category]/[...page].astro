@@ -1,0 +1,118 @@
+---
+import type { GetStaticPathsOptions, Page } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Pagination from "@components/ui/Pagination.astro";
+import DocumentCard from "@components/documents/DocumentCard.astro";
+import DocumentCategoryFilter from "@components/documents/DocumentCategoryFilter.astro";
+
+import { DOCUMENT_CATEGORIES, type DocumentCategory } from "@data/documentFilters";
+import { parseDocumentTitle } from "@lib/documentDate";
+import { getPageHero } from "@lib/pageHero";
+
+type DokumentItem = CollectionEntry<"dokumentenportal">["data"] & { date: Date };
+
+interface Props {
+  page: Page<DokumentItem>;
+  category: DocumentCategory;
+  usedCategories: DocumentCategory[];
+}
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const documents = (await getCollection("dokumentenportal"))
+    .map((entry) => {
+      const { title, date } = parseDocumentTitle(entry.data.title);
+      return { ...entry.data, title, date };
+    })
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+  const usedCategories = (Object.keys(DOCUMENT_CATEGORIES) as DocumentCategory[])
+    .filter((key) => documents.some((doc) => doc.category === key));
+
+  return usedCategories.flatMap((category) => {
+    const filtered = documents.filter((doc) => doc.category === category);
+
+    return paginate(filtered, {
+      params: { category },
+      pageSize: 12,
+      props: { category, usedCategories }
+    });
+  });
+}
+
+const { page, category, usedCategories } = Astro.props as Props;
+const categoryMeta = DOCUMENT_CATEGORIES[category];
+const hero = await getPageHero("dokumentenportal");
+---
+
+
+<BaseLayout
+  title={`Dokumentenportal – ${categoryMeta.label}`}
+  description={`${categoryMeta.label} der Gemeinde Seddiner See`}
+>
+
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+
+<Breadcrumbs
+  items={[
+    { label: "Dokumentenportal", href: "/gemeinde/dokumentenportal" },
+    { label: categoryMeta.label }
+  ]}
+/>
+
+<PageHero
+  title={hero?.title ?? "Dokumentenportal"}
+  subtitle={categoryMeta.label}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+<DocumentCategoryFilter categories={usedCategories} active={category} />
+
+
+<div class="mt-8 grid grid-cols-1 gap-4">
+
+
+{
+page.data.map(document => (
+
+
+<DocumentCard
+  title={document.title}
+  description={document.description}
+  file={document.file}
+  date={document.date}
+  category={document.category}
+/>
+
+
+))
+}
+
+
+</div>
+
+
+<Pagination page={page} />
+
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

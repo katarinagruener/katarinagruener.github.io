@@ -1,0 +1,55 @@
+---
+import Icon from "@components/ui/Icon.astro";
+---
+
+<button
+  type="button"
+  id="back-to-top"
+  aria-label="Nach oben scrollen"
+  class="
+    fixed
+    bottom-6
+    right-6
+    z-40
+    flex
+    h-11
+    w-11
+    items-center
+    justify-center
+    rounded-full
+    bg-primary
+    text-white
+    opacity-0
+    shadow-lg
+    transition-opacity
+    duration-300
+    pointer-events-none
+    hover:bg-primary-dark
+  "
+>
+  <Icon name="arrow-up" class="h-5 w-5" />
+</button>
+
+<script>
+
+  const button = document.querySelector<HTMLButtonElement>("#back-to-top");
+
+  function updateVisibility() {
+
+    if (!button) return;
+
+    const isVisible = window.scrollY > 400;
+
+    button.classList.toggle("opacity-0", !isVisible);
+    button.classList.toggle("pointer-events-none", !isVisible);
+
+  }
+
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  updateVisibility();
+
+  button?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+</script>

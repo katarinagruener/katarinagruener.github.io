@@ -1,0 +1,268 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import Icon from "@components/ui/Icon.astro";
+
+import { home } from "@data/home";
+
+import {
+  ortsteile,
+  namensgeber,
+  wappen,
+  ehrenbuerger,
+  gemeindeInZahlen,
+  geschichteTimeline,
+  wlanHotspots
+} from "@data/gemeinde";
+
+import seddinerSeeStrand from "@assets/images/hero/seddiner-see-strand.jpg";
+import findlingsgarten from "@assets/images/hero/findlingsgarten.jpg";
+import wappenImage from "@assets/images/branding/logo.png";
+---
+
+
+<BaseLayout
+  title="Über uns"
+  description="Willkommen in der Gemeinde Seddiner See – Grußwort der Bürgermeisterin"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Über uns" }]} />
+
+
+<div class="mt-8 grid gap-10 lg:grid-cols-3 lg:gap-16">
+
+<div class="lg:col-span-2">
+
+<h1
+  class="
+    text-3xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+  {home.welcome.title}
+</h1>
+
+<div
+  class="
+    mt-6
+    space-y-4
+    text-base
+    leading-relaxed
+    text-gray-700 dark:text-gray-300
+  "
+>
+
+  {
+    home.welcome.paragraphs.map((paragraph) => (
+      <p>
+        {paragraph}
+      </p>
+    ))
+  }
+
+</div>
+
+<div class="mt-8 border-l-4 border-primary pl-4">
+
+  <p class="text-gray-600 dark:text-gray-400">
+    Ihre
+  </p>
+
+  <p class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+    {home.welcome.mayor.name}
+  </p>
+
+  <p class="text-sm text-gray-500 dark:text-gray-400">
+    {home.welcome.mayor.role}
+  </p>
+
+</div>
+
+</div>
+
+
+<div class="hidden flex-col gap-6 lg:flex">
+
+<img
+  src={seddinerSeeStrand.src}
+  alt="Strand am Seddiner See"
+  class="aspect-[4/3] w-full rounded-2xl object-cover shadow-sm"
+/>
+
+<img
+  src={findlingsgarten.src}
+  alt="Findlingsgarten Kähnsdorf"
+  class="aspect-[4/3] w-full rounded-2xl object-cover shadow-sm"
+/>
+
+</div>
+
+</div>
+
+
+<!-- Wissenswertes -->
+
+<div class="mt-16 grid gap-12 lg:grid-cols-3 lg:gap-16">
+
+<div class="lg:col-span-2">
+
+<h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+Wissenswertes über die Gemeinde
+</h2>
+
+<div class="mt-6 grid gap-4 sm:grid-cols-3">
+{
+  ortsteile.map((ort) => (
+    <div class="rounded-2xl bg-gray-50 dark:bg-gray-800 p-4">
+      <p class="font-bold text-gray-900 dark:text-gray-100">{ort.name}</p>
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{ort.size} · {ort.population}</p>
+    </div>
+  ))
+}
+</div>
+
+<p class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+Namensgeber der Gemeinde: {namensgeber}
+</p>
+
+
+<h3 class="mt-10 text-xl font-bold text-gray-900 dark:text-gray-100">
+Geschichte
+</h3>
+
+<div class="mt-4 space-y-3">
+{
+  geschichteTimeline.map((item) => (
+    <div class="flex gap-4">
+      <span class="w-16 shrink-0 font-bold text-primary">{item.year}</span>
+      <p class="text-sm text-gray-700 dark:text-gray-300">{item.text}</p>
+    </div>
+  ))
+}
+</div>
+
+
+<h3 class="mt-10 text-xl font-bold text-gray-900 dark:text-gray-100">
+Das Wappen der Gemeinde
+</h3>
+
+<div class="mt-4 flex flex-col gap-6 sm:flex-row sm:items-start">
+
+  <img
+    src={wappenImage.src}
+    alt="Wappen der Gemeinde Seddiner See"
+    class="h-24 w-24 shrink-0 object-contain"
+  />
+
+  <div>
+
+    <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+      {wappen.intro}
+    </p>
+
+    <p class="mt-3 border-l-4 border-primary pl-4 text-sm italic leading-relaxed text-gray-600 dark:text-gray-400">
+      {wappen.blazon}
+    </p>
+
+  </div>
+
+</div>
+
+<div class="mt-5 grid gap-3 sm:grid-cols-2">
+{
+  wappen.symbole.map((item) => (
+    <div class="rounded-xl bg-gray-50 dark:bg-gray-800 px-4 py-3">
+      <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">{item.symbol}</p>
+      <p class="mt-0.5 text-sm text-gray-600 dark:text-gray-400">{item.bedeutung}</p>
+    </div>
+  ))
+}
+</div>
+
+
+<h3 class="mt-10 text-xl font-bold text-gray-900 dark:text-gray-100">
+Ehrenbürger der Gemeinde Seddiner See
+</h3>
+
+<ul class="mt-4 space-y-2">
+{
+  ehrenbuerger.map((person) => (
+    <li class="text-sm text-gray-700 dark:text-gray-300">
+      <span class="font-semibold text-gray-900 dark:text-gray-100">{person.name}</span> — {person.note}
+    </li>
+  ))
+}
+</ul>
+
+</div>
+
+
+<div class="flex flex-col gap-6 lg:col-span-1">
+
+<div class="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+<h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+Die Gemeinde in Zahlen
+</h3>
+
+<div class="mt-4 divide-y divide-gray-200 dark:divide-gray-700">
+{
+  gemeindeInZahlen.map((item) => (
+    <div class="py-3 text-sm first:pt-0 last:pb-0">
+      <p class="text-gray-600 dark:text-gray-400">{item.label}</p>
+      <p class="mt-0.5 font-semibold text-gray-900 dark:text-gray-100">{item.value}</p>
+    </div>
+  ))
+}
+</div>
+</div>
+
+
+<div id="wlan" class="scroll-mt-24 rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+<h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+Öffentliches WLAN
+</h3>
+
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+An folgenden öffentlichen Standorten steht kostenloses WLAN zur Verfügung:
+</p>
+
+<div class="mt-4 space-y-3">
+{
+  wlanHotspots.map((spot) => (
+    <div class="flex items-start gap-3">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
+        <Icon name="wifi" class="h-4 w-4" />
+      </span>
+      <div class="text-sm">
+        <p class="font-semibold text-gray-900 dark:text-gray-100">{spot.ortsteil}</p>
+        <p class="text-gray-600 dark:text-gray-400">{spot.location}</p>
+      </div>
+    </div>
+  ))
+}
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

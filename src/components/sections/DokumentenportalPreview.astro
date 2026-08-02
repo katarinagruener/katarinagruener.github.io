@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+
+import Icon from "@components/ui/Icon.astro";
+import Button from "@components/ui/Button.astro";
+
+import { parseDocumentTitle } from "@lib/documentDate";
+
+const entries = await getCollection("dokumentenportal");
+
+const latest = entries
+  .map((entry) => {
+    const { title, date } = parseDocumentTitle(entry.data.title);
+    return { ...entry.data, title, date };
+  })
+  .sort((a, b) => b.date.getTime() - a.date.getTime())[0];
+---
+
+{latest && (
+  <div class="flex h-full flex-col rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+
+    <div>
+
+      <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+        <Icon name="document" class="h-5 w-5" />
+      </span>
+
+      <p class="mt-4 text-sm font-semibold uppercase tracking-wide text-accent">
+        Neu im Dokumentenportal
+      </p>
+
+      <h3 class="mt-2 text-xl font-bold leading-snug text-gray-900 dark:text-gray-100">
+        {latest.title}
+      </h3>
+
+      {latest.description && (
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          {latest.description}
+        </p>
+      )}
+
+    </div>
+
+    <div class="mt-auto flex flex-wrap items-center gap-4 pt-6">
+
+      {latest.file && (
+        <Button href={latest.file} target="_blank" rel="noopener noreferrer">
+          PDF öffnen
+        </Button>
+      )}
+
+      <a
+        href="/gemeinde/dokumentenportal"
+        class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark"
+      >
+        Alle Dokumente <Icon name="arrow-right" class="h-4 w-4" />
+      </a>
+
+    </div>
+
+  </div>
+)}

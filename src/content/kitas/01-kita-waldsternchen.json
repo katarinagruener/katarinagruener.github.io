@@ -1,0 +1,64 @@
+{
+  "name": "Kita „Waldsternchen\"",
+  "type": "kita",
+  "ortsteil": "Neuseddin",
+  "highlights": [
+    "Kapazität: 150 Kinder",
+    "Eltern-Kind-Zentrum seit 2010",
+    "Krippenbetreuung seit 2011",
+    "Sternförmiges Gebäude am Waldrand"
+  ],
+  "description": [
+    "Im Ortsteil Neuseddin liegt unsere Kindertagesstätte „Waldsternchen\", mit einer Kapazität von 150 Kindern. Die Kita befindet sich in unmittelbarer Nähe des Waldes und verfügt über ein sternförmig aufgebautes Gebäude mit einem weiträumigen Außengelände.",
+    "Einerseits geht es in unserer Kita um die allseitige Förderung und Bildung der Kinder von Anfang an, andererseits um die Stärkung der Erziehungspartnerschaft zwischen Eltern und Erzieherinnen im Alltag. Die Kita stellt sich in ihrer Konzeption und Arbeitsweise den neuen Herausforderungen und Bedarfslagen von Familien und Kindern. Seit 2010 bereichert das Eltern-Kind-Zentrum unsere Arbeit durch unterschiedliche Angebote für Eltern und Kinder und im Jahr 2011 konnten wir unser Angebot in der Betreuung von Kindern unter 3 Jahren durch ein zusätzliches Krippengebäude erweitern.",
+    "Die pädagogische Arbeit mit den Kindern als zentrale fachliche Säule der Einrichtung unterstützt die natürliche Neugier der Kinder, fordert deren Eigenaktivität und greift die Themen der Kinder auf, um sie zu erweitern.",
+    "Die zweite fachliche Säule nimmt die ganze Familie in den Blick. Eltern haben im Interesse einer bestmöglichen Erziehung und Förderung ihrer Kinder eine hohe Motivation sich auszutauschen und zu bilden. Vor diesem Hintergrund werden sie ermutigt, eigene Wege in der Erziehung ihrer Kinder zu gehen.",
+    "Die Partner Kita, EKiZ und Familie ergänzen sich mit dem Ziel, Kinder zu selbständigen, selbstbewussten Persönlichkeiten zu erziehen, um ihnen einen guten Start ins Leben zu eröffnen."
+  ],
+  "images": [
+    "/images/kitas/Kindertagesstätte Waldsternchen.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 2.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 3.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 4.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 5.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 6.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 7.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 8.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 9.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 10.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 11.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 12.jpg",
+    "/images/kitas/Kindertagesstätte Waldsternchen 13.jpg"
+  ],
+  "address": "Hans-Beimler-Str. 55, 14554 Seddiner See, OT Neuseddin",
+  "contacts": [
+    {
+      "role": "Komm. pädagogische Leitung",
+      "name": "Kathrin Wendt"
+    },
+    {
+      "role": "Administrative Leitung",
+      "name": "Katrin Breitag"
+    },
+    {
+      "role": "Leiterin EKiZ",
+      "name": "Elke Walter"
+    }
+  ],
+  "phone": [
+    "033205 / 46465"
+  ],
+  "mobile": [
+    "0173 / 4662445"
+  ],
+  "website": "kita-waldsternchen.de",
+  "hours": [
+    { "day": "Montag–Freitag", "time": "05.45–17.00 Uhr" }
+  ],
+  "links": [
+    {
+      "label": "Eltern-Kind-Zentrum (EKiZ)",
+      "url": "http://www.eltern-kind-zentrumseddiner-see.de/"
+    }
+  ]
+}

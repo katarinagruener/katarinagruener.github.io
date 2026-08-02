@@ -1,0 +1,10 @@
+export const pflegestuetzpunkt = {
+  title: "Pflegestützpunkt Potsdam-Mittelmark",
+  paragraphs: [
+    "Der für den gesamten Landkreis zuständige Pflegestützpunkt Potsdam-Mittelmark befindet sich im Regionalberatungszentrum in Werder (Havel), Am Gutshof 1 (Außensprechstunden nur in Beelitz, Clara-Zetkin-Str. 196). Es besteht die Möglichkeit zu Terminvereinbarungen in den Sprechstunden sowie zu Hausbesuchen im ganzen Landkreis. Individuelle Termine können auch außerhalb der Öffnungszeiten oder bei Bedarf als Hausbesuch in der Wohnung des Ratsuchenden vereinbart werden.",
+    "Sie werden unabhängig von der Krankenkassenzugehörigkeit kostenfrei und kompetent informiert und beraten zu allen Fragen rund um die Hilfen zur Pflege, bei Pflegebedürftigkeit und bei Behinderungen.",
+    "Die Pflegeberatung hilft insbesondere bei der Entlastung pflegender Angehöriger, der Vermeidung unnötiger Heimaufnahmen, der Vermittlung ehrenamtlicher Angebote und bietet individuelle Lösungen, um möglichst lange in der eigenen Wohnung leben zu können. Die Mitarbeitenden des Beratungsteams begleiten Sie fachlich, beraten Sie umfassend zu allen Möglichkeiten im aktuellen Gesundheitssystem, zu Leistungsansprüchen und Betreuungsangeboten für Pflege."
+  ],
+  address: "Regionalberatungszentrum Werder (Havel), Am Gutshof 1",
+  note: "Außensprechstunden nur in Beelitz, Clara-Zetkin-Str. 196"
+};

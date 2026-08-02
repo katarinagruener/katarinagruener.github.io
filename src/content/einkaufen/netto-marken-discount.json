@@ -1,0 +1,9 @@
+{
+  "name": "Netto Marken-Discount",
+  "type": "geschaeft",
+  "address": "Kunersdorfer Str. 19, 14554 Seddiner See",
+  "website": "netto-online.de",
+  "hours": [
+    { "day": "Montag–Samstag", "time": "07.00–21.00 Uhr" }
+  ]
+}

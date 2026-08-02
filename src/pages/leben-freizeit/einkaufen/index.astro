@@ -1,0 +1,165 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+import Icon from "@components/ui/Icon.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+
+import { ladesaeulen } from "@data/gemeinde";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("einkaufen")).map((entry) => entry.data);
+const hero = await getPageHero("einkaufen");
+
+const geschaefte = entries.filter((entry) => entry.type !== "tankstelle");
+const tankstellen = entries.filter((entry) => entry.type === "tankstelle");
+
+function iconFor(entry: { icon?: string }, fallback: IconName): IconName {
+  return (entry.icon ?? fallback) as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Einkaufen & Tanken"
+  description="Geschäfte, Tankstellen und Elektro-Ladesäulen in der Gemeinde Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Einkaufen & Tanken" }]} />
+
+<PageHero
+  title={hero?.title ?? "Einkaufen & Tanken"}
+  subtitle={hero?.subtitle ?? "Geschäfte, Tankstellen und Elektro-Ladesäulen in der Gemeinde Seddiner See"}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+{geschaefte.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Geschäfte
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {geschaefte.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry, "bag")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{tankstellen.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Tankstellen
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {tankstellen.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry, "fuel")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Elektro-Ladesäulen
+</h2>
+
+<div id="ladesaeulen" class="scroll-mt-24 rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+
+<p class="text-sm text-gray-600 dark:text-gray-400">
+{ladesaeulen.intro}
+</p>
+
+<div class="mt-4 space-y-3">
+{
+  ladesaeulen.standorte.map((spot) => (
+    <div class="flex items-start gap-3">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+        <Icon name="battery" class="h-4 w-4" />
+      </span>
+      <div class="text-sm">
+        <p class="font-semibold text-gray-900 dark:text-gray-100">{spot.ortsteil}</p>
+        <p class="text-gray-600 dark:text-gray-400">{spot.location}</p>
+      </div>
+    </div>
+  ))
+}
+</div>
+
+<p class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+{ladesaeulen.note}
+</p>
+
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+{ladesaeulen.pedelecNote}
+</p>
+
+<a
+  href={ladesaeulen.map.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark"
+>
+  {ladesaeulen.map.label} <Icon name="arrow-right" class="h-4 w-4" />
+</a>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

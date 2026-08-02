@@ -1,0 +1,12 @@
+{
+  "name": "Deutsche Post Filiale 533",
+  "type": "post",
+  "address": "Sonnenstudio, Kunersdorfer Str. 23, 14554 Seddiner See",
+  "phone": ["0228 / 4333112"],
+  "website": "deutschepost.de",
+  "hours": [
+    { "day": "Montag–Dienstag", "time": "15.00–18.00 Uhr" },
+    { "day": "Mittwoch–Freitag", "time": "09.00–12.00 und 15.00–18.00 Uhr" },
+    { "day": "Samstag", "time": "09.00–11.00 Uhr" }
+  ]
+}

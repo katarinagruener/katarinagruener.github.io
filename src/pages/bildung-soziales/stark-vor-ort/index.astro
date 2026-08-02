@@ -1,0 +1,364 @@
+---
+import { getEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+import EmployeeCard from "@components/administration/EmployeeCard.astro";
+
+import { getPageHero } from "@lib/pageHero";
+
+const winnieList = await getEntry("verwaltung-mitarbeiter", "12-winnie-list");
+const erikBartoll = await getEntry("verwaltung-mitarbeiter", "13-erik-bartoll");
+const hero = await getPageHero("stark-vor-ort");
+
+const ergebnisse = [
+  "Verbesserung der Bildungs-, Freizeit- und Teilhabechancen von Kindern und Jugendlichen",
+  "Ausbau einer flächendeckenden Jugend(sozial)arbeit in allen Ortsteilen",
+  "Stärkere Unterstützung armutsgefährdeter Familien",
+  "Förderung von Integration, Chancengleichheit und gesellschaftlicher Teilhabe",
+  "Nachhaltige Verankerung der geschaffenen Angebote in der Gemeinde"
+];
+
+const lernboostGroups = [
+  {
+    label: "Du hast:",
+    items: [
+      "keinen eigenen Computer und kein gutes Internet zu Hause?",
+      "schlechte Noten?",
+      "zu viele Hausaufgaben?",
+      "keine Ruhe zum Lernen, weil Deine jüngeren Geschwister nerven?"
+    ]
+  },
+  {
+    label: "Du bist:",
+    items: ["aufgeregt bei Vorträgen und würdest das gern ändern?"]
+  },
+  {
+    label: "Du musst:",
+    items: [
+      "ein Praktikum finden?",
+      "eine Facharbeit schreiben?",
+      "eine Power-Point-Präsentation machen?"
+    ]
+  },
+  {
+    label: "Du möchtest herausfinden:",
+    items: [
+      "wie dein Schul- und Berufsweg weitergehen könnte?",
+      "wo Du eine Ausbildung machen kannst?",
+      "wie Du eine Bewerbung schreiben kannst?"
+    ]
+  }
+];
+
+const mobileQA = [
+  {
+    q: "Hast du Langeweile und keine Beschäftigung, die dich interessiert?",
+    a: "Erzähl was dich begeistert, damit wir das ändern können oder besuche meine regelmäßigen Angebote."
+  },
+  {
+    q: "Du hast Probleme mit Eltern, Schule, Jugendamt usw.?",
+    a: "Ich kann zwar nicht zaubern, aber dafür sorgen, dass deine Bedürfnisse gehört und beachtet werden."
+  },
+  {
+    q: "Komplizierte Ämter-, Behörden- und Antragsangelegenheiten?",
+    a: "Ich erkläre dir wie es geht und begleite dich bei Terminen."
+  },
+  {
+    q: "Suchtmittelkonsum ist ein Thema bei dir?",
+    a: "Auch wenn ich vielleicht nicht alles richtig finde, was du tust, bin ich bereit für ein Gespräch und respektiere deine persönlichen Entscheidungen."
+  }
+];
+
+const sprechzeiten = [
+  { day: "Mittwoch", time: "16.00–18.30 Uhr", ort: "Liegewiese Seddin" },
+  { day: "Donnerstag", time: "16.00–18.00 Uhr", ort: "Spiel- und Bolzplatz Seddin" }
+];
+
+const projekteJuni = [
+  { day: "Mittwoch", activity: "Calisthenics für Einsteiger", time: "18.30–19.30 Uhr", ort: "Liegewiese Seddin" },
+  { day: "Samstag", activity: "Graffiti-Projekt", time: "14.00–19.00 Uhr", ort: "Mehrzweckplatz Seddin" }
+];
+---
+
+
+<BaseLayout
+  title='Projekt "Stark vor Ort"'
+  description="Soziale Integration von armutsbedrohten Kindern und ihren Familien in der Gemeinde Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: 'Projekt „Stark vor Ort"' }]} />
+
+
+<PageHero
+  title={hero?.title ?? 'Projekt „Stark vor Ort"'}
+  subtitle={hero?.subtitle ?? "Soziale Integration von armutsbedrohten Kindern und ihren Familien"}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+<div class="mt-10 grid gap-10 lg:grid-cols-3">
+
+<div class="space-y-4 leading-relaxed text-gray-700 dark:text-gray-300 lg:col-span-2">
+
+<p>
+Mit dem Projekt „Stark vor Ort – Soziale Integration von armutsbedrohten Kindern und ihren Familien" stärkt die Gemeinde Seddiner See die Kinder- und Jugend(sozial)arbeit und schafft neue Angebote für junge Menschen in allen Ortsteilen. Ziel ist es, Kindern und Jugendlichen – unabhängig von ihrer sozialen oder familiären Situation – bessere Chancen auf Bildung, Teilhabe und eine positive persönliche Entwicklung zu ermöglichen. Das Projekt baut auf einer sozialraumorientierten Jugendarbeit auf und reagiert auf die besonderen Herausforderungen in der Gemeinde, wie soziale Benachteiligung, eingeschränkte Freizeit- und Bildungsangebote sowie unterschiedliche Erreichbarkeit der Ortsteile.
+</p>
+
+<p>
+Im Rahmen des Projekts werden die personellen Kapazitäten der Jugend(sozial)arbeit erweitert, die mobile Jugendarbeit ausgebaut und zusätzliche Treffpunkte für Kinder und Jugendliche geschaffen. Ergänzend entstehen Angebote zur Lernförderung, Berufsorientierung, Medienbildung sowie zur Förderung von Beteiligung, Integration und sozialem Miteinander. Durch die enge Zusammenarbeit mit Schulen, Vereinen, Unternehmen und sozialen Einrichtungen sollen langfristig tragfähige Unterstützungsstrukturen für Kinder, Jugendliche und ihre Familien entstehen.
+</p>
+
+</div>
+
+
+<div class="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+
+<h2 class="font-bold text-gray-900 dark:text-gray-100">
+Erwartete Ergebnisse des Projekts
+</h2>
+
+<ul class="mt-4 space-y-2.5">
+{
+  ergebnisse.map((item) => (
+    <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+      <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+      {item}
+    </li>
+  ))
+}
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="mt-10 border-l-4 border-primary pl-4">
+
+<h2 class="font-bold text-gray-900 dark:text-gray-100">
+Förderhinweis
+</h2>
+
+<p class="mt-2 max-w-3xl text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+Dieses Projekt wird aus Mitteln der Europäischen Union und des Landes Brandenburg gefördert. Das Projekt wird im Rahmen des Förderprogramms „Stark vor Ort – Soziale Integration von armutsbedrohten Kindern und ihren Familien" umgesetzt.
+</p>
+
+<div class="mt-6 flex flex-wrap items-center gap-4">
+  <span class="rounded-xl bg-white p-3">
+    <img src="/images/stark-vor-ort/stark-vor-ort.png" alt='Projekt „Stark vor Ort"' class="h-14 w-auto object-contain" />
+  </span>
+  <span class="rounded-xl bg-white p-3">
+    <img src="/images/stark-vor-ort/euro.jpg" alt="Kofinanziert von der Europäischen Union" class="h-10 w-auto object-contain" />
+  </span>
+  <span class="rounded-xl bg-white p-3">
+    <img src="/images/stark-vor-ort/Brandenburg-Adler.jpg" alt="Land Brandenburg" class="h-14 w-auto object-contain" />
+  </span>
+  <span class="rounded-xl bg-white p-3">
+    <img src="/images/stark-vor-ort/spi-logo.jpg" alt="Stiftung SPI Niederlassung Brandenburg" class="h-10 w-auto object-contain" />
+  </span>
+</div>
+
+</div>
+
+
+<h2 class="mt-14 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Projekte
+</h2>
+
+
+<!-- Lernboost -->
+
+<div class="mt-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6 md:p-8">
+
+<h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">
+Lernboost im Jugendtreff
+</h3>
+
+<p class="mt-1 font-semibold text-gray-600 dark:text-gray-400">
+Unterstützung für Schule, Ausbildung und deine Zukunft
+</p>
+
+<div class="mt-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+<p class="max-w-3xl leading-relaxed text-gray-700 dark:text-gray-300">
+Nicht jede und jeder hat zuhause die gleichen Voraussetzungen zum Lernen. Manchmal fehlt ein ruhiger Arbeitsplatz, ein Computer oder einfach jemand, der bei Fragen weiterhelfen kann. Genau dafür gibt es den Lernboost im Jugendtreff „Escape".
+</p>
+
+<a
+  href="/bildung-soziales/jugendtreff-escape"
+  class="inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark"
+>
+  Mehr über den Jugendtreff „Escape" <Icon name="arrow-right" class="h-4 w-4" />
+</a>
+
+</div>
+
+<div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+{
+  lernboostGroups.map((group) => (
+    <div>
+      <p class="font-semibold text-gray-900 dark:text-gray-100">{group.label}</p>
+      <ul class="mt-2 space-y-1.5">
+        {group.items.map((item) => (
+          <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))
+}
+</div>
+
+<div class="mt-6 max-w-3xl space-y-4">
+
+<p class="leading-relaxed text-gray-700 dark:text-gray-300">
+Dank moderner Computerarbeitsplätze und WLAN und der Unterstützung durch das Förderprogramm „Stark vor Ort" konnten wir moderne neue Computerarbeitsplätze schaffen. An den Computern können Jugendliche für die Schule recherchieren, PowerPoint-Präsentationen, Plakate, Referate, Facharbeiten oder Praktikumsberichte erstellen und sich auf Unterricht und Prüfungen vorbereiten.
+</p>
+
+<p class="leading-relaxed text-gray-700 dark:text-gray-300">
+Darüber hinaus unterstütze ich bei der Suche nach Praktikumsplätzen, bei Fragen zur Berufsorientierung sowie beim Verfassen von Bewerbungsunterlagen. Auch der gemeinsame Besuch von Ausbildungsmessen und Berufsinformationstagen gehört zu meinem Angebot, um junge Menschen bei ihrer beruflichen Zukunft zu begleiten und zu stärken.
+</p>
+
+</div>
+
+<div class="mt-6 border-t border-gray-100 dark:border-gray-800 pt-6">
+  <p class="flex items-center gap-2 font-semibold text-gray-900 dark:text-gray-100">
+    <Icon name="calendar" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> Termine
+  </p>
+  <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+    Mittwoch 14.00–16.00 Uhr · Jugendtreff „Escape"
+  </p>
+  <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+    Sollte dir der Mittwoch oder die Uhrzeit nicht passen – melde dich einfach bei mir, dann machen wir einen Termin aus.
+  </p>
+</div>
+
+<div class="mt-6 border-t border-gray-100 dark:border-gray-800 pt-6">
+  <p class="mb-3 font-semibold text-gray-900 dark:text-gray-100">Ansprechpartnerin</p>
+  {winnieList && <EmployeeCard employee={winnieList.data} />}
+</div>
+
+</div>
+
+
+<!-- Mobile Jugendsozialarbeit -->
+
+<div class="mt-6 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6 md:p-8">
+
+<h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">
+Mobile Jugendsozialarbeit
+</h3>
+
+<p class="mt-1 font-semibold text-gray-600 dark:text-gray-400">
+Ich komme dahin, wo Jugendliche sind
+</p>
+
+<div class="mt-4 grid gap-8 lg:grid-cols-3">
+
+<div class="space-y-4 lg:col-span-2">
+
+<p class="leading-relaxed text-gray-700 dark:text-gray-300">
+Jugendliche brauchen Orte, an denen sie sich treffen, austauschen und ihre Freizeit verbringen können. Die mobile Jugendsozialarbeit richtet sich an Kinder, Jugendliche und junge Erwachsene. Zu festen Zeiten bin ich, Erik Bartoll, an drei Tagen in der Woche in Seddin. Nachmittags und abends besuche ich die Orte, an denen ihr euch aufhaltet. Ich bin dort Gast, begegne euch auf Augenhöhe und möchte gerne mit euch ins Gespräch kommen.
+</p>
+
+<p class="leading-relaxed text-gray-700 dark:text-gray-300">
+Grundsätze meiner Arbeit sind Akzeptanz, Vertraulich- und Freiwilligkeit.
+</p>
+
+<p class="leading-relaxed text-gray-700 dark:text-gray-300">
+Wenn ihr es möchtet, begleite und unterstütze ich euch sowie Jugendinitiativen bei Herausforderungen und Problemen. Dabei begegne ich allen Menschen unabhängig von ihrem kulturellen, sozialen oder politischen Hintergrund mit Offenheit und Respekt. Es ist nicht meine Aufgabe, Jugendliche von diesem Ort zu vertreiben. Stattdessen sehe ich mich als Vermittler zwischen den beteiligten Konfliktparteien. Auch wenn nicht immer sofort eine Lösung greifbar ist, können wir gemeinsam Wege finden, die weiterführen und neue Perspektiven eröffnen.
+</p>
+
+<p class="leading-relaxed text-gray-700 dark:text-gray-300">
+Darüber hinaus biete ich wöchentlich Projekte an, z. B. Graffiti sprühen, Calisthenics oder Floßbau. Die Angebote sind kostenlos, leicht zugänglich und (meist) ohne Voranmeldung.
+</p>
+
+<p class="leading-relaxed text-gray-700 dark:text-gray-300">
+Mein Ziel ist es, einen Bauwagen aufzustellen, als Treffpunkt und Rückzugsort für junge Menschen aus der Gemeinde.
+</p>
+
+</div>
+
+<div class="space-y-4 rounded-2xl bg-gray-50 dark:bg-gray-800 p-5">
+{
+  mobileQA.map((entry) => (
+    <div>
+      <p class="font-semibold text-gray-900 dark:text-gray-100">{entry.q}</p>
+      <p class="mt-1 text-sm text-gray-700 dark:text-gray-300">{entry.a}</p>
+    </div>
+  ))
+}
+</div>
+
+</div>
+
+<div class="mt-6 border-t border-gray-100 dark:border-gray-800 pt-6">
+
+  <p class="flex items-center gap-2 font-semibold text-gray-900 dark:text-gray-100">
+    <Icon name="calendar" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> Termine
+  </p>
+
+  <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+    In den Ferien können sich die Zeiten und Orte verändern. Für aktuelle Infos melde dich auf Instagram <a href="https://www.instagram.com/starkvorort" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">@starkvorort</a> oder telefonisch.
+  </p>
+
+  <div class="mt-4 grid max-w-2xl gap-x-6 gap-y-1.5" style="grid-template-columns: auto auto 1fr;">
+
+    <p class="col-span-3 text-sm font-semibold text-gray-900 dark:text-gray-100">Sprechzeiten / offenes Angebot</p>
+    {
+      sprechzeiten.map((item) => (
+        <>
+          <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{item.day}</span>
+          <span class="text-sm text-gray-700 dark:text-gray-300">{item.time}</span>
+          <span class="text-sm text-gray-500 dark:text-gray-400">{item.ort}</span>
+        </>
+      ))
+    }
+
+    <p class="col-span-3 mt-3 text-sm font-semibold text-gray-900 dark:text-gray-100">Projekte im Juni</p>
+    {
+      projekteJuni.map((item) => (
+        <>
+          <span class="col-span-3 mt-1 inline-block w-fit rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
+            {item.activity}
+          </span>
+          <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{item.day}</span>
+          <span class="text-sm text-gray-700 dark:text-gray-300">{item.time}</span>
+          <span class="text-sm text-gray-500 dark:text-gray-400">{item.ort}</span>
+        </>
+      ))
+    }
+
+  </div>
+
+</div>
+
+<div class="mt-6 border-t border-gray-100 dark:border-gray-800 pt-6">
+  <p class="mb-3 font-semibold text-gray-900 dark:text-gray-100">Ansprechpartner</p>
+  {erikBartoll && <EmployeeCard employee={erikBartoll.data} />}
+</div>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

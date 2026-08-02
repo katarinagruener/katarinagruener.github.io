@@ -1,0 +1,10 @@
+{
+  "name": "Jugendfeuerwehr der Gemeinde Seddiner See",
+  "type": "jugendfeuerwehr",
+  "roles": [
+    "Gemeindejugendfeuerwehrwart: Philipp Kunz"
+  ],
+  "phone": ["033205 / 62856"],
+  "email": "info@feuerwehr-neuseddin.de",
+  "website": "www.feuerwehr-neuseddin.de"
+}

@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+
+import Icon from "@components/ui/Icon.astro";
+import NewsCard from "@components/news/NewsCard.astro";
+import { getDocumentDate } from "@lib/documentDate";
+
+const news = (await getCollection("meldungen"))
+  .map((entry) => ({ data: { ...entry.data, slug: entry.id }, date: getDocumentDate(entry.data.file) }))
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
+  .slice(0, 4)
+  .map((item) => item.data);
+---
+
+<div>
+
+
+  <!-- Header -->
+
+  <div class="mb-8 flex items-end justify-between">
+
+    <div>
+
+      <h2
+        class="
+          text-3xl
+          font-bold
+          text-gray-900 dark:text-gray-100
+        "
+      >
+        Meldungen
+      </h2>
+
+
+      <p
+        class="
+          mt-2
+          text-gray-600 dark:text-gray-400
+        "
+      >
+        Neuigkeiten und wichtige Informationen
+        der Gemeinde Seddiner See
+      </p>
+
+    </div>
+
+
+    <a
+      href="/meldungen"
+      class="
+        flex
+        shrink-0
+        items-center
+        gap-1
+        text-sm
+        font-semibold
+        text-primary
+        hover:text-primary-dark
+      "
+    >
+      Alle Meldungen <Icon name="arrow-right" class="h-4 w-4" />
+    </a>
+
+
+  </div>
+
+
+
+  <!-- News cards -->
+
+  <div
+    class="
+      flex
+      flex-col
+      gap-4
+    "
+  >
+
+    {
+      news.map((item) => (
+        <NewsCard {...item} />
+      ))
+    }
+
+  </div>
+
+
+</div>

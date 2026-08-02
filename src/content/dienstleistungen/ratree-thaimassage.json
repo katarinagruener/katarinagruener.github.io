@@ -1,0 +1,13 @@
+{
+  "name": "Ratree Thaimassage",
+  "type": "massage",
+  "address": "Kunersdorfer Str. 14, 14554 Seddiner See",
+  "mobile": [
+    "0151 / 15299888"
+  ],
+  "website": "ratreethaimassage888.de",
+  "hours": [
+    { "day": "Montag–Freitag", "time": "10.00–19.00 Uhr" },
+    { "day": "Samstag", "time": "10.00–14.00 Uhr" }
+  ]
+}

@@ -1,0 +1,465 @@
+backend:
+  name: github
+  repo: katarinagruener/katarinagruener.github.io
+  branch: main
+
+publish_mode: editorial_workflow
+
+locale: "de"
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+
+  - name: "page-hero"
+    label: "Seiten-Header (Hero)"
+    folder: "src/content/page-hero"
+    create: false
+    format: json
+    identifier_field: title
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Untertitel", name: "subtitle", widget: "string", required: false }
+      - label: "Fotos (leer lassen für einfachen Textkopf ohne Bild)"
+        name: "images"
+        widget: "list"
+        required: false
+        fields:
+          - label: "Foto"
+            name: "src"
+            widget: "image"
+            media_folder: "/public/images/hero"
+            public_folder: "/images/hero"
+          - { label: "Alt-Text (Bildbeschreibung)", name: "alt", widget: "string" }
+
+  - name: "meldungen"
+    label: "Meldungen"
+    folder: "src/content/meldungen"
+    create: true
+    format: json
+    identifier_field: title
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Beschreibung (Absätze)", name: "description", widget: "list", required: false }
+      - { label: "Externer Link", name: "href", widget: "string", required: false }
+      - label: "PDF-Datei"
+        name: "file"
+        widget: "file"
+        required: false
+        media_folder: "/public/meldungen"
+        public_folder: "/meldungen"
+      - label: "Titelbild"
+        name: "cover"
+        widget: "image"
+        required: false
+        media_folder: "/public/images/meldungen"
+        public_folder: "/images/meldungen"
+      - label: "Kategorie"
+        name: "category"
+        widget: "select"
+        required: false
+        options: ["kinder", "senioren", "umwelt", "verkehr", "verwaltung", "gesundheit"]
+
+  - name: "dokumentenportal"
+    label: "Dokumentenportal"
+    folder: "src/content/dokumentenportal"
+    create: true
+    format: json
+    identifier_field: title
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Beschreibung", name: "description", widget: "text", required: false }
+      - label: "PDF-Datei"
+        name: "file"
+        widget: "file"
+        required: false
+        media_folder: "/public/documents/dokumentenportal"
+        public_folder: "/documents/dokumentenportal"
+      - label: "Kategorie"
+        name: "category"
+        widget: "select"
+        required: false
+        options: ["satzungen", "bekanntmachungen", "ausschreibungen", "bauleitplanung", "formulare", "informationen", "einladungen", "umwelt"]
+
+  - name: "see-kurier"
+    label: "See-Kurier"
+    folder: "src/content/see-kurier"
+    create: true
+    format: json
+    identifier_field: title
+    path: "{{fields.year}}/{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Jahr (für Ablage in Unterordner)", name: "year", widget: "string", pattern: ["^\\d{4}$", "Bitte 4-stellige Jahreszahl eingeben"] }
+      - label: "PDF-Datei"
+        name: "file"
+        widget: "file"
+        media_folder: "/public/see-kurier"
+        public_folder: "/see-kurier"
+      - label: "Titelbild"
+        name: "cover"
+        widget: "image"
+        required: false
+        media_folder: "/public/see-kurier/covers"
+        public_folder: "/see-kurier/covers"
+
+  - name: "veranstaltungen"
+    label: "Veranstaltungen"
+    folder: "src/content/veranstaltungen"
+    create: true
+    format: json
+    identifier_field: title
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Beschreibung", name: "description", widget: "text", required: false }
+      - { label: "Beginn", name: "start", widget: "datetime" }
+      - { label: "Ende", name: "end", widget: "datetime", required: false }
+      - label: "Ort"
+        name: "location"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Straße", name: "street", widget: "string", required: false }
+          - { label: "PLZ", name: "zip", widget: "string", required: false }
+          - { label: "Ort", name: "city", widget: "string", required: false }
+      - { label: "Eintritt / Hinweise", name: "admission", widget: "list", required: false }
+
+  - name: "verwaltung-mitarbeiter"
+    label: "Verwaltung – Mitarbeitende"
+    folder: "src/content/verwaltung"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Position", name: "position", widget: "string" }
+      - { label: "Abteilung", name: "department", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "E-Mail", name: "email", widget: "list", required: false }
+      - { label: "Zimmer", name: "room", widget: "string", required: false }
+
+  - name: "buergerservice"
+    label: "Bürgerservice"
+    folder: "src/content/buergerservice"
+    create: true
+    format: json
+    identifier_field: topic
+    fields:
+      - { label: "Thema", name: "topic", widget: "string" }
+      - { label: "Zuständige Stelle", name: "office", widget: "string" }
+      - { label: "Abteilung", name: "department", widget: "string", required: false }
+      - { label: "Adresse", name: "address", widget: "string", required: false }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Fax", name: "fax", widget: "string", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Hinweis", name: "note", widget: "text", required: false }
+      - label: "Link"
+        name: "link"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Beschriftung", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+
+  - name: "gesundheit"
+    label: "Gesundheit"
+    folder: "src/content/gesundheit"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Art", name: "type", widget: "select", options: ["arzt", "zahnarzt", "apotheke", "physiotherapie"] }
+      - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
+      - { label: "Fachrichtung / Zusatzzeilen", name: "role", widget: "list", required: false }
+      - { label: "Adresse", name: "address", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "Fax", name: "fax", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+      - label: "Öffnungs-/Sprechzeiten"
+        name: "hours"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Tag", name: "day", widget: "string" }
+          - { label: "Uhrzeit", name: "time", widget: "string" }
+      - { label: "Hinweis zu den Zeiten", name: "hoursNote", widget: "string", required: false }
+      - { label: "Online-Terminbuchung (URL)", name: "bookingUrl", widget: "string", required: false }
+
+  - name: "einkaufen"
+    label: "Einkaufen & Tanken"
+    folder: "src/content/einkaufen"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Art", name: "type", widget: "select", options: ["geschaeft", "tankstelle"], required: false }
+      - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
+      - { label: "Adresse", name: "address", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+      - { label: "Hinweis", name: "note", widget: "string", required: false }
+      - label: "Öffnungszeiten"
+        name: "hours"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Tag", name: "day", widget: "string" }
+          - { label: "Uhrzeit", name: "time", widget: "string" }
+      - { label: "Hinweis zu den Zeiten", name: "hoursNote", widget: "string", required: false }
+
+  - name: "gastronomie"
+    label: "Gastronomie"
+    folder: "src/content/gastronomie"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Art", name: "type", widget: "select", options: ["restaurant", "cafe", "kantine", "imbiss"], required: false }
+      - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
+      - { label: "Adresse", name: "address", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "Fax", name: "fax", widget: "string", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+      - { label: "Hinweis", name: "note", widget: "string", required: false }
+      - label: "Öffnungszeiten"
+        name: "hours"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Tag", name: "day", widget: "string" }
+          - { label: "Uhrzeit", name: "time", widget: "string" }
+      - { label: "Hinweis zu den Zeiten", name: "hoursNote", widget: "string", required: false }
+
+  - name: "uebernachten"
+    label: "Übernachten"
+    folder: "src/content/uebernachten"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Art", name: "type", widget: "select", options: ["hotel", "pension", "ferienwohnung", "ferienhaus", "zimmer"], required: false }
+      - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
+      - { label: "Adresse", name: "address", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "Fax", name: "fax", widget: "string", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+      - { label: "Hinweis", name: "note", widget: "string", required: false }
+
+  - name: "dienstleistungen"
+    label: "Dienstleistungen"
+    folder: "src/content/dienstleistungen"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Art", name: "type", widget: "select", options: ["post", "friseur", "massage", "tierpflege"], required: false }
+      - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
+      - { label: "Adresse", name: "address", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "Fax", name: "fax", widget: "string", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+      - { label: "Hinweis", name: "note", widget: "string", required: false }
+      - label: "Öffnungszeiten"
+        name: "hours"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Tag", name: "day", widget: "string" }
+          - { label: "Uhrzeit", name: "time", widget: "string" }
+      - { label: "Hinweis zu den Zeiten", name: "hoursNote", widget: "string", required: false }
+
+  - name: "feuerwehr"
+    label: "Freiwillige Feuerwehr"
+    folder: "src/content/feuerwehr"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Art", name: "type", widget: "select", options: ["ortsfeuerwehr", "jugendfeuerwehr", "kinderfeuerwehr"] }
+      - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
+      - { label: "Funktionen / Ansprechpartner", name: "roles", widget: "list" }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+
+  - name: "vereine"
+    label: "Vereine & Sport"
+    folder: "src/content/vereine"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Kategorie", name: "category", widget: "select", options: ["sport", "angeln", "garten", "sonstige", "freizeit"] }
+      - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
+      - { label: "Adresse", name: "address", widget: "string", required: false }
+      - { label: "Funktionen / Ansprechpartner", name: "roles", widget: "list", required: false }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Fax", name: "fax", widget: "string", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+
+  - name: "schulen"
+    label: "Schulen"
+    folder: "src/content/schulen"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Untertitel", name: "subtitle", widget: "string", required: false }
+      - { label: "Highlights", name: "highlights", widget: "list", required: false }
+      - { label: "Beschreibung (Absätze)", name: "description", widget: "list", required: false }
+      - { label: "Merkmale", name: "features", widget: "list", required: false }
+      - label: "Fotos"
+        name: "images"
+        widget: "list"
+        required: false
+        field:
+          label: "Bild"
+          name: "image"
+          widget: "image"
+          media_folder: "/public/images/school"
+          public_folder: "/images/school"
+      - { label: "Adresse", name: "address", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "string", required: false }
+      - { label: "Fax", name: "fax", widget: "string", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+      - label: "Ansprechpartner"
+        name: "contacts"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Funktion", name: "role", widget: "string" }
+          - { label: "Name", name: "name", widget: "string" }
+
+  - name: "kitas"
+    label: "Kitas & Horte"
+    folder: "src/content/kitas"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Art", name: "type", widget: "select", options: ["kita", "hort"] }
+      - { label: "Ortsteil", name: "ortsteil", widget: "string", required: false }
+      - { label: "Highlights", name: "highlights", widget: "list", required: false }
+      - { label: "Beschreibung (Absätze)", name: "description", widget: "list", required: false }
+      - label: "Fotos"
+        name: "images"
+        widget: "list"
+        required: false
+        field:
+          label: "Bild"
+          name: "image"
+          widget: "image"
+          media_folder: "/public/images/kitas"
+          public_folder: "/images/kitas"
+      - { label: "Adresse", name: "address", widget: "string" }
+      - label: "Ansprechpartner"
+        name: "contacts"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Funktion", name: "role", widget: "string" }
+          - { label: "Name", name: "name", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+      - label: "Öffnungszeiten"
+        name: "hours"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Tag", name: "day", widget: "string" }
+          - { label: "Uhrzeit", name: "time", widget: "string" }
+      - label: "Weiterführende Links"
+        name: "links"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Beschriftung", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+
+  - name: "seniorentreffs"
+    label: "Seniorentreffs"
+    folder: "src/content/seniorentreffs"
+    create: true
+    format: json
+    identifier_field: ortsteil
+    fields:
+      - { label: "Ortsteil", name: "ortsteil", widget: "string" }
+      - { label: "Ort / Räumlichkeit", name: "location", widget: "string" }
+      - { label: "Adresse", name: "address", widget: "string", required: false }
+      - { label: "Zeit", name: "time", widget: "string" }
+      - { label: "Funktion Ansprechpartner", name: "contactRole", widget: "string" }
+      - { label: "Name Ansprechpartner", name: "contactName", widget: "string" }
+      - { label: "Adresse Ansprechpartner", name: "contactAddress", widget: "string", required: false }
+      - { label: "Angebote", name: "angebote", widget: "list", required: false }
+
+  - name: "people"
+    label: "Personen"
+    folder: "src/content/people"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Funktion", name: "role", widget: "string", required: false }
+      - { label: "Kennzeichnung", name: "badge", widget: "string", required: false }
+      - { label: "Gruppe", name: "group", widget: "string", required: false }
+      - { label: "Organisation", name: "organization", widget: "string", required: false }
+      - label: "Foto"
+        name: "photo"
+        widget: "image"
+        required: false
+        media_folder: "/public/images/people"
+        public_folder: "/images/people"
+      - { label: "Adresse", name: "address", widget: "string", required: false }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
+      - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "E-Mail", name: "email", widget: "list", required: false }
+
+  - name: "ortsbeiraete"
+    label: "Ortsbeiräte"
+    folder: "src/content/ortsbeiraete"
+    create: false
+    format: json
+    identifier_field: title
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - label: "Fotos"
+        name: "images"
+        widget: "list"
+        fields:
+          - label: "Foto"
+            name: "src"
+            widget: "image"
+            media_folder: "/public/images/hero"
+            public_folder: "/images/hero"
+          - { label: "Alt-Text (Bildbeschreibung)", name: "alt", widget: "string" }
+      - label: "Mitglieder (Personen-Kennung)"
+        name: "members"
+        widget: "list"
+        hint: "Trägt den Dateinamen (ohne .json) der jeweiligen Person aus 'Personen' ein"
+      - { label: "Geschichte (Absätze)", name: "history", widget: "list", required: false }

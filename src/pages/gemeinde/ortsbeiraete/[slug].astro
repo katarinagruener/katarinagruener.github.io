@@ -1,0 +1,165 @@
+---
+import { getCollection, getEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import PersonCard from "@components/people/PersonCard.astro";
+
+
+export async function getStaticPaths() {
+
+  const ortsbeiraete = await getCollection("ortsbeiraete");
+
+  return Promise.all(
+    ortsbeiraete.map(async (entry) => {
+
+      const members = await Promise.all(
+        entry.data.members.map(async (id) => {
+          const person = await getEntry("people", id);
+          return person!.data;
+        })
+      );
+
+      return {
+        params: {
+          slug: entry.id
+        },
+        props: {
+          ortsbeirat: {
+            title: entry.data.title,
+            images: entry.data.images,
+            members,
+            history: entry.data.history
+          }
+        }
+      };
+
+    })
+  );
+
+}
+
+
+const { ortsbeirat } = Astro.props;
+
+---
+
+
+<BaseLayout
+  title={ortsbeirat.title}
+  description={`Informationen zum ${ortsbeirat.title}`}
+>
+
+
+<section class="py-12">
+
+<div class="container">
+
+
+<Breadcrumbs
+  items={[
+    { label: "Ortsbeiräte", href: "/gemeinde/ortsbeiraete" },
+    { label: ortsbeirat.title }
+  ]}
+/>
+
+<PageHero
+  title={ortsbeirat.title}
+  subtitle="Mitglieder und Ansprechpartner des Ortsbeirates"
+  images={ortsbeirat.images}
+  gradient
+/>
+
+
+
+<!-- Mitglieder -->
+
+<section class="mt-12">
+
+
+<h2
+  class="
+    mb-6
+    text-2xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Mitglieder des Ortsbeirates
+</h2>
+
+
+
+<div
+  class="
+    grid
+    gap-6
+    md:grid-cols-2
+  "
+>
+
+
+{
+  ortsbeirat.members.map(person => (
+
+    <PersonCard person={person} />
+
+  ))
+}
+
+
+</div>
+
+
+</section>
+
+
+<!-- Geschichte -->
+
+{ortsbeirat.history && (
+
+<section class="mt-12">
+
+<details class="group rounded-3xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6">
+
+<summary
+  class="
+    flex
+    cursor-pointer
+    items-center
+    justify-between
+    text-2xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+  Geschichte und Wissenswertes
+  <span class="text-base font-semibold text-primary group-open:hidden">Aufklappen</span>
+  <span class="hidden text-base font-semibold text-primary group-open:inline">Zuklappen</span>
+</summary>
+
+<div class="mt-6 max-w-3xl space-y-4 text-base leading-relaxed text-gray-700 dark:text-gray-300">
+
+{
+  ortsbeirat.history.map((paragraph: string) => (
+    <p>{paragraph}</p>
+  ))
+}
+
+</div>
+
+</details>
+
+</section>
+
+)}
+
+
+</div>
+
+</section>
+
+
+</BaseLayout>

@@ -1,0 +1,15 @@
+{
+  "topic": "Einwohnermeldeamt",
+  "office": "Stadtverwaltung Beelitz",
+  "address": "Berliner Str. 202, 14547 Beelitz",
+  "phone": [
+    "033204 / 39184",
+    "033204 / 39185"
+  ],
+  "fax": "033204 / 39135",
+  "note": "Online können Sie ganz einfach einen Termin im Einwohnermeldeamt in der Stadtverwaltung Beelitz reservieren. Wählen Sie einen Tag und eine passende Uhrzeit aus, füllen Sie die Formularfelder aus und senden Sie die Reservierung ab. Bei Angabe einer E-Mail-Adresse erhalten Sie eine Terminbestätigung mit einem Link zur Absage. Terminreservierungen sind nur an Sprechtagen (Montag, Dienstag, Donnerstag) möglich.",
+  "link": {
+    "label": "Online-Terminreservierung",
+    "url": "https://beelitz.de/ema-onlinetermin/"
+  }
+}

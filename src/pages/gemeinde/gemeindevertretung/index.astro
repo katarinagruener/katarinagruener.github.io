@@ -1,0 +1,395 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import PersonCard from "@components/people/PersonCard.astro";
+
+import {
+  gemeindevertretung
+} from "@data/gemeindevertretung";
+import { getPageHero } from "@lib/pageHero";
+
+const hero = await getPageHero("gemeindevertretung");
+---
+
+
+<BaseLayout
+  title="Gemeindevertretung"
+  description="Gemeindevertretung Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+
+<Breadcrumbs items={[{ label: "Gemeindevertretung" }]} />
+
+
+
+
+
+<PageHero
+  title={hero?.title ?? "Gemeindevertretung"}
+  subtitle={hero?.subtitle ?? "Politische Vertretung der Gemeinde Seddiner See"}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+
+
+
+
+<section
+  class="
+    mt-12
+    rounded-3xl
+    bg-white dark:bg-gray-900
+    p-8
+    shadow-sm
+  "
+>
+
+
+<h2
+  class="
+    text-2xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Bürgerinformationssystem
+</h2>
+
+
+
+<p
+  class="
+    mt-4
+    text-gray-700 dark:text-gray-300
+  "
+>
+Hier finden Sie das Bürgerinformationssystem der Gemeinde Seddiner See.
+</p>
+
+
+
+<a
+  href={gemeindevertretung.informationSystem}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="
+    mt-5
+    inline-flex
+    rounded-xl
+    bg-primary
+    px-5
+    py-3
+    text-white
+    hover:bg-primary-dark
+  "
+>
+Zum Bürgerinformationssystem
+</a>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="mt-12">
+
+
+<h2
+  class="
+    mb-8
+    text-3xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Mitglieder der Gemeindevertretung
+</h2>
+
+
+
+
+{
+  gemeindevertretung.fraktionen.map(fraktion => (
+
+<section
+  class="
+    mb-12
+  "
+>
+
+
+
+<h3
+  class="
+    mb-6
+    border-l-4
+    border-primary
+    pl-4
+    text-xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+{fraktion.title}
+</h3>
+
+
+
+
+<div
+  class="
+    grid
+    gap-6
+    md:grid-cols-2
+    lg:grid-cols-3
+  "
+>
+
+
+{
+fraktion.chairman && (
+
+<PersonCard
+  person={{
+    ...fraktion.chairman,
+    role: undefined,
+    group: undefined,
+    badge:
+      "Fraktionsvorsitzender"
+  }}
+/>
+
+)
+
+}
+
+
+
+{
+fraktion.members.map(member => (
+
+<PersonCard
+  person={{
+    ...member,
+    group: undefined
+  }}
+/>
+
+))
+}
+
+
+</div>
+
+
+</section>
+
+
+))
+}
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="mt-16">
+
+
+<h2
+class="
+mb-8
+text-3xl
+font-bold
+text-gray-900 dark:text-gray-100
+"
+>
+Besetzung der Ausschüsse
+</h2>
+
+
+
+
+{
+  gemeindevertretung.ausschuesse.map(ausschuss => (
+
+
+<section
+  class="
+    mb-12
+  "
+>
+
+
+
+<h3
+  class="
+    mb-6
+    border-l-4
+    border-primary
+    pl-4
+    text-xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+{ausschuss.title}
+</h3>
+
+
+
+
+
+<div
+class="
+grid
+gap-6
+md:grid-cols-2
+lg:grid-cols-3
+"
+>
+
+
+
+{
+ausschuss.chairman && (
+
+<PersonCard
+  person={{
+    ...ausschuss.chairman,
+    role: undefined,
+    badge:
+      "Vorsitzender"
+  }}
+/>
+
+)
+
+}
+
+
+
+
+{
+ausschuss.members.map(member => (
+
+<PersonCard
+  person={member}
+/>
+
+))
+
+}
+
+
+</div>
+
+
+
+
+
+
+
+{
+ausschuss.sachkundigeEinwohner && (
+
+<div
+class="
+mt-8
+"
+>
+
+
+<h3
+  class="
+    mb-6
+    border-l-4
+    border-primary
+    pl-4
+    text-xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Sachkundige Einwohner
+</h3>
+
+
+
+
+<div
+class="
+grid
+gap-6
+md:grid-cols-2
+lg:grid-cols-3
+"
+>
+
+
+{
+ausschuss.sachkundigeEinwohner.map(person => (
+
+<PersonCard
+  person={person}
+/>
+
+))
+}
+
+
+</div>
+
+
+</div>
+
+)
+
+}
+
+
+
+</section>
+
+
+))
+
+}
+
+
+</section>
+
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

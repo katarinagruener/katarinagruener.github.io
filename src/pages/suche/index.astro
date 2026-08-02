@@ -1,0 +1,121 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import Icon from "@components/ui/Icon.astro";
+---
+
+<BaseLayout
+  title="Suche"
+  description="Suche auf der Website der Gemeinde Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Suche" }]} />
+
+
+<h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100">
+Suche
+</h1>
+
+
+<p class="mt-4 max-w-2xl text-gray-700 dark:text-gray-300">
+Durchsuchen Sie die Website der Gemeinde Seddiner See.
+</p>
+
+
+<div class="relative mt-8 max-w-2xl">
+
+  <Icon name="search" class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+
+  <input
+    id="page-search-input"
+    type="search"
+    autocomplete="off"
+    placeholder="Suchbegriff eingeben …"
+    aria-label="Suchbegriff eingeben"
+    class="
+      w-full
+      rounded-full
+      border
+      border-gray-300 dark:border-gray-600
+      bg-gray-100 dark:bg-gray-800
+      py-3.5
+      pl-11
+      pr-4
+      text-base
+      text-gray-900 dark:text-gray-100
+      placeholder:text-gray-500 dark:placeholder:text-gray-400
+      transition
+      focus:border-primary
+      focus:bg-white dark:focus:bg-gray-700
+      focus:outline-none
+      focus:ring-2
+      focus:ring-primary/30
+    "
+  />
+
+</div>
+
+
+<div id="page-search-results" class="mt-6 max-w-2xl space-y-2"></div>
+
+<p id="page-search-empty" class="hidden mt-6 max-w-2xl text-gray-500 dark:text-gray-400"></p>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>
+
+
+<style>
+  #page-search-results a {
+    display: block;
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    padding: 1rem 1.25rem;
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+
+  #page-search-results a:hover {
+    background-color: #f9fafb;
+    border-color: #d1d5db;
+  }
+
+  #page-search-results mark {
+    background: transparent;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+</style>
+
+
+<script>
+
+import { attachSearch } from "@lib/search";
+
+const input =
+document.querySelector<HTMLInputElement>("#page-search-input");
+
+const results =
+document.querySelector<HTMLElement>("#page-search-results");
+
+const empty =
+document.querySelector<HTMLElement>("#page-search-empty");
+
+if (input && results && empty) {
+  attachSearch({ input, results, empty, maxResults: 30 });
+  input.focus();
+}
+
+</script>

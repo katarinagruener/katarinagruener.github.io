@@ -1,0 +1,8 @@
+{
+  "name": "Zimmervermietung Familie Schultze",
+  "type": "zimmer",
+  "address": "Am Waldrand 5, 14554 Seddiner See, Ortsteil Seddin",
+  "mobile": ["0152 / 59900491", "0172 / 9482587"],
+  "email": "info@zimmer-seddinersee.de",
+  "website": "zimmer-seddinersee.de"
+}

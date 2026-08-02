@@ -1,0 +1,111 @@
+---
+import { getCollection } from "astro:content";
+
+import Icon from "@components/ui/Icon.astro";
+import { getUpcomingEvents, parseCalendarEvent, formatEventDate, formatEventTime } from "@lib/calendar";
+
+const entries = await getCollection("veranstaltungen");
+
+const rawEvents = entries.map((entry) => ({
+  id: entry.id,
+  title: entry.data.title,
+  description: entry.data.description,
+  start: entry.data.start.toISOString(),
+  end: entry.data.end?.toISOString(),
+  location: entry.data.location,
+  admission: entry.data.admission,
+  image: entry.data.image
+    ? { src: entry.data.image.src, width: entry.data.image.width, height: entry.data.image.height }
+    : undefined
+}));
+
+const events = getUpcomingEvents(rawEvents.map(parseCalendarEvent), Infinity);
+
+function formatRange(event: (typeof events)[number]) {
+  const startDate = formatEventDate(event.start);
+  const startTime = formatEventTime(event.start);
+
+  if (!event.end) {
+    return `${startDate}, ${startTime} Uhr`;
+  }
+
+  const endDate = formatEventDate(event.end);
+
+  if (startDate === endDate) {
+    return `${startDate}, ${startTime} – ${formatEventTime(event.end)} Uhr`;
+  }
+
+  return `${startDate} – ${endDate}`;
+}
+---
+
+<div>
+
+  {events.length === 0 ? (
+    <p class="text-gray-600 dark:text-gray-400">Aktuell sind keine Veranstaltungen geplant.</p>
+  ) : (
+    <div class="space-y-4">
+      {events.map((event, index) => (
+        <button
+          type="button"
+          data-event-list-item={index}
+          class="
+            flex
+            w-full
+            items-start
+            gap-4
+            rounded-2xl
+            bg-white dark:bg-gray-900
+            p-5
+            text-left
+            shadow-sm
+            transition
+            hover:-translate-y-0.5
+            hover:shadow-md
+          "
+        >
+          <div class="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <span class="text-[10px] font-semibold uppercase leading-none">
+              {event.start.toLocaleDateString("de-DE", { month: "short" })}
+            </span>
+            <span class="mt-0.5 text-lg font-bold leading-none">{event.start.getDate()}</span>
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">{event.title}</h3>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{formatRange(event)}</p>
+            {event.location && (
+              <p class="mt-1 flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <Icon name="location" class="h-4 w-4 shrink-0" /> {event.location.name}
+              </p>
+            )}
+          </div>
+
+          <Icon name="arrow-right" class="mt-1 h-4 w-4 shrink-0 text-gray-300 dark:text-gray-600" />
+        </button>
+      ))}
+    </div>
+  )}
+
+</div>
+
+<script type="application/json" id="event-list-data" set:html={JSON.stringify(rawEvents)} is:inline />
+
+<script>
+  import { initEventModal } from "@lib/eventModal";
+  import { parseCalendarEvent, getUpcomingEvents } from "@lib/calendar";
+
+  const dataEl = document.querySelector("#event-list-data");
+  const raw = dataEl?.textContent ? JSON.parse(dataEl.textContent) : [];
+  const events = getUpcomingEvents(raw.map(parseCalendarEvent), Infinity);
+
+  const modal = initEventModal();
+
+  document.querySelectorAll<HTMLElement>("[data-event-list-item]").forEach((el) => {
+    const index = Number(el.dataset.eventListItem);
+    const event = events[index];
+    if (!event) return;
+
+    el.addEventListener("click", () => modal?.open(event));
+  });
+</script>
