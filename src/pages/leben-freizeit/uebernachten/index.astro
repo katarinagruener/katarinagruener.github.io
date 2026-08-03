@@ -17,6 +17,7 @@ const pensionen = entries.filter((entry) => entry.type === "pension");
 const ferienwohnungen = entries.filter((entry) =>
   entry.type === "ferienwohnung" || entry.type === "ferienhaus" || entry.type === "zimmer"
 );
+const campingplaetze = entries.filter((entry) => entry.type === "camping");
 
 function iconFor(entry: { icon?: string }, fallback: IconName): IconName {
   return (entry.icon ?? fallback) as IconName;
@@ -26,7 +27,7 @@ function iconFor(entry: { icon?: string }, fallback: IconName): IconName {
 
 <BaseLayout
   title="Übernachten"
-  description="Hotels, Pensionen und Ferienwohnungen in der Gemeinde Seddiner See"
+  description="Hotels, Pensionen, Ferienwohnungen und Campingplätze in der Gemeinde Seddiner See"
 >
 
 
@@ -40,7 +41,7 @@ function iconFor(entry: { icon?: string }, fallback: IconName): IconName {
 
 <PageHero
   title={hero?.title ?? "Übernachten"}
-  subtitle={hero?.subtitle ?? "Hotels, Pensionen und Ferienwohnungen in der Gemeinde Seddiner See"}
+  subtitle={hero?.subtitle ?? "Hotels, Pensionen, Ferienwohnungen und Campingplätze in der Gemeinde Seddiner See"}
   images={hero?.images ?? []}
   gradient
 />
@@ -114,6 +115,35 @@ Ferienwohnungen
 
 <div class="grid gap-6 md:grid-cols-2">
   {ferienwohnungen.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry, "bed")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{campingplaetze.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Campingplätze
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {campingplaetze.map((entry) => (
     <BusinessCard
       name={entry.name}
       icon={iconFor(entry, "bed")}

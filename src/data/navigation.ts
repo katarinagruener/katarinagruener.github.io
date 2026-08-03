@@ -151,6 +151,10 @@ export const navigation: NavigationItem[] = [
     {
       title: "Unternehmen",
       href: "/leben-freizeit/unternehmen"
+    },
+    {
+      title: "Sehenswürdigkeiten & Freizeitorte",
+      href: "/leben-freizeit/sehenswuerdigkeiten"
     }
   ]
 },

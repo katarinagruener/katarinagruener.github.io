@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("sehenswuerdigkeiten")).map((entry) => entry.data);
+const hero = await getPageHero("sehenswuerdigkeiten");
+
+function iconFor(entry: { icon?: string }): IconName {
+  return (entry.icon ?? "signpost") as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Sehenswürdigkeiten & Freizeitorte"
+  description="Ausflugsziele, Sehenswürdigkeiten und Freizeitorte in der Gemeinde Seddiner See"
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Sehenswürdigkeiten & Freizeitorte" }]} />
+
+<PageHero
+  title={hero?.title ?? "Sehenswürdigkeiten & Freizeitorte"}
+  subtitle={hero?.subtitle ?? "Ausflugsziele, Sehenswürdigkeiten und Freizeitorte in der Gemeinde Seddiner See"}
+  images={hero?.images ?? []}
+  gradient
+/>
+
+
+<div class="mt-12 grid gap-6 md:grid-cols-2">
+  {entries.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry)}
+      address={entry.address}
+      phone={entry.phone}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+    />
+  ))}
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

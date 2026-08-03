@@ -165,7 +165,7 @@ const uebernachten = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/uebernachten" }),
   schema: z.object({
     name: z.string(),
-    type: z.enum(["hotel", "pension", "ferienwohnung", "ferienhaus", "zimmer"]).optional(),
+    type: z.enum(["hotel", "pension", "ferienwohnung", "ferienhaus", "zimmer", "camping"]).optional(),
     icon: z.string().optional(),
     address: z.string(),
     phone: z.array(z.string()).optional(),
@@ -231,6 +231,20 @@ const unternehmen = defineCollection({
     address: z.string(),
     phone: z.array(z.string()).optional(),
     mobile: z.array(z.string()).optional(),
+    fax: z.string().optional(),
+    email: z.string().optional(),
+    website: z.string().optional(),
+    note: z.string().optional()
+  })
+});
+
+const sehenswuerdigkeiten = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./src/content/sehenswuerdigkeiten" }),
+  schema: z.object({
+    name: z.string(),
+    icon: z.string().optional(),
+    address: z.string().optional(),
+    phone: z.array(z.string()).optional(),
     fax: z.string().optional(),
     email: z.string().optional(),
     website: z.string().optional(),
@@ -335,5 +349,6 @@ export const collections = {
   uebernachten,
   feuerwehr,
   vereine,
-  unternehmen
+  unternehmen,
+  sehenswuerdigkeiten
 };

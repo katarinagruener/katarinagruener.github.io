@@ -249,7 +249,7 @@ collections:
     identifier_field: name
     fields:
       - { label: "Name", name: "name", widget: "string" }
-      - { label: "Art", name: "type", widget: "select", options: ["hotel", "pension", "ferienwohnung", "ferienhaus", "zimmer"], required: false }
+      - { label: "Art", name: "type", widget: "select", options: ["hotel", "pension", "ferienwohnung", "ferienhaus", "zimmer", "camping"], required: false }
       - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
       - { label: "Adresse", name: "address", widget: "string" }
       - { label: "Telefon", name: "phone", widget: "list", required: false }
@@ -329,6 +329,22 @@ collections:
       - { label: "Adresse", name: "address", widget: "string" }
       - { label: "Telefon", name: "phone", widget: "list", required: false }
       - { label: "Mobil", name: "mobile", widget: "list", required: false }
+      - { label: "Fax", name: "fax", widget: "string", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
+      - { label: "Website", name: "website", widget: "string", required: false }
+      - { label: "Hinweis", name: "note", widget: "string", required: false }
+
+  - name: "sehenswuerdigkeiten"
+    label: "Sehenswürdigkeiten & Freizeitorte"
+    folder: "src/content/sehenswuerdigkeiten"
+    create: true
+    format: json
+    identifier_field: name
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Icon-Override (nur wenn nötig)", name: "icon", widget: "string", required: false }
+      - { label: "Adresse", name: "address", widget: "string", required: false }
+      - { label: "Telefon", name: "phone", widget: "list", required: false }
       - { label: "Fax", name: "fax", widget: "string", required: false }
       - { label: "E-Mail", name: "email", widget: "string", required: false }
       - { label: "Website", name: "website", widget: "string", required: false }
