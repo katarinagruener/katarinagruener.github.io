@@ -1,0 +1,14 @@
+{
+  "name": "CMS Test",
+  "address": "Hans-Beimler",
+  "hours": [
+    {
+      "day": "Montag",
+      "time": "14-16"
+    },
+    {
+      "day": "Freitag",
+      "time": "10-12"
+    }
+  ]
+}
