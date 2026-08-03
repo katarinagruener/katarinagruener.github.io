@@ -181,7 +181,7 @@ const dienstleistungen = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/dienstleistungen" }),
   schema: z.object({
     name: z.string(),
-    type: z.enum(["post", "friseur", "massage", "tierpflege"]).optional(),
+    type: z.enum(["post", "friseur", "massage", "tierpflege", "versicherung", "haushaltshilfe", "immobilien"]).optional(),
     icon: z.string().optional(),
     address: z.string(),
     phone: z.array(z.string()).optional(),
@@ -220,6 +220,21 @@ const vereine = defineCollection({
     fax: z.string().optional(),
     email: z.string().optional(),
     website: z.string().optional()
+  })
+});
+
+const unternehmen = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./src/content/unternehmen" }),
+  schema: z.object({
+    name: z.string(),
+    icon: z.string().optional(),
+    address: z.string(),
+    phone: z.array(z.string()).optional(),
+    mobile: z.array(z.string()).optional(),
+    fax: z.string().optional(),
+    email: z.string().optional(),
+    website: z.string().optional(),
+    note: z.string().optional()
   })
 });
 
@@ -319,5 +334,6 @@ export const collections = {
   dienstleistungen,
   uebernachten,
   feuerwehr,
-  vereine
+  vereine,
+  unternehmen
 };

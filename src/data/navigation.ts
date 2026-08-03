@@ -147,6 +147,10 @@ export const navigation: NavigationItem[] = [
     {
       title: "Vereine & Sport",
       href: "/leben-freizeit/vereine"
+    },
+    {
+      title: "Unternehmen",
+      href: "/leben-freizeit/unternehmen"
     }
   ]
 },

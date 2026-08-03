@@ -16,12 +16,18 @@ const post = entries.filter((entry) => entry.type === "post");
 const friseure = entries.filter((entry) => entry.type === "friseur");
 const massagen = entries.filter((entry) => entry.type === "massage");
 const tierpflege = entries.filter((entry) => entry.type === "tierpflege");
+const versicherungen = entries.filter((entry) => entry.type === "versicherung");
+const haushaltshilfe = entries.filter((entry) => entry.type === "haushaltshilfe");
+const immobilien = entries.filter((entry) => entry.type === "immobilien");
 
 const ICONS = {
   post: "post",
   friseur: "scissors",
   massage: "massage",
-  tierpflege: "paw"
+  tierpflege: "paw",
+  versicherung: "briefcase",
+  haushaltshilfe: "helping-hand",
+  immobilien: "briefcase"
 } as const;
 
 function iconFor(entry: { type?: keyof typeof ICONS; icon?: string }, fallback: IconName): IconName {
@@ -158,6 +164,99 @@ Tierpflege
     <BusinessCard
       name={entry.name}
       icon={iconFor(entry, "paw")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{versicherungen.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Versicherungen
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {versicherungen.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry, "briefcase")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{haushaltshilfe.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Haushaltshilfe & Seniorenbetreuung
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {haushaltshilfe.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry, "helping-hand")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{immobilien.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Immobilien
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {immobilien.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      icon={iconFor(entry, "briefcase")}
       address={entry.address}
       phone={entry.phone}
       mobile={entry.mobile}
