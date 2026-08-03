@@ -14,11 +14,24 @@ function loadPagefind(): Promise<any> {
   return win.__pagefind ?? Promise.resolve(null);
 }
 
-function renderResult(entry: any) {
-  const title = entry.meta?.title ?? entry.url;
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
+function renderResult(entry: any) {
+  const title = escapeHtml(String(entry.meta?.title ?? entry.url));
+  const url = escapeHtml(String(entry.url));
+
+  // entry.excerpt is Pagefind-generated HTML (plain text with its own
+  // <mark> highlights around matches) — safe to inject as-is, unlike the
+  // title/url above which come from page metadata and need escaping.
   return `
-    <a href="${entry.url}" class="block rounded-xl px-3 py-2 transition hover:bg-gray-50 dark:hover:bg-gray-800">
+    <a href="${url}" class="block rounded-xl px-3 py-2 transition hover:bg-gray-50 dark:hover:bg-gray-800">
       <div class="text-sm font-semibold text-gray-900 dark:text-gray-100">${title}</div>
       <div class="mt-0.5 line-clamp-2 text-xs leading-relaxed text-gray-600 dark:text-gray-400">${entry.excerpt}</div>
     </a>
