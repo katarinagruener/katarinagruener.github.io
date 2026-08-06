@@ -42,7 +42,7 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
 
 <PageHero
   title={hero?.title ?? "Kindertagesstätten und Hort"}
-  subtitle={hero?.subtitle ?? "Betreuungsangebote für Kinder und Schulkinder"}
+  subtitle={hero?.subtitle}
   images={hero?.images ?? []}
   gradient
   fullBleed={hasImage}

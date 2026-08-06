@@ -29,6 +29,7 @@ export async function getStaticPaths() {
         props: {
           ortsbeirat: {
             title: entry.data.title,
+            subtitle: entry.data.subtitle,
             images: entry.data.images,
             members,
             history: entry.data.history
@@ -69,7 +70,7 @@ const hasImage = (ortsbeirat.images?.length ?? 0) > 0;
 
 <PageHero
   title={ortsbeirat.title}
-  subtitle="Mitglieder und Ansprechpartner des Ortsbeirates"
+  subtitle={ortsbeirat.subtitle}
   images={ortsbeirat.images}
   gradient
   fullBleed={hasImage}

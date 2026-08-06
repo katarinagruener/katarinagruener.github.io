@@ -527,6 +527,7 @@ collections:
     identifier_field: title
     fields:
       - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Untertitel", name: "subtitle", widget: "string", required: false }
       - label: "Fotos"
         name: "images"
         widget: "list"

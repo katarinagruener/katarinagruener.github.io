@@ -34,6 +34,7 @@ const ortsbeiraete = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/ortsbeiraete" }),
   schema: z.object({
     title: z.string(),
+    subtitle: z.string().optional(),
     images: z.array(z.object({ src: z.string(), alt: z.string() })),
     members: z.array(z.string()),
     history: z.array(z.string()).optional()

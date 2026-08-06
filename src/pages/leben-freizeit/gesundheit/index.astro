@@ -52,7 +52,7 @@ function iconFor(entry: { type: keyof typeof ICONS; icon?: string }): IconName {
 
 <PageHero
   title={hero?.title ?? "Gesundheit"}
-  subtitle={hero?.subtitle ?? "Medizinische Einrichtungen"}
+  subtitle={hero?.subtitle}
   images={hero?.images ?? []}
   gradient
   fullBleed={hasImage}

@@ -47,7 +47,7 @@ const departments = groupBy(staff, (entry) => entry.data.department).map(
 
 <PageHero
   title={hero?.title ?? "Verwaltung"}
-  subtitle={hero?.subtitle ?? "Gemeindeverwaltung"}
+  subtitle={hero?.subtitle}
   images={hero?.images ?? []}
   gradient
   fullBleed={hasImage}

@@ -60,7 +60,7 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
 
 <PageHero
   title={hero?.title ?? "Meldungen"}
-  subtitle={hero?.subtitle ?? "Neuigkeiten und wichtige Informationen"}
+  subtitle={hero?.subtitle}
   images={hero?.images ?? []}
   gradient
   fullBleed={hasImage}
