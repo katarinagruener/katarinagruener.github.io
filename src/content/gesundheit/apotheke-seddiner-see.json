@@ -1,0 +1,16 @@
+{
+  "name": "Apotheke Seddiner See",
+  "type": "apotheke",
+  "role": [
+    "Apothekerin Marion Albrecht"
+  ],
+  "address": "Kunersdorfer Str. 12, 14554 Seddiner See",
+  "phone": [
+    "033205 / 54238"
+  ],
+  "fax": "033205 / 54239",
+  "hours": [
+    { "day": "Montag–Freitag", "time": "08.00–13.00 und 14.00–18.00 Uhr" },
+    { "day": "Samstag", "time": "08.00–12.00 Uhr" }
+  ]
+}

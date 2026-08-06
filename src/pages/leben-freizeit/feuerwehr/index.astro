@@ -1,0 +1,144 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+
+import { gemeindewehrfuehrung } from "@data/feuerwehr";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("feuerwehr")).map((entry) => ({ ...entry.data, slug: entry.id }));
+const hero = await getPageHero("feuerwehr");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+
+const ortsfeuerwehren = entries.filter((entry) => entry.type === "ortsfeuerwehr");
+const jugendKinder = entries.filter((entry) => entry.type === "jugendfeuerwehr" || entry.type === "kinderfeuerwehr");
+
+function iconFor(entry: { icon?: string }, fallback: IconName): IconName {
+  return (entry.icon ?? fallback) as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Freiwillige Feuerwehr"
+  description="Freiwillige Feuerwehr der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Freiwillige Feuerwehr" }]} />
+
+<PageHero
+  title={hero?.title ?? "Freiwillige Feuerwehr"}
+  subtitle={hero?.subtitle ?? "Brandschutz und Hilfeleistung"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<div class="mt-8 flex items-start gap-4 rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+
+<span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+<Icon name="badge" class="h-6 w-6" />
+</span>
+
+<div>
+<h2 class="font-bold text-gray-900 dark:text-gray-100">Gemeindewehrführung</h2>
+
+<div class="mt-3 space-y-1 text-sm text-gray-700 dark:text-gray-300">
+{
+  gemeindewehrfuehrung.map((item) => (
+    <p>
+      <span class="text-gray-500 dark:text-gray-400">{item.label}:</span> {item.name}
+    </p>
+  ))
+}
+</div>
+
+</div>
+
+</div>
+
+
+{ortsfeuerwehren.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Ortsfeuerwehren
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {ortsfeuerwehren.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "fire")}
+      role={entry.roles}
+      phone={entry.phone}
+      email={entry.email}
+      website={entry.website}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{jugendKinder.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Jugend- und Kinderfeuerwehr
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {jugendKinder.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "fire")}
+      role={entry.roles}
+      phone={entry.phone}
+      email={entry.email}
+      website={entry.website}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

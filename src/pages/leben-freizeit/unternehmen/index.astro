@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("unternehmen")).map((entry) => ({ ...entry.data, slug: entry.id }));
+const hero = await getPageHero("unternehmen");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+
+function iconFor(entry: { icon?: string }): IconName {
+  return (entry.icon ?? "briefcase") as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Unternehmen"
+  description="Ansässige Unternehmen in der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Unternehmen" }]} />
+
+<PageHero
+  title={hero?.title ?? "Unternehmen"}
+  subtitle={hero?.subtitle ?? "Ansässige Unternehmen"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<div class="mt-8 grid gap-6 md:grid-cols-2">
+  {entries.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+    />
+  ))}
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

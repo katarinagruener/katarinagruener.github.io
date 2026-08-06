@@ -1,0 +1,104 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { GetStaticPathsOptions, Page } from "astro";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Pagination from "@components/ui/Pagination.astro";
+import NewspaperCard from "@components/documents/NewspaperCard.astro";
+
+import { groupByYear } from "@lib/groupByYear";
+import { getPageHero } from "@lib/pageHero";
+
+interface YearGroup {
+  year: string;
+  items: CollectionEntry<"see-kurier">[];
+}
+
+interface Props {
+  page: Page<YearGroup>;
+}
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const years = groupByYear(await getCollection("see-kurier"));
+
+  return paginate(years, { pageSize: 1 });
+}
+
+const { page } = Astro.props as Props;
+const yearGroup = page.data[0];
+
+const hero = await getPageHero("see-kurier");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+---
+
+
+<BaseLayout
+  title="See-Kurier"
+  description="Die Gemeindezeitung See-Kurier der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "See-Kurier" }]} />
+
+<PageHero
+  title={hero?.title ?? "See-Kurier"}
+  subtitle={hero?.subtitle ?? "Gemeindezeitung"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<h2 class="mt-6 text-xl font-bold text-gray-900 dark:text-gray-100">
+Jahrgang {yearGroup.year}
+</h2>
+
+<div
+  class="
+    mt-6
+    grid
+    grid-cols-2
+    gap-3
+    sm:gap-6
+    lg:grid-cols-4
+  "
+>
+
+{
+  yearGroup.items.map(entry => (
+    <NewspaperCard
+      title={entry.data.title}
+      slug={entry.id.replace("/", "-")}
+      file={entry.data.file}
+      cover={entry.data.cover}
+    />
+  ))
+}
+
+</div>
+
+
+<Pagination page={page} />
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

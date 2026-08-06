@@ -1,0 +1,10 @@
+{
+  "name": "Kinderfeuerwehr der Gemeinde Seddiner See",
+  "type": "kinderfeuerwehr",
+  "roles": [
+    "Kinderfeuerwehrwart: Dominik Sperling"
+  ],
+  "phone": ["033205 / 62856"],
+  "email": "info@feuerwehr-neuseddin.de",
+  "website": "feuerwehr-neuseddin.de"
+}

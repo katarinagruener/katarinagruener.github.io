@@ -1,0 +1,14 @@
+{
+  "topic": "Einwohnermeldeamt",
+  "office": "Stadtverwaltung Beelitz",
+  "address": "Berliner Str. 202, 14547 Beelitz",
+  "phone": [
+    "033204 / 39184",
+    "033204 / 39185"
+  ],
+  "fax": "033204 / 39135",
+  "link": {
+    "label": "Online-Terminreservierung",
+    "url": "https://beelitz.de/ema-onlinetermin/"
+  }
+}

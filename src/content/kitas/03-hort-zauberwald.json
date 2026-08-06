@@ -1,0 +1,43 @@
+{
+  "name": "Hort Zauberwald",
+  "type": "hort",
+  "ortsteil": "Neuseddin",
+  "highlights": [
+    "ca. 160 Kinder, 15 Mitarbeiter",
+    "Kooperation mit Grundschule „Friedrich List“",
+    "Teiloffenes Konzept",
+    "Ganztags-Betreuungsmodell"
+  ],
+  "description": [
+    "Als familienergänzende und nonformale Bildungseinrichtung ist es unser Ziel, die freie Entfaltung des Kindes zu einem eigenverantwortlich denkenden, handelnden und gesellschaftsfähigen Menschen zu unterstützen, zu fördern und zu fordern.",
+    "Unser Hort arbeitet in Kooperation mit der Grundschule „Friedrich List\". Die Kinder werden bei uns im Ganztags-Modell betreut. Derzeit werden unsere ca. 160 Kinder von 15 Mitarbeitern betreut.",
+    "Wir arbeiten „teiloffen\". Jede Gruppe (Klasse) hat ihren eigenen Bezugserzieher und die Kinder haben ihre festen Bezugsräume (Flure), können sich aber nach Absprache frei im Haus bewegen und wählen, wo und in welcher Altersstufe sie spielen möchten.",
+    "In der Nachmittagsbetreuung steht die Förderung des Kindes zu einer eigenverantwortlichen und gemeinschaftsfähigen Persönlichkeit im Vordergrund. Wir arbeiten nach den methodischen Formen der offenen Arbeit, um die Selbständigkeit, Konfliktfähigkeit und Entscheidungsfähigkeit für das Leben nach dem Hort zu entwickeln.",
+    "Eine ansprechende Raum- und Angebotsgestaltung unterstützt die selbsttätige Freizeitgestaltung der Kinder und ermöglicht ihnen vielfältige Lernformen. Kinder können hier ihren individuellen Bedürfnissen und Lerninteressen eigenständig nachgehen. Ebenso sollen sie zunehmend in die Lage versetzt werden, ihren Aufenthaltsort frei zu bestimmen sowie mehr Eigenständigkeit bei der Erledigung von schulischen Aufgaben zu erwerben."
+  ],
+  "images": [
+    "/images/kitas/Hort Zauberwald.jpg",
+    "/images/kitas/Hort Zauberwald 2.jpg"
+  ],
+  "address": "Hans-Beimler-Str. 17A, 14554 Seddiner See",
+  "contacts": [
+    {
+      "role": "Leitung",
+      "name": "Eric Papzien"
+    },
+    {
+      "role": "Stellv. Leitung",
+      "name": "Susann Koch"
+    }
+  ],
+  "phone": [
+    "Büro: 033205 / 46464",
+    "Erzieher: 033205 / 20356"
+  ],
+  "email": "hort@seddiner-see.de",
+  "website": "hort-zauberwald.de",
+  "hours": [
+    { "day": "Regelbetrieb", "time": "05.45–07.30 Uhr (Frühhort) und 13.45–17.00 Uhr" },
+    { "day": "Schulferien", "time": "07.00–16.00 Uhr" }
+  ]
+}

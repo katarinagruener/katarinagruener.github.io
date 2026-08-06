@@ -1,0 +1,48 @@
+{
+  "name": "Kita „Seepferdchen\"",
+  "type": "kita",
+  "ortsteil": "Seddin",
+  "highlights": [
+    "Kapazität: 40 Kinder",
+    "Vollverpflegung aus eigener Kita-Küche",
+    "Großer Spielplatz mit Kletterschiff",
+    "Bungalow für Kleingruppenarbeit"
+  ],
+  "description": [
+    "Die Kindertagesstätte befindet sich in einem alten Klinkerbau mit moderner Innenausstattung und einer Kapazität von 40 Kindern in der Hauptstraße 52 im Ortsteil Seddin. Durch die Nähe zur B2 ist sie gut mit PKW und Bus zu erreichen. Die ländliche Lage eröffnet Kindern herrliche und unersetzbare Möglichkeiten, sich für die Natur und Umwelt zu öffnen, sie zu verstehen und sinnvoll mit ihr umzugehen. Unsere Kita verfügt über einen großen Spielplatz mit großem Kletterschiff, Rollerbahn, großem Sandkasten mit Matschanlage, reichlich Spielfläche und einer Hangrutsche. Wir unterstützen so den natürlichen Bewegungsdrang der Kinder. Unsere Kita ist umgeben von zwei Seen, Wäldern und Feldern, von Bauernhof, Fischerei und Feuerwehr – also ein Paradies des Lernens und Erholens.",
+    "Wir sehen unseren Bildungsauftrag darin, den Kindern familienergänzend vielfältige Anregungen und Bildungsimpulse zu geben. Diese befähigen sie, zunehmend selbstständig ihr Leben zu gestalten und soziale Kontakte über den Familienkreis hinaus zu erweitern.",
+    "Die Zeit in unserer Kita bietet für die Kinder Lernfelder, in denen sie sich entdeckend ausprobieren können. Dazu nutzen wir auch den im Jahr 2019 fertiggestellten Bungalow im Garten, in dem wir gezielt Kleingruppenarbeit durchführen. Wir bieten den Kindern Zeit, Raum und Material, um kreativ tätig sein zu können. Während der „Zahlen- und Plapperstunden\" erwerben die Vorschulkinder spielerisch mathematische Vorläuferfähigkeiten zu Ziffern, Mengen und Formen sowie Vorläuferfähigkeiten zum Schrifterwerb und Lesenlernen.",
+    "Bei uns dürfen die Kinder von Anfang an eigene Erfahrungen sammeln, die Selbstbildungsprozesse ermöglichen. Unsere Kinder sind aktiv und wissbegierig. Sie dürfen sich im Rahmen unserer Aufsichtspflicht ausprobieren und bewältigen vielfältige Alltagsaufgaben. So entwickeln sie Vertrauen in ihre Fähigkeiten und Mut, Neues zu entdecken und auszuprobieren. Wir orientieren uns an den Stärken der Kinder und bieten ihnen Gelegenheit, an herausfordernden Aufgaben zu wachsen. Die Kinder erlernen Toleranz, sodass sie bereit sind, über den Tellerrand zu blicken. Durch demokratische Teilhabe und Partizipation in unserer Einrichtung wachsen die Kinder mit dem Recht auf Mitbestimmung auf.",
+    "Das psychische und physische Wohlbefinden der Kinder ist unser Anliegen. Sie lernen, auf ihr Körpergefühl zu hören und eine ausgewogene Balance aus Anstrengung und Ruhe zu finden. Wir unterstützen die gesunde Entwicklung der Kinder durch Vollverpflegung aus unserer Kita-Küche mit reichlich Obst und Gemüse, viel Bewegung an frischer Luft und sportliche Betätigung, u. a. in der Sport- und Ringerhalle der Schule in Neuseddin.",
+    "Wir begegnen allen Kindern und deren Eltern mit Wertschätzung und schaffen einen Rahmen zum Wohlfühlen. Uns ist ein freundliches, offenes und vertrauensvolles Verhältnis sowie eine kooperative Zusammenarbeit zwischen Eltern und Erzieher/-innen wichtig."
+  ],
+  "images": [
+    "/images/kitas/Kindertagesstätte Seepferdchen.jpg",
+    "/images/kitas/Kindertagesstätte Seepferdchen 2.jpg",
+    "/images/kitas/Kindertagesstätte Seepferdchen 3.jpg",
+    "/images/kitas/Kindertagesstätte Seepferdchen 4.jpg",
+    "/images/kitas/Kindertagesstätte Seepferdchen 5.jpg",
+    "/images/kitas/Kindertagesstätte Seepferdchen 6.jpg",
+    "/images/kitas/Kindertagesstätte Seepferdchen 7.jpg",
+    "/images/kitas/Kindertagesstätte Seepferdchen 8.jpg",
+    "/images/kitas/Kindertagesstätte Seepferdchen 9.jpg"
+  ],
+  "address": "Hauptstraße 52, 14554 Seddiner See",
+  "contacts": [
+    {
+      "role": "Leitung",
+      "name": "Tino Rogall"
+    },
+    {
+      "role": "Stellv. Leitung",
+      "name": "Jasmin Muschke"
+    }
+  ],
+  "phone": [
+    "033205 / 62418"
+  ],
+  "website": "seepferdchen.seddiner-see.de",
+  "hours": [
+    { "day": "Montag–Freitag", "time": "06.00–17.00 Uhr" }
+  ]
+}

@@ -1,0 +1,147 @@
+---
+import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
+import { site } from "@data/site";
+
+interface Props {
+  title?: string;
+  addressLines?: string[];
+  phone?: string;
+  fax?: string;
+  email?: string;
+}
+
+const {
+  title = site.contacts.organization,
+  addressLines = [
+    site.contacts.address.street,
+    `${site.contacts.address.zip} ${site.contacts.address.city}`,
+    site.contacts.address.district
+  ].filter(Boolean),
+  phone = site.contacts.phone,
+  fax = site.contacts.fax,
+  email = site.contacts.email
+} = Astro.props;
+---
+
+<div
+class="
+rounded-2xl
+border
+border-gray-200 dark:border-gray-700
+bg-white dark:bg-gray-900
+p-6
+shadow-sm
+transition
+hover:shadow-md
+"
+>
+
+
+<h2
+class="
+text-2xl
+font-bold
+text-gray-900 dark:text-gray-100
+"
+>
+{title}
+</h2>
+
+
+
+<div
+class="
+mt-6
+space-y-5
+text-gray-700 dark:text-gray-300
+"
+>
+
+
+<div>
+
+<p
+class="
+font-semibold
+text-gray-900 dark:text-gray-100
+"
+>
+Adresse
+</p>
+
+<p>
+{addressLines.map((line, index) => (
+  <>
+    {index > 0 && <br />}
+    {line}
+  </>
+))}
+</p>
+
+</div>
+
+
+
+<div>
+
+<p
+class="
+font-semibold
+text-gray-900 dark:text-gray-100
+"
+>
+Telefon
+</p>
+
+<p>
+<a href={`tel:${phone}`} class="hover:text-primary">{phone}</a>
+</p>
+
+</div>
+
+
+
+{fax && (
+<div>
+
+<p
+class="
+font-semibold
+text-gray-900 dark:text-gray-100
+"
+>
+Fax
+</p>
+
+<p>
+{fax}
+</p>
+
+</div>
+)}
+
+
+
+<div>
+
+<p
+class="
+font-semibold
+text-gray-900 dark:text-gray-100
+"
+>
+E-Mail
+</p>
+
+<p>
+<ObfuscatedEmail email={email} class="hover:text-primary" />
+</p>
+
+</div>
+
+
+
+</div>
+
+
+</div>

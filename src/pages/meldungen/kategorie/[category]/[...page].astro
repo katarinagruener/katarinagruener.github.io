@@ -1,0 +1,116 @@
+---
+import type { GetStaticPathsOptions, Page } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Pagination from "@components/ui/Pagination.astro";
+import NewsCard from "@components/news/NewsCard.astro";
+import NewsCategoryFilter from "@components/news/NewsCategoryFilter.astro";
+
+import { NEWS_CATEGORIES, type NewsCategory } from "@data/newsCategories";
+import { getPageHero } from "@lib/pageHero";
+
+type NewsItem = CollectionEntry<"meldungen">["data"] & { slug: string };
+
+interface Props {
+  page: Page<NewsItem>;
+  category: NewsCategory;
+  usedCategories: NewsCategory[];
+}
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const news = (await getCollection("meldungen"))
+    .map((entry) => ({ ...entry.data, slug: entry.id }))
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+  const usedCategories = (Object.keys(NEWS_CATEGORIES) as NewsCategory[])
+    .filter((key) => news.some((item) => item.category === key));
+
+  return usedCategories.flatMap((category) => {
+    const filtered = news.filter((item) => item.category === category);
+
+    return paginate(filtered, {
+      params: { category },
+      pageSize: 12,
+      props: { category, usedCategories }
+    });
+  });
+}
+
+const { page, category, usedCategories } = Astro.props as Props;
+const categoryMeta = NEWS_CATEGORIES[category];
+const hero = await getPageHero("meldungen");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+---
+
+<BaseLayout
+  title={`Meldungen – ${categoryMeta.label}`}
+  description={`Meldungen der Gemeinde Seddiner See aus dem Bereich ${categoryMeta.label}`}
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs
+  items={[
+    { label: "Meldungen", href: "/meldungen" },
+    { label: categoryMeta.label }
+  ]}
+/>
+
+<PageHero
+  title={hero?.title ?? "Meldungen"}
+  subtitle={categoryMeta.label}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<NewsCategoryFilter categories={usedCategories} active={category} />
+
+
+<div
+  class="
+    mt-8
+    flex
+    flex-col
+    gap-4
+  "
+>
+
+{
+  page.data.map((item) => (
+    <NewsCard {...item} />
+  ))
+}
+
+</div>
+
+
+<Pagination page={page} />
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

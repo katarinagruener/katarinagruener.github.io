@@ -1,0 +1,21 @@
+{
+  "name": "Dr. Enno Schwarz",
+  "type": "arzt",
+  "icon": "kita",
+  "role": [
+    "Facharzt für Kinder- und Jugendmedizin"
+  ],
+  "address": "Falkenweg 4, 14552 Michendorf",
+  "phone": [
+    "033205 / 44734"
+  ],
+  "fax": "033205 / 62903",
+  "hours": [
+    { "day": "Montag", "time": "08.30–13.00 und 14.00–16.00 Uhr" },
+    { "day": "Dienstag", "time": "08.00–13.00 und 14.00–18.00 Uhr" },
+    { "day": "Mittwoch", "time": "08.30–13.00 Uhr" },
+    { "day": "Donnerstag", "time": "08.30–13.00 und 14.00–19.00 Uhr" },
+    { "day": "Freitag", "time": "08.00–14.00 Uhr" }
+  ],
+  "bookingUrl": "https://www.doctolib.de/kinderheilkunde-kinder-und-jugendmedizin/michendorf/enno-schwarz/booking/new-patient?specialityId=1287&source=profile"
+}

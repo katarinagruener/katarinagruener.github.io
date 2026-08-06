@@ -1,0 +1,43 @@
+---
+import Icon from "@components/ui/Icon.astro";
+import { DOCUMENT_CATEGORIES, type DocumentCategory } from "@data/documentFilters";
+
+interface Props {
+  categories: DocumentCategory[];
+  active: DocumentCategory | "all";
+}
+
+const { categories, active } = Astro.props;
+---
+
+<div class="mt-8 flex flex-wrap gap-2">
+
+  <a
+    href="/gemeinde/dokumentenportal"
+    class:list={[
+      "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-semibold transition",
+      active === "all" ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900" : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+    ]}
+  >
+    Alle
+  </a>
+
+  {
+    categories.map((key) => {
+      const meta = DOCUMENT_CATEGORIES[key];
+      const isActive = active === key;
+      return (
+        <a
+          href={`/gemeinde/dokumentenportal/kategorie/${key}`}
+          class:list={[
+            "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-semibold transition",
+            isActive ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900" : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          ]}
+        >
+          <Icon name={meta.icon} class="h-4 w-4" /> {meta.label}
+        </a>
+      );
+    })
+  }
+
+</div>

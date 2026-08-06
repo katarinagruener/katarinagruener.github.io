@@ -1,0 +1,216 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+import PhotoCarousel from "@components/ui/PhotoCarousel.astro";
+import PhotoLightbox from "@components/ui/PhotoLightbox.astro";
+import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
+
+import { getPageHero } from "@lib/pageHero";
+
+const schulen = (await getCollection("schulen")).map((entry) => ({ ...entry.data, slug: entry.id }));
+const hero = await getPageHero("schulen");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+---
+
+
+<BaseLayout
+  title="Schulen"
+  description="Schulen und Bildungseinrichtungen in der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Schulen" }]} />
+
+<PageHero
+  title={hero?.title ?? "Schulen"}
+  subtitle={hero?.subtitle ?? "Grundschule und Erwachsenenbildung vor Ort"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<div class="mt-8 space-y-10">
+
+{
+  schulen.map((schule, schuleIndex) => (
+    <div class="overflow-hidden rounded-3xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 [&:has(:target)]:border-primary [&:has(:target)]:ring-2 [&:has(:target)]:ring-primary/50">
+
+      {schule.images && (
+        <PhotoCarousel
+          id={`schule-${schuleIndex}`}
+          images={schule.images.map((src) => ({ src, alt: schule.name }))}
+        />
+      )}
+
+      <div class="p-8">
+
+      <div class="flex flex-col items-start gap-3 sm:flex-row sm:gap-5">
+
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <Icon name="school" class="h-6 w-6" />
+        </span>
+
+        <div>
+          <h2 id={`card-${schule.slug}`} class="scroll-mt-24 text-2xl font-bold text-gray-900 dark:text-gray-100">{schule.name}</h2>
+          {schule.subtitle && (
+            <p class="mt-1 text-gray-600 dark:text-gray-400">{schule.subtitle}</p>
+          )}
+        </div>
+
+      </div>
+
+      {schule.highlights && (
+        <div class="mt-5 flex flex-wrap gap-2">
+          {schule.highlights.map((highlight) => (
+            <span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+              {highlight}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <div class="mt-6 grid gap-x-8 gap-y-3 border-t border-gray-100 dark:border-gray-800 pt-6 text-sm text-gray-700 dark:text-gray-300 sm:grid-cols-2">
+
+        <p class="flex items-start gap-2">
+          <Icon name="location" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+          <span>
+            {schule.address.split(", ").map((line, index, lines) => (
+              <>
+                {line}
+                {index < lines.length - 1 && <br />}
+              </>
+            ))}
+          </span>
+        </p>
+
+        <div class="space-y-1">
+
+          {schule.phone && (
+            <p class="flex items-center gap-2">
+              <Icon name="phone" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <a href={`tel:${schule.phone}`} class="hover:text-primary">{schule.phone}</a>
+            </p>
+          )}
+
+          {schule.fax && (
+            <p class="flex items-center gap-2">
+              <Icon name="fax" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> {schule.fax}
+            </p>
+          )}
+
+        </div>
+
+        {schule.email && (
+          <p class="flex items-center gap-2">
+            <Icon name="email" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+            <a href={`mailto:${schule.email}`} class="hover:text-primary">{schule.email}</a>
+          </p>
+        )}
+
+        {schule.website && (
+          <p class="flex items-center gap-2">
+            <Icon name="link" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+            <a href={`https://${schule.website.replace(/^https?:\/\//, "")}`} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
+              {schule.website}
+            </a>
+          </p>
+        )}
+
+      </div>
+
+      {(schule.description || schule.features) && (
+        <details class="group mt-6 border-t border-gray-100 dark:border-gray-800 pt-6">
+          <summary class="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-gray-900 dark:text-gray-100 hover:text-primary">
+            Angebote im Überblick
+            <Icon name="arrow-up" class="h-4 w-4 rotate-180 transition group-open:rotate-0" />
+          </summary>
+
+          {schule.description && (
+            <div class="mt-4 max-w-3xl space-y-3 text-gray-700 dark:text-gray-300">
+              {schule.description.map((paragraph) => (<p>{paragraph}</p>))}
+            </div>
+          )}
+
+          {schule.features && (
+            <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+              {schule.features.map((feature) => (
+                <li class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          )}
+        </details>
+      )}
+
+      {schule.contacts && (
+        <div class="mt-6 grid gap-4 border-t border-gray-100 dark:border-gray-800 pt-6 sm:grid-cols-2">
+          {schule.contacts.map((contact) => (
+            <div class="flex items-center gap-3">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500">
+                <Icon name="user" class="h-4 w-4" />
+              </span>
+              <div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">{contact.role}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{contact.name}</p>
+                {contact.email && (
+                  <ObfuscatedEmail email={contact.email} class="text-sm text-gray-600 dark:text-gray-400 hover:text-primary" />
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      </div>
+
+    </div>
+  ))
+}
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<PhotoLightbox />
+
+<script>
+  import { initPhotoLightbox } from "@lib/photoLightbox";
+  import { initPhotoCarousels } from "@lib/photoCarousel";
+
+  const lightbox = initPhotoLightbox();
+  if (lightbox) {
+    initPhotoCarousels(lightbox.open);
+  }
+</script>
+
+
+</BaseLayout>

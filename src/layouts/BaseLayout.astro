@@ -1,0 +1,81 @@
+---
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import BackToTop from "@components/ui/BackToTop.astro";
+
+import { site } from "@data/site";
+
+import "@styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = site.description
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+<head>
+
+<script is:inline>
+  (function () {
+    const stored = localStorage.getItem("theme");
+    const isDark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.classList.toggle("dark", isDark);
+  })();
+</script>
+
+<meta charset="UTF-8" />
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+/>
+
+<title>
+  {title}
+</title>
+
+<meta
+  name="description"
+  content={description}
+/>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.ico" />
+
+<script type="module" is:inline>
+  window.__pagefind = import("/pagefind/pagefind.js")
+    .then(async (mod) => {
+      await mod.init();
+      // German compound words (e.g. "Kinderfeuerwehr", "Kiefernweg") otherwise
+      // fuzzy-match short queries like "kita" and can outrank real matches —
+      // raising termSimilarity penalizes matches that are much longer than
+      // the search term. See https://pagefind.app/docs/ranking/
+      await mod.options({ ranking: { termSimilarity: 5 } });
+      return mod;
+    })
+    .catch(() => null);
+</script>
+
+</head>
+
+<body>
+
+<Header />
+
+<main data-pagefind-body>
+  <slot />
+</main>
+
+<Footer />
+
+<BackToTop />
+
+</body>
+</html>

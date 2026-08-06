@@ -1,0 +1,521 @@
+---
+import Icon from "@components/ui/Icon.astro";
+import { navigation } from "@data/navigation";
+---
+
+<div class="lg:hidden">
+
+
+<button
+  id="menu-toggle"
+  class="
+    flex
+    h-10
+    w-10
+    items-center
+    justify-center
+    rounded-full
+    bg-gray-100 dark:bg-gray-800
+    text-gray-700 dark:text-gray-300
+  "
+  aria-label="Menü öffnen"
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+>
+  <span data-icon-menu>
+    <Icon name="menu" class="h-5 w-5" />
+  </span>
+  <span data-icon-close class="hidden">
+    <Icon name="close" class="h-5 w-5" />
+  </span>
+</button>
+
+
+
+
+    <div
+ id="mobile-menu"
+ class="
+    invisible
+    fixed
+    inset-0
+    top-20
+    z-50
+    overflow-y-auto
+    translate-y-2
+    bg-white dark:bg-gray-900
+    opacity-0
+    shadow-lg
+    transition
+    duration-200
+  "
+>
+
+
+<div class="container py-6">
+
+
+<div id="mobile-menu-list">
+
+
+<ul class="space-y-2">
+
+
+{
+navigation.map(item => (
+
+<li>
+
+
+{
+item.children ? (
+
+<>
+
+<button
+  class="
+    flex
+    w-full
+    items-center
+    justify-between
+    rounded-xl
+    px-4
+    py-3
+    text-left
+    font-medium
+    text-gray-800 dark:text-gray-200
+    transition-all
+    duration-200
+    hover:bg-slate-100 hover:dark:bg-slate-800
+  "
+  data-submenu-button
+  aria-expanded="false"
+>
+
+<span>
+{item.title}
+</span>
+
+<span aria-hidden="true">
++
+</span>
+
+</button>
+
+
+
+<ul
+  class="
+    hidden
+    mt-2
+    space-y-1
+  "
+>
+
+{
+item.children.map(child => (
+
+<li>
+
+<a
+  href={child.href}
+  class="
+    block
+    rounded-xl
+    px-4
+    py-3
+    text-sm
+    text-gray-600 dark:text-gray-400
+    transition-all
+    duration-200
+    hover:bg-slate-100 hover:dark:bg-slate-800
+    hover:text-primary
+  "
+>
+{child.title}
+</a>
+
+</li>
+
+))
+}
+
+</ul>
+
+</>
+
+
+) : (
+
+<a
+  href={item.href}
+  class="
+    block
+    rounded-xl
+    px-4
+    py-3
+    font-medium
+    text-gray-800 dark:text-gray-200
+    transition-all
+    duration-200
+    hover:bg-slate-100 hover:dark:bg-slate-800
+  "
+>
+  {item.title}
+</a>
+
+)
+
+}
+
+
+</li>
+
+))
+}
+
+
+</ul>
+
+
+<div
+  class="
+    mt-6
+    space-y-3
+  "
+>
+
+
+<button
+ type="button"
+ id="mobile-search-toggle"
+ class="
+  flex
+  w-full
+  items-center
+  justify-center
+  gap-2
+  rounded-xl
+  bg-primary
+  px-4
+  py-3
+  text-sm
+  font-semibold
+  text-white
+  transition
+  hover:bg-primary-dark
+ "
+ aria-expanded="false"
+ aria-controls="mobile-search-panel"
+>
+<Icon name="search" class="h-4 w-4" /> Suche
+</button>
+
+
+</div>
+
+</div>
+
+
+<div
+  id="mobile-search-panel"
+  role="search"
+  aria-label="Website durchsuchen"
+  class="hidden"
+>
+
+<button
+  type="button"
+  id="mobile-search-back"
+  class="
+    mb-4
+    flex
+    items-center
+    gap-2
+    text-sm
+    font-semibold
+    text-gray-700 dark:text-gray-300
+  "
+>
+  <Icon name="arrow-left" class="h-4 w-4" /> Zurück zum Menü
+</button>
+
+<div class="relative">
+
+  <Icon name="search" class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+
+  <input
+    id="mobile-search-input"
+    type="search"
+    autocomplete="off"
+    placeholder="Suchbegriff eingeben …"
+    aria-label="Suchbegriff eingeben"
+    class="
+      w-full
+      rounded-full
+      border
+      border-gray-300 dark:border-gray-600
+      bg-gray-100 dark:bg-gray-800
+      py-3
+      pl-9
+      pr-4
+      text-sm
+      text-gray-900 dark:text-gray-100
+      placeholder:text-gray-500 dark:placeholder:text-gray-400
+      transition
+      focus:border-primary
+      focus:bg-white dark:focus:bg-gray-700
+      focus:outline-none
+      focus:ring-2
+      focus:ring-primary/30
+    "
+  />
+
+</div>
+
+<div id="mobile-search-results" class="mt-3 space-y-1"></div>
+
+<p id="mobile-search-empty" class="hidden mt-3 px-3 text-sm text-gray-500 dark:text-gray-400"></p>
+
+<a
+  href="/suche"
+  class="
+    mt-3
+    inline-flex
+    items-center
+    gap-1
+    px-3
+    text-sm
+    font-semibold
+    text-primary
+    hover:text-primary-dark
+  "
+>
+  Erweiterte Suche <Icon name="arrow-right" class="h-4 w-4" />
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<style>
+  #mobile-search-results mark {
+    background: transparent;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+</style>
+
+
+<script>
+
+import { attachSearch } from "@lib/search";
+
+const toggle =
+document.querySelector("#menu-toggle");
+
+
+const menu =
+document.querySelector<HTMLElement>("#mobile-menu");
+
+const iconMenu =
+toggle?.querySelector("[data-icon-menu]");
+
+const iconClose =
+toggle?.querySelector("[data-icon-close]");
+
+
+const siteHeader =
+document.querySelector<HTMLElement>("#site-header");
+
+toggle?.addEventListener(
+"click",
+()=>{
+
+const willOpen = menu?.classList.contains("invisible");
+
+if (menu && siteHeader) {
+  menu.style.top = `${siteHeader.getBoundingClientRect().height}px`;
+}
+
+if (willOpen) {
+
+  menu?.classList.remove("invisible");
+
+  requestAnimationFrame(() => {
+    menu?.classList.remove("opacity-0");
+    menu?.classList.remove("translate-y-2");
+  });
+
+} else {
+
+  menu?.classList.add("opacity-0");
+  menu?.classList.add("translate-y-2");
+
+  setTimeout(() => {
+    menu?.classList.add("invisible");
+    closeAllSubmenus();
+  }, 200);
+
+}
+
+
+document.body.classList.toggle(
+  "overflow-hidden"
+);
+
+
+const isOpen = !!willOpen;
+
+toggle.setAttribute("aria-expanded", String(isOpen));
+toggle.setAttribute("aria-label", isOpen ? "Menü schließen" : "Menü öffnen");
+
+iconMenu?.classList.toggle("hidden", isOpen);
+iconClose?.classList.toggle("hidden", !isOpen);
+
+});
+
+
+
+const submenuButtons =
+document.querySelectorAll<HTMLElement>("[data-submenu-button]");
+
+function closeAllSubmenus() {
+
+  submenuButtons.forEach(button => {
+
+    const submenu = button.nextElementSibling;
+
+    submenu?.classList.add("hidden");
+    button.setAttribute("aria-expanded", "false");
+
+    const icon = button.querySelector("span:last-child");
+    if (icon) {
+      icon.textContent = "+";
+    }
+
+  });
+
+}
+
+submenuButtons.forEach(button=>{
+
+
+button.addEventListener(
+"click",
+()=>{
+
+
+const submenu =
+button.nextElementSibling;
+
+const wasHidden =
+submenu?.classList.contains("hidden");
+
+closeAllSubmenus();
+
+if (!wasHidden) {
+  return;
+}
+
+submenu?.classList.remove("hidden");
+
+
+button.setAttribute(
+  "aria-expanded",
+  "true"
+);
+
+
+
+const icon =
+button.querySelector(
+"span:last-child"
+);
+
+
+if(icon){
+
+icon.textContent = "−";
+
+}
+
+
+});
+
+});
+
+
+const mobileSearchToggle =
+document.querySelector("#mobile-search-toggle");
+
+const mobileSearchBack =
+document.querySelector("#mobile-search-back");
+
+const mobileMenuList =
+document.querySelector("#mobile-menu-list");
+
+const mobileSearchPanel =
+document.querySelector("#mobile-search-panel");
+
+const mobileSearchInput =
+document.querySelector<HTMLInputElement>("#mobile-search-input");
+
+const mobileSearchResults =
+document.querySelector<HTMLElement>("#mobile-search-results");
+
+const mobileSearchEmpty =
+document.querySelector<HTMLElement>("#mobile-search-empty");
+
+const mobileSearch =
+mobileSearchInput && mobileSearchResults && mobileSearchEmpty
+  ? attachSearch({ input: mobileSearchInput, results: mobileSearchResults, empty: mobileSearchEmpty })
+  : null;
+
+function openMobileSearch() {
+
+  mobileMenuList?.classList.add("hidden");
+  mobileSearchPanel?.classList.remove("hidden");
+
+  mobileSearchToggle?.setAttribute("aria-expanded", "true");
+
+  setTimeout(() => {
+    mobileSearchInput?.focus();
+  }, 100);
+
+}
+
+function closeMobileSearch() {
+
+  mobileMenuList?.classList.remove("hidden");
+  mobileSearchPanel?.classList.add("hidden");
+
+  mobileSearchToggle?.setAttribute("aria-expanded", "false");
+
+  mobileSearch?.clear();
+
+}
+
+mobileSearchToggle?.addEventListener(
+  "click",
+  () => {
+    openMobileSearch();
+  }
+);
+
+mobileSearchBack?.addEventListener(
+  "click",
+  () => {
+    closeMobileSearch();
+  }
+);
+
+
+</script>

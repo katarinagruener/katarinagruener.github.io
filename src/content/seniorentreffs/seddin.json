@@ -1,0 +1,13 @@
+{
+  "ortsteil": "Seddin",
+  "location": "DORV Zentrum Seddin",
+  "address": "Hauptstraße 17",
+  "time": "Jeweils donnerstags von 14:00 bis 16:00 Uhr",
+  "contactRole": "Ansprechpartner",
+  "contactName": "Eike Matthes",
+  "angebote": [
+    "Gemütliches Kaffeetrinken (Kartenspiel, Würfeln)",
+    "Fahrten",
+    "Weihnachtsfeiern"
+  ]
+}

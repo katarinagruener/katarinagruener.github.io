@@ -1,0 +1,115 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
+import { site } from "@data/site";
+
+const peopleEntries = await getCollection("people");
+const buergermeisterin = peopleEntries.find(
+  (entry) => entry.data.role === "Bürgermeisterin"
+)?.data;
+---
+
+<BaseLayout
+  title="Impressum"
+  description={`Impressum der ${site.name}`}
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Impressum" }]} />
+
+
+<h1
+  class="
+    text-4xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Impressum
+</h1>
+
+
+<div class="mt-8 max-w-3xl space-y-8 text-gray-700 dark:text-gray-300">
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Betreiber und Inhaber der Website www.seddiner-see.de</h2>
+<p>
+{site.name}
+<br />
+{site.contacts.address.district}
+<br />
+{site.contacts.address.street}
+<br />
+{site.contacts.address.zip} {site.contacts.address.city}
+</p>
+
+<p class="mt-4">
+Tel.: <a href={`tel:${site.contacts.phone}`} class="hover:text-primary">{site.contacts.phone}</a>
+<br />
+Fax: {site.contacts.fax}
+<br />
+E-Mail: <ObfuscatedEmail email={site.contacts.email} class="hover:text-primary" />
+</p>
+</section>
+
+
+<section>
+<p>
+Die Gemeinde Seddiner See ist eine Körperschaft des öffentlichen Rechts. Sie wird vertreten durch die Bürgermeisterin {buergermeisterin?.name ?? "Carina Simmes"}.
+</p>
+</section>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Verantwortlich für den Inhalt</h2>
+<p>
+Verantwortlich gemäß § 18 Abs. 2 MStV: {buergermeisterin?.name ?? "Carina Simmes"}
+</p>
+</section>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Bildnachweis</h2>
+<p>
+Wir danken für die großzügige Bereitstellung von Fotos und anderem Material der Firma Grafik &amp; Design Marlies Roschke.
+</p>
+</section>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Haftungsausschluss</h2>
+<p>
+Wir bieten auf unserer Homepage Links zu anderen Seiten im Internet an. Für alle diese Links gilt: Die Gemeinde Seddiner See als Betreiber dieser Website betont ausdrücklich, dass sie keinerlei Einfluss auf die Gestaltung und die Inhalte der gelinkten Seiten hat. Deshalb distanzieren wir uns hiermit ausdrücklich von allen Inhalten aller gelinkten Seiten auf der gesamten Homepage inklusive aller Unterseiten. Diese Erklärung gilt für alle auf den Webseiten angebrachten Links und für alle Inhalte der Seiten, zu denen Links oder Banner führen.
+</p>
+</section>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Wichtiger Hinweis</h2>
+<p>
+Der E-Mail-Verkehr mit der Gemeinde Seddiner See steht überwiegend als reiner Kommunikationsweg zur Verfügung. Es wird darauf hingewiesen, dass per E-Mail Anträge oder Schriftsätze nicht rechtswirksam eingereicht werden können. Sollte Ihre Nachricht einen entsprechenden Schriftsatz beinhalten, ist eine Wiederholung der Übermittlung auf dem Postwege unbedingt erforderlich. Bitte geben Sie bei Nutzung unseres E-Mail-Zugangs neben der E-Mail-Adresse auch Ihre Postanschrift an, da es aus verwaltungsinternen und rechtlichen Gründen nicht immer möglich ist, E-Mails auf elektronischem Wege zu beantworten.
+</p>
+</section>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

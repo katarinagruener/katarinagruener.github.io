@@ -1,0 +1,95 @@
+---
+interface OpeningHour {
+  day: string;
+  time: string;
+}
+
+interface Props {
+
+  title: string;
+
+  hours: OpeningHour[];
+
+}
+
+
+const {
+  title,
+  hours
+} = Astro.props;
+
+---
+
+<section>
+
+<h3
+  class="
+    mb-6
+    text-2xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+{title}
+</h3>
+
+
+
+<div
+  class="
+    space-y-3
+  "
+>
+
+
+{
+hours.map(item => (
+
+<div
+  class="
+    flex
+    flex-col
+    gap-1
+    rounded-2xl
+    bg-gray-50 dark:bg-gray-800
+    px-5
+    py-4
+    transition
+    hover:bg-gray-100 hover:dark:bg-gray-800
+    sm:flex-row
+    sm:justify-between
+  "
+>
+
+
+<span
+  class="
+    font-semibold
+    text-gray-900 dark:text-gray-100
+  "
+>
+{item.day}
+</span>
+
+
+
+<span
+  class="
+    text-gray-600 dark:text-gray-400
+  "
+>
+{item.time}
+</span>
+
+
+
+</div>
+
+))
+}
+
+
+</div>
+
+
+</section>

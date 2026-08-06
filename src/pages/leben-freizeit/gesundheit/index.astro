@@ -1,0 +1,240 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+
+import { blutspende, notdienste } from "@data/gesundheit";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = await getCollection("gesundheit");
+const hero = await getPageHero("gesundheit");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+
+const aerzte = entries.filter((entry) => entry.data.type === "arzt").map((entry) => ({ ...entry.data, slug: entry.id }));
+const zahnaerzte = entries.filter((entry) => entry.data.type === "zahnarzt").map((entry) => ({ ...entry.data, slug: entry.id }));
+const apotheken = entries.filter((entry) => entry.data.type === "apotheke").map((entry) => ({ ...entry.data, slug: entry.id }));
+const physiotherapeuten = entries.filter((entry) => entry.data.type === "physiotherapie").map((entry) => ({ ...entry.data, slug: entry.id }));
+
+const ICONS = {
+  arzt: "stethoscope",
+  zahnarzt: "tooth",
+  apotheke: "pharmacy",
+  physiotherapie: "physio"
+} as const;
+
+function iconFor(entry: { type: keyof typeof ICONS; icon?: string }): IconName {
+  return (entry.icon ?? ICONS[entry.type]) as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Gesundheit"
+  description="Ärzte, Zahnärzte und Apotheke in der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Gesundheit" }]} />
+
+<PageHero
+  title={hero?.title ?? "Gesundheit"}
+  subtitle={hero?.subtitle ?? "Medizinische Einrichtungen"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<!-- Apotheke -->
+
+<section class="mt-8">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Apotheke
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {apotheken.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.role}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      website={entry.website}
+      hours={entry.hours}
+    />
+  ))}
+</div>
+
+</section>
+
+
+<!-- Ärzte -->
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Ärzte
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {aerzte.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.role}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      website={entry.website}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+      hoursLabel="Sprechzeiten"
+      bookingUrl={entry.bookingUrl}
+    />
+  ))}
+</div>
+
+</section>
+
+
+<!-- Physiotherapie -->
+
+{physiotherapeuten.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Physiotherapie
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {physiotherapeuten.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.role}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      website={entry.website}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+      hoursLabel="Sprechzeiten"
+      bookingUrl={entry.bookingUrl}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+<!-- Zahnärzte -->
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Zahnärzte
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {zahnaerzte.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.role}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      website={entry.website}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+      hoursLabel="Sprechzeiten"
+      bookingUrl={entry.bookingUrl}
+    />
+  ))}
+</div>
+
+</section>
+
+
+<!-- Notdienste -->
+
+<div class="mt-12 flex items-start gap-4 rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+
+<span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+<Icon name="ambulance" class="h-6 w-6" />
+</span>
+
+<div>
+<h2 class="font-bold text-gray-900 dark:text-gray-100">Notdienste</h2>
+
+<div class="mt-3 space-y-2 text-sm text-gray-700 dark:text-gray-300">
+{
+  notdienste.map((item) => (
+    <p class="flex items-start gap-2">
+      <Icon name="phone" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+      <span>
+        {item.label}: <a href={`tel:${item.phone}`} class="font-semibold text-primary hover:underline">{item.phone}</a>
+      </span>
+    </p>
+  ))
+}
+</div>
+
+</div>
+
+</div>
+
+
+<!-- Blutspende -->
+
+<div class="mt-12 flex items-start gap-4 rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+
+<span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+<Icon name="droplet" class="h-6 w-6" />
+</span>
+
+<div>
+<h2 class="font-bold text-gray-900 dark:text-gray-100">{blutspende.title}</h2>
+<p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{blutspende.note}</p>
+</div>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

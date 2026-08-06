@@ -1,0 +1,11 @@
+{
+  "name": "Ortsfeuerwehr Seddin",
+  "type": "ortsfeuerwehr",
+  "roles": [
+    "Ortswehrführer: Benjamin Böge",
+    "Stellv. Ortswehrführerin: Manuela Liebig"
+  ],
+  "phone": ["033205 / 46512"],
+  "email": "info@feuerwehr-seddin.de",
+  "website": "feuerwehr-seddin.de"
+}

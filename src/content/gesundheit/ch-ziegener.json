@@ -1,0 +1,21 @@
+{
+  "name": "Dr. med. Christian Ziegener",
+  "type": "zahnarzt",
+  "role": [
+    "Zahnarzt"
+  ],
+  "address": "Thielenstraße 8, 14554 Seddiner See",
+  "phone": [
+    "033205 / 44700",
+    "033205 / 4589"
+  ],
+  "website": "zahnarzt-ziegener.de",
+  "hours": [
+    { "day": "Montag", "time": "08.00–11.00 und 14.30–19.00 Uhr" },
+    { "day": "Dienstag", "time": "08.00–11.00 Uhr" },
+    { "day": "Mittwoch", "time": "08.00–11.00 Uhr" },
+    { "day": "Donnerstag", "time": "14.00–19.00 Uhr" },
+    { "day": "Freitag", "time": "08.00–11.00 Uhr" }
+  ],
+  "hoursNote": "weitere Termine nach Vereinbarung"
+}

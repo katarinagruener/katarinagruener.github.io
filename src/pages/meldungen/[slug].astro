@@ -1,0 +1,142 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import Button from "@components/ui/Button.astro";
+import Icon from "@components/ui/Icon.astro";
+
+import { NEWS_CATEGORIES } from "@data/newsCategories";
+import { getAttachmentType } from "@lib/newsAttachment";
+
+export async function getStaticPaths() {
+  const news = await getCollection("meldungen");
+
+  return news.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry }
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"meldungen">;
+}
+
+const { entry } = Astro.props as Props;
+const { title, date, description, file, href, cover, category } = entry.data;
+
+const categoryMeta = category ? NEWS_CATEGORIES[category] : undefined;
+const attachmentType = getAttachmentType(file);
+const image = cover ?? (attachmentType === "image" ? file : undefined);
+const isExternalLink = href?.startsWith("http");
+
+const formattedDate = date.toLocaleDateString("de-DE", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric"
+});
+---
+
+
+<BaseLayout
+  title={title}
+  description={description?.[0] ?? title}
+>
+
+
+<section class="py-12">
+
+
+<div class="container max-w-3xl">
+
+
+<Breadcrumbs
+  items={[
+    { label: "Meldungen", href: "/meldungen" },
+    { label: title }
+  ]}
+/>
+
+
+<div class="flex flex-wrap items-center justify-between gap-3">
+
+{categoryMeta ? (
+  <span
+    class:list={[
+      "inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold",
+      categoryMeta.badgeClasses
+    ]}
+  >
+    <Icon name={categoryMeta.icon} class="h-3.5 w-3.5" /> {categoryMeta.label}
+  </span>
+) : <span />}
+
+<span class="shrink-0 text-sm text-gray-500 dark:text-gray-400">{formattedDate}</span>
+
+</div>
+
+
+<h1 class="mt-4 text-3xl font-bold leading-tight text-gray-900 dark:text-gray-100 md:text-4xl">
+{title}
+</h1>
+
+
+{description && description.length > 0 && (
+  <div class="mt-8 space-y-4 leading-relaxed text-gray-700 dark:text-gray-300">
+    {description.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </div>
+)}
+
+
+{image && (
+  <img
+    src={image}
+    alt={title}
+    class="mt-8 w-full rounded-2xl border border-gray-200 dark:border-gray-700"
+  />
+)}
+
+
+<div class="mt-8 flex flex-wrap gap-4">
+
+{attachmentType === "pdf" && file && (
+  <Button href={file} download size="lg" class="items-center gap-2">
+    <Icon name="document" class="h-4 w-4" /> PDF herunterladen
+  </Button>
+)}
+
+{isExternalLink && href && (
+  <Button href={href} target="_blank" rel="noopener noreferrer" size="lg" class="items-center gap-2">
+    Zum Artikel <Icon name="link" class="h-4 w-4" />
+  </Button>
+)}
+
+</div>
+
+
+<a
+  href="/meldungen"
+  class="
+    mt-12
+    inline-flex
+    items-center
+    gap-1
+    text-sm
+    font-semibold
+    text-primary
+    hover:text-primary-dark
+  "
+>
+  <Icon name="arrow-left" class="h-4 w-4" /> Zurück zu Meldungen
+</a>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

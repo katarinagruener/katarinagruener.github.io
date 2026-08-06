@@ -1,0 +1,45 @@
+---
+import Icon from "@components/ui/Icon.astro";
+---
+
+<dialog
+  id="photo-lightbox"
+  class="fixed left-1/2 top-1/2 m-0 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-2xl border-0 bg-transparent p-0 backdrop:bg-slate-950/80"
+>
+
+  <div class="relative">
+
+    <button
+      type="button"
+      data-lightbox-close
+      aria-label="Schließen"
+      class="absolute right-0 top-0 flex h-10 w-10 -translate-y-full items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+    >
+      <Icon name="close" class="h-5 w-5" />
+    </button>
+
+    <img id="lightbox-image" alt="" class="max-h-[75vh] w-full rounded-2xl object-contain" />
+
+    <button
+      type="button"
+      data-lightbox-prev
+      aria-label="Vorheriges Bild"
+      class="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-gray-900 transition hover:bg-white"
+    >
+      <Icon name="arrow-left" class="h-5 w-5" />
+    </button>
+
+    <button
+      type="button"
+      data-lightbox-next
+      aria-label="Nächstes Bild"
+      class="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-gray-900 transition hover:bg-white"
+    >
+      <Icon name="arrow-right" class="h-5 w-5" />
+    </button>
+
+    <p id="lightbox-counter" class="mt-3 text-center text-sm text-white/80"></p>
+
+  </div>
+
+</dialog>

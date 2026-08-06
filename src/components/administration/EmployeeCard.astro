@@ -1,0 +1,135 @@
+---
+import Icon from "@components/ui/Icon.astro";
+import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
+import type { CollectionEntry } from "astro:content";
+
+type Employee = CollectionEntry<"verwaltung-mitarbeiter">["data"];
+
+interface Props {
+  employee: Employee;
+  slug?: string;
+}
+
+const {
+  employee,
+  slug
+} = Astro.props;
+
+---
+
+
+<div
+  class="
+    rounded-2xl
+    border
+    border-gray-200 dark:border-gray-700
+    bg-gray-50 dark:bg-gray-800
+    p-6
+    transition
+    hover:shadow-md
+    [&:has(:target)]:border-primary [&:has(:target)]:ring-2 [&:has(:target)]:ring-primary/50
+  "
+>
+
+
+<h3
+  id={slug && `card-${slug}`}
+  class="
+    scroll-mt-24
+    text-lg
+    font-semibold
+    text-gray-800 dark:text-gray-200
+  "
+>
+{employee.name}
+</h3>
+
+
+
+{
+  employee.position && (
+
+<p
+  class="
+    mt-1
+    text-sm
+    text-primary
+  "
+>
+{employee.position}
+</p>
+
+)
+}
+
+
+
+
+<div
+  class="
+    mt-4
+    space-y-2
+    text-sm
+    text-gray-600 dark:text-gray-400
+  "
+>
+
+
+{
+  employee.phone?.map(phone => (
+
+<p class="flex items-center gap-2">
+<Icon name="phone" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> {phone}
+</p>
+
+))
+}
+
+
+
+
+{
+  employee.mobile?.map(mobile => (
+
+<p class="flex items-center gap-2">
+<Icon name="mobile" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> {mobile}
+</p>
+
+))
+}
+
+
+
+
+{
+  employee.room && (
+
+<p class="flex items-center gap-2">
+<Icon name="room" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> Raum: {employee.room}
+</p>
+
+)
+
+}
+
+
+
+
+{
+  employee.email?.map(email => (
+
+<p class="flex items-center gap-2">
+<ObfuscatedEmail email={email} class="flex items-center gap-2 hover:text-primary">
+  <Icon name="email" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+</ObfuscatedEmail>
+</p>
+
+))
+
+}
+
+
+</div>
+
+
+</div>

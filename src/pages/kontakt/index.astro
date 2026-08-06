@@ -1,0 +1,136 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+import ContactCard from "@components/administration/ContactCard.astro";
+import OpeningHours from "@components/administration/OpeningHours.astro";
+
+import { site } from "@data/site";
+import { openingHours } from "@data/verwaltung";
+import { getPageHero } from "@lib/pageHero";
+
+const hero = await getPageHero("kontakt");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+---
+
+
+<BaseLayout
+  title="Kontakt"
+  description="Kontakt zur Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Kontakt" }]} />
+
+<PageHero
+  title={hero?.title ?? "Kontakt"}
+  subtitle={hero?.subtitle ?? "Adresse, Sprechzeiten und Kontaktdaten"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<!-- Adresse + Karte -->
+
+<div class="mt-8 grid gap-8 lg:grid-cols-2">
+
+<ContactCard
+  title={site.contacts.organization}
+  addressLines={[
+    site.contacts.address.street,
+    `${site.contacts.address.zip} ${site.contacts.address.city}`,
+    site.contacts.address.district
+  ].filter((line): line is string => Boolean(line))}
+  phone={site.contacts.phone}
+  fax={site.contacts.fax}
+  email={site.contacts.email}
+/>
+
+<div class="overflow-hidden rounded-3xl bg-white dark:bg-gray-900 shadow-sm">
+<iframe
+  src="https://www.google.com/maps?q=Kiefernweg+5+14554+Seddiner+See&output=embed"
+  class="h-full min-h-[300px] w-full border-0"
+  loading="lazy"
+  title="Standort der Gemeindeverwaltung Seddiner See"
+>
+</iframe>
+</div>
+
+</div>
+
+
+<!-- Sprechzeiten -->
+
+<div class="mt-12">
+<OpeningHours
+  title="Sprechzeiten"
+  hours={openingHours}
+/>
+</div>
+
+
+<!-- Anreise -->
+
+<div class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+So erreichen Sie uns
+</h2>
+
+<div class="grid gap-6 sm:grid-cols-3">
+
+<div class="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+<span class="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+<Icon name="bus" class="h-6 w-6" />
+</span>
+<h3 class="mt-4 font-bold text-gray-900 dark:text-gray-100">Bus</h3>
+<p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+PlusBus 643 und Bus 646 verbinden die Ortsteile mit Potsdam und Beelitz
+</p>
+</div>
+
+<div class="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+<span class="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+<Icon name="train" class="h-6 w-6" />
+</span>
+<h3 class="mt-4 font-bold text-gray-900 dark:text-gray-100">Bahn</h3>
+<p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+Regionalbahn ab Potsdam Hauptbahnhof oder Berlin Schönefeld
+</p>
+</div>
+
+<div class="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+<span class="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+<Icon name="car" class="h-6 w-6" />
+</span>
+<h3 class="mt-4 font-bold text-gray-900 dark:text-gray-100">Auto</h3>
+<p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+A9 Abfahrt Beelitz oder A10 Abfahrt Michendorf/Beelitz, dann B2
+</p>
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

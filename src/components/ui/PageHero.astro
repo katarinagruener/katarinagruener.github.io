@@ -1,0 +1,87 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  images?: { src: string; alt: string }[];
+  gradient?: boolean;
+  fullBleed?: boolean;
+}
+
+const { title, subtitle, images = [], gradient = false, fullBleed = false } = Astro.props;
+
+const heightClasses = gradient ? "h-80 md:h-[460px]" : "h-80 md:h-[420px]";
+const overlayClasses = gradient
+  ? "bg-gradient-to-t from-black/60 via-black/30 to-transparent"
+  : "bg-black/40";
+---
+
+{images.length > 0 ? (
+
+<div class:list={["relative overflow-hidden", fullBleed ? "w-screen ml-[calc(50%-50vw)]" : "rounded-3xl shadow-sm"]} data-page-hero>
+
+<div class:list={["relative", heightClasses]}>
+  {images.map((img, index) => (
+    <img
+      src={img.src}
+      alt={img.alt}
+      data-hero-slide
+      class:list={[
+        "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
+        index === 0 ? "opacity-100" : "opacity-0 pointer-events-none"
+      ]}
+    />
+  ))}
+</div>
+
+<div class:list={["absolute inset-0", overlayClasses]}></div>
+
+{images.length > 1 && (
+  <div class="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+    {images.map((_, index) => (
+      <button
+        type="button"
+        aria-label={`Bild ${index + 1} von ${images.length}`}
+        data-hero-dot
+        class:list={[
+          "h-2.5 w-2.5 rounded-full transition",
+          index === 0 ? "bg-white" : "bg-white/40 hover:bg-white/70"
+        ]}
+      />
+    ))}
+  </div>
+)}
+
+<div class:list={["absolute inset-x-0 bottom-0 text-white", fullBleed ? "" : "p-8 md:p-12"]}>
+
+<div class:list={fullBleed ? "container py-8 md:py-12" : ""}>
+
+<h1 class="text-3xl font-bold md:text-5xl">{title}</h1>
+
+{subtitle && (
+<p class="mt-3 text-lg text-white/90">{subtitle}</p>
+)}
+
+</div>
+
+</div>
+
+</div>
+
+) : (
+
+<div>
+
+<h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 md:text-4xl">{title}</h1>
+
+{subtitle && (
+<p class="mt-3 max-w-2xl text-lg text-gray-600 dark:text-gray-400">{subtitle}</p>
+)}
+
+</div>
+
+)}
+
+<script>
+  import { initPageHeroCarousels } from "@lib/pageHeroCarousel";
+  initPageHeroCarousels();
+</script>

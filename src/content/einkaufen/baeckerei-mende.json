@@ -1,0 +1,11 @@
+{
+  "name": "Bäckerei Mende OHG",
+  "type": "geschaeft",
+  "address": "Kunersdorfer Str. 24, 14554 Seddiner See",
+  "phone": ["033205 / 209097"],
+  "website": "baeckerei-mende.de",
+  "hours": [
+    { "day": "Dienstag–Freitag", "time": "07.00–18.00 Uhr" },
+    { "day": "Samstag", "time": "06.30–11.00 Uhr" }
+  ]
+}

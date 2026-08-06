@@ -1,0 +1,11 @@
+{
+  "name": "Ortsfeuerwehr Neuseddin",
+  "type": "ortsfeuerwehr",
+  "roles": [
+    "Ortswehrführer: Tino Kortyka",
+    "Stellv. Ortswehrführer: Marco Lüttich, Jens Pfeiffer"
+  ],
+  "phone": ["033205 / 62856"],
+  "email": "info@feuerwehr-neuseddin.de",
+  "website": "feuerwehr-neuseddin.de"
+}

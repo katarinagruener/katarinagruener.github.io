@@ -1,0 +1,69 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import EventCalendar from "@components/events/EventCalendar.astro";
+import EventList from "@components/events/EventList.astro";
+import EventModal from "@components/events/EventModal.astro";
+import { getPageHero } from "@lib/pageHero";
+
+const hero = await getPageHero("veranstaltungen");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+---
+
+<BaseLayout
+  title="Veranstaltungen"
+  description="Veranstaltungskalender der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Veranstaltungen" }]} />
+
+<PageHero
+  title={hero?.title ?? "Veranstaltungen"}
+  subtitle={hero?.subtitle ?? "Der Veranstaltungskalender"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<div class="mt-8">
+
+<EventCalendar showUpcoming />
+
+</div>
+
+
+<div class="mt-16">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Alle Veranstaltungen
+</h2>
+
+<EventList />
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<EventModal />
+
+
+</BaseLayout>

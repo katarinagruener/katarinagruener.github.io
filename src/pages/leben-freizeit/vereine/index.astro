@@ -1,0 +1,211 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("vereine")).map((entry) => ({ ...entry.data, slug: entry.id }));
+const hero = await getPageHero("vereine");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+
+const sport = entries.filter((entry) => entry.category === "sport");
+const angeln = entries.filter((entry) => entry.category === "angeln");
+const garten = entries.filter((entry) => entry.category === "garten");
+const sonstige = entries.filter((entry) => entry.category === "sonstige");
+const freizeit = entries.filter((entry) => entry.category === "freizeit");
+
+function iconFor(entry: { icon?: string }): IconName {
+  return (entry.icon ?? "group") as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Vereine & Sport"
+  description="Sportvereine, Angelvereine, Gartenvereine und weitere Vereine der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Vereine & Sport" }]} />
+
+<PageHero
+  title={hero?.title ?? "Vereine & Sport"}
+  subtitle={hero?.subtitle ?? "Sportvereine, Angelvereine, Gartenvereine und weitere Vereine"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+{sport.length > 0 && (
+
+<section class="mt-8">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Sportvereine
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {sport.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.roles}
+      address={entry.address}
+      phone={entry.phone}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{angeln.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Angelvereine
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {angeln.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.roles}
+      address={entry.address}
+      phone={entry.phone}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{garten.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Gartenvereine
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {garten.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.roles}
+      address={entry.address}
+      phone={entry.phone}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{sonstige.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Weitere Vereine
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {sonstige.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.roles}
+      address={entry.address}
+      phone={entry.phone}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{freizeit.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Freizeit und Sport
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {freizeit.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry)}
+      role={entry.roles}
+      address={entry.address}
+      phone={entry.phone}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

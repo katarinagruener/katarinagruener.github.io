@@ -1,0 +1,23 @@
+---
+interface Hour {
+  day: string;
+  time: string;
+}
+
+interface Props {
+  hours: Hour[];
+  note?: string;
+}
+
+const { hours, note } = Astro.props;
+---
+
+<div class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1">
+  {hours.map((item) => (
+    <>
+      <span class="font-medium text-gray-900 dark:text-gray-100">{item.day}:</span>
+      <span class="text-gray-700 dark:text-gray-300">{item.time}</span>
+    </>
+  ))}
+  {note && <p class="col-span-2 mt-1 text-xs text-gray-500 dark:text-gray-400">{note}</p>}
+</div>

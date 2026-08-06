@@ -1,0 +1,144 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+
+import { pflegestuetzpunkt } from "@data/soziales";
+import { getPageHero } from "@lib/pageHero";
+
+const treffs = (await getCollection("seniorentreffs")).map((entry) => ({ ...entry.data, slug: entry.id }));
+const hero = await getPageHero("senioren");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+---
+
+
+<BaseLayout
+  title="Senioren & Pflege"
+  description="Seniorentreffpunkte und Pflegeberatung in der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Senioren & Pflege" }]} />
+
+<PageHero
+  title={hero?.title ?? "Senioren & Pflege"}
+  subtitle={hero?.subtitle ?? "Treffpunkte und Beratungsangebote"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<!-- Treffpunkt Senioren -->
+
+<section class="mt-8">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Treffpunkt Senioren
+</h2>
+
+<div class="grid gap-6 md:grid-cols-3">
+
+{
+  treffs.map((treff) => (
+    <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6 [&:has(:target)]:border-primary [&:has(:target)]:ring-2 [&:has(:target)]:ring-primary/50">
+
+      <span class="flex h-11 w-11 items-center justify-center rounded-full bg-accent/10 text-accent">
+        <Icon name="meeting-point" class="h-6 w-6" />
+      </span>
+
+      <h3 id={`card-${treff.slug}`} class="scroll-mt-24 mt-4 font-bold text-gray-900 dark:text-gray-100">OT {treff.ortsteil}</h3>
+
+      <p class="mt-1 text-sm text-gray-700 dark:text-gray-300">{treff.location}</p>
+      {treff.address && (
+        <p class="text-sm text-gray-600 dark:text-gray-400">{treff.address}</p>
+      )}
+
+      <div class="mt-4 border-t border-gray-100 dark:border-gray-800 pt-4">
+        <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">Treff</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">{treff.time}</p>
+      </div>
+
+      <div class="mt-3">
+        <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">{treff.contactRole}</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">{treff.contactName}</p>
+        {treff.contactAddress && (
+          <p class="text-sm text-gray-600 dark:text-gray-400">{treff.contactAddress}</p>
+        )}
+      </div>
+
+      {treff.angebote && (
+        <div class="mt-3">
+          <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">Angebote</p>
+          <ul class="mt-1 space-y-0.5 text-sm text-gray-600 dark:text-gray-400">
+            {treff.angebote.map((item) => (<li>{item}</li>))}
+          </ul>
+        </div>
+      )}
+
+    </div>
+  ))
+}
+
+</div>
+
+</section>
+
+
+<!-- Pflegestützpunkt -->
+
+<section class="mt-12">
+
+<div class="rounded-3xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-8">
+
+  <div class="flex items-start gap-5">
+
+    <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+      <Icon name="helping-hand" class="h-6 w-6" />
+    </span>
+
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{pflegestuetzpunkt.title}</h2>
+
+  </div>
+
+  <div class="mt-6 max-w-3xl space-y-3 text-gray-700 dark:text-gray-300">
+    {pflegestuetzpunkt.paragraphs.map((paragraph) => (<p>{paragraph}</p>))}
+  </div>
+
+  <div class="mt-6 border-t border-gray-100 dark:border-gray-800 pt-6 text-sm text-gray-700 dark:text-gray-300">
+    <p class="flex items-start gap-2">
+      <Icon name="location" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+      <span>
+        {pflegestuetzpunkt.address}
+        <br />
+        <span class="text-gray-500 dark:text-gray-400">{pflegestuetzpunkt.note}</span>
+      </span>
+    </p>
+  </div>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

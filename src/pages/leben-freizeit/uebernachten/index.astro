@@ -1,0 +1,187 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("uebernachten")).map((entry) => ({ ...entry.data, slug: entry.id }));
+const hero = await getPageHero("uebernachten");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+
+const hotels = entries.filter((entry) => entry.type === "hotel");
+const pensionen = entries.filter((entry) => entry.type === "pension");
+const ferienwohnungen = entries.filter((entry) =>
+  entry.type === "ferienwohnung" || entry.type === "ferienhaus" || entry.type === "zimmer"
+);
+const campingplaetze = entries.filter((entry) => entry.type === "camping");
+
+function iconFor(entry: { icon?: string }, fallback: IconName): IconName {
+  return (entry.icon ?? fallback) as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Übernachten"
+  description="Hotels, Pensionen, Ferienwohnungen und Campingplätze in der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Übernachten" }]} />
+
+<PageHero
+  title={hero?.title ?? "Übernachten"}
+  subtitle={hero?.subtitle ?? "Hotels, Pensionen, Ferienwohnungen und Campingplätze"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+{hotels.length > 0 && (
+
+<section class="mt-8">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Hotels
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {hotels.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "bed")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{pensionen.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Pensionen
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {pensionen.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "bed")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{ferienwohnungen.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Ferienwohnungen
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {ferienwohnungen.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "bed")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{campingplaetze.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Campingplätze
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {campingplaetze.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "tent")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

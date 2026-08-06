@@ -1,0 +1,18 @@
+{
+  "name": "Dipl.-Stom. Karin Gerbrand",
+  "type": "zahnarzt",
+  "role": [
+    "Zahnärztin"
+  ],
+  "address": "Kunersdorfer Str. 34, 14554 Seddiner See",
+  "phone": [
+    "033205 / 44563"
+  ],
+  "hours": [
+    { "day": "Montag", "time": "07.45–16.00 Uhr" },
+    { "day": "Dienstag", "time": "13.00–20.00 Uhr" },
+    { "day": "Mittwoch", "time": "07.45–14.00 Uhr" },
+    { "day": "Donnerstag", "time": "12.00–19.00 Uhr" },
+    { "day": "Freitag", "time": "07.45–13.00 Uhr" }
+  ]
+}

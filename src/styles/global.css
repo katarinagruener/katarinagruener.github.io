@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@theme {
+  --color-primary: #0296c6;
+  --color-primary-dark: #027195;
+
+  --color-accent: #e64625;
+  --color-accent-dark: #b8381e;
+
+  --color-background: #ffffff;
+
+  --color-text: #1f2933;
+
+  --container-width: 1200px;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark {
+  --color-background: #0f172a;
+  --color-text: #e2e8f0;
+}
+
+
+body {
+  margin: 0;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: var(--color-text);
+
+  background: var(--color-background);
+
+  line-height: 1.6;
+
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+
+.container {
+  width: min(
+    100% - 2rem,
+    var(--container-width)
+  );
+
+  margin-inline: auto;
+}
+
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+
+.theme-transition-lock,
+.theme-transition-lock * {
+  transition: none !important;
+}

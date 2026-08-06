@@ -1,0 +1,257 @@
+---
+import Icon from "@components/ui/Icon.astro";
+import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
+import { site } from "@data/site";
+---
+
+<footer class="border-t-4 border-accent bg-slate-950 text-gray-300">
+
+
+  <div class="container py-12">
+
+
+    <div
+      class="
+        grid
+        gap-10
+        md:grid-cols-3
+      "
+    >
+
+
+      <!-- Contact -->
+
+      <div>
+
+
+        <h2
+          class="
+            mb-5
+            text-lg
+            font-semibold
+            text-white
+          "
+        >
+          {site.name}
+        </h2>
+
+
+        <p class="mb-4 text-sm leading-6">
+
+          {site.contacts.organization}
+          <br />
+
+          {site.contacts.address.street}
+          <br />
+
+          {site.contacts.address.zip}
+          {" "}
+          {site.contacts.address.city}
+          <br />
+
+          {site.contacts.address.district}
+
+        </p>
+
+
+
+        <div class="space-y-2 text-sm">
+
+
+          <a
+            href={`tel:${site.contacts.phone}`}
+            class="
+              flex
+              items-center
+              gap-2
+              transition
+              hover:text-accent
+            "
+          >
+            <Icon name="phone" class="h-4 w-4 shrink-0 text-accent" /> {site.contacts.phone}
+          </a>
+
+
+          <ObfuscatedEmail
+            email={site.contacts.email}
+            class="
+              flex
+              items-center
+              gap-2
+              transition
+              hover:text-accent
+            "
+          >
+            <Icon name="email" class="h-4 w-4 shrink-0 text-accent" />
+          </ObfuscatedEmail>
+
+
+          <a
+            href="/kontakt"
+            class="
+              flex
+              items-center
+              gap-2
+              transition
+              hover:text-accent
+            "
+          >
+            <Icon name="location" class="h-4 w-4 shrink-0 text-accent" /> Anfahrt
+          </a>
+
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- Service -->
+
+
+      <div>
+
+
+        <h2
+          class="
+            mb-5
+            text-lg
+            font-semibold
+            text-white
+          "
+        >
+          Service
+        </h2>
+
+
+        <ul class="space-y-3 text-sm">
+
+
+          <li>
+            <a
+              href="/kontakt"
+              class="transition hover:text-accent"
+            >
+              Kontakt
+            </a>
+          </li>
+
+
+          <li>
+            <a
+              href="/links"
+              class="transition hover:text-accent"
+            >
+              Links
+            </a>
+          </li>
+
+
+        </ul>
+
+
+      </div>
+
+
+
+
+      <!-- Legal -->
+
+
+      <div>
+
+
+        <h2
+          class="
+            mb-5
+            text-lg
+            font-semibold
+            text-white
+          "
+        >
+          Informationen
+        </h2>
+
+
+        <ul class="space-y-3 text-sm">
+
+
+          <li>
+
+            <a
+              href={site.legal.imprint}
+              class="transition hover:text-accent"
+            >
+              Impressum
+            </a>
+
+          </li>
+
+
+
+          <li>
+
+            <a
+              href={site.legal.privacy}
+              class="transition hover:text-accent"
+            >
+              Datenschutz
+            </a>
+
+          </li>
+
+
+
+        </ul>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- Bottom -->
+
+
+  <div
+    class="
+      border-t
+      border-white/10
+    "
+  >
+
+    <div
+  class="
+    container
+    flex
+    items-center
+    justify-center
+    py-2
+    text-xs
+    text-gray-400
+    md:justify-between
+  "
+>
+
+    <p>
+    © {new Date().getFullYear()} {site.name}
+    </p>
+
+
+    <p class="hidden md:block">
+    Offizielle Website der Gemeinde Seddiner See
+    </p>
+
+
+    </div>
+
+  </div>
+
+
+</footer>

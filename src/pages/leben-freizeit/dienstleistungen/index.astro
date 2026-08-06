@@ -1,0 +1,302 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import BusinessCard from "@components/leben/BusinessCard.astro";
+import type { IconName } from "@components/ui/Icon.astro";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("dienstleistungen")).map((entry) => ({ ...entry.data, slug: entry.id }));
+const hero = await getPageHero("dienstleistungen");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+
+const post = entries.filter((entry) => entry.type === "post");
+const friseure = entries.filter((entry) => entry.type === "friseur");
+const massagen = entries.filter((entry) => entry.type === "massage");
+const tierpflege = entries.filter((entry) => entry.type === "tierpflege");
+const versicherungen = entries.filter((entry) => entry.type === "versicherung");
+const haushaltshilfe = entries.filter((entry) => entry.type === "haushaltshilfe");
+const immobilien = entries.filter((entry) => entry.type === "immobilien");
+
+const ICONS = {
+  post: "post",
+  friseur: "scissors",
+  massage: "massage",
+  tierpflege: "paw",
+  versicherung: "briefcase",
+  haushaltshilfe: "helping-hand",
+  immobilien: "briefcase"
+} as const;
+
+function iconFor(entry: { type?: keyof typeof ICONS; icon?: string }, fallback: IconName): IconName {
+  return (entry.icon ?? (entry.type ? ICONS[entry.type] : undefined) ?? fallback) as IconName;
+}
+---
+
+
+<BaseLayout
+  title="Dienstleistungen"
+  description="Post, Friseure und weitere Dienstleistungen in der Gemeinde Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Dienstleistungen" }]} />
+
+<PageHero
+  title={hero?.title ?? "Dienstleistungen"}
+  subtitle={hero?.subtitle ?? "Post, Friseure und weitere Dienstleistungen"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+{post.length > 0 && (
+
+<section class="mt-8">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Post
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {post.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "post")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{friseure.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Friseure
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {friseure.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "scissors")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{massagen.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Massage
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {massagen.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "massage")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{tierpflege.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Tierpflege
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {tierpflege.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "paw")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{versicherungen.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Versicherungen
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {versicherungen.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "briefcase")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{haushaltshilfe.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Haushaltshilfe & Seniorenbetreuung
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {haushaltshilfe.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "helping-hand")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+{immobilien.length > 0 && (
+
+<section class="mt-12">
+
+<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">
+Immobilien
+</h2>
+
+<div class="grid gap-6 md:grid-cols-2">
+  {immobilien.map((entry) => (
+    <BusinessCard
+      name={entry.name}
+      slug={entry.slug}
+      icon={iconFor(entry, "briefcase")}
+      address={entry.address}
+      phone={entry.phone}
+      mobile={entry.mobile}
+      fax={entry.fax}
+      email={entry.email}
+      website={entry.website}
+      note={entry.note}
+      hours={entry.hours}
+      hoursNote={entry.hoursNote}
+    />
+  ))}
+</div>
+
+</section>
+
+)}
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

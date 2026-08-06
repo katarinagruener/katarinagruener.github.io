@@ -1,0 +1,10 @@
+{
+  "name": "Dönerladen Neuseddin Mehmet Kaplan",
+  "type": "imbiss",
+  "address": "Pappelallee 14, 14554 Seddiner See",
+  "mobile": ["0176 / 76629692"],
+  "hours": [
+    { "day": "Montag–Freitag", "time": "10.00–22.00 Uhr" },
+    { "day": "Samstag–Sonntag", "time": "11.00–21.00 Uhr" }
+  ]
+}

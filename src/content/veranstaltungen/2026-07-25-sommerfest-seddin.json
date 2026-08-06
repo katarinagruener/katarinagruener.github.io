@@ -1,0 +1,12 @@
+{
+  "title": "Sommerfest Seddin",
+  "description": "Spaß für Jung und Alt mit der Gruppe PAN",
+  "start": "2026-07-25T18:00:00",
+  "end": "2026-08-15T01:00:00",
+  "location": {
+    "name": "Feuerwehr Seddin",
+    "street": "Hauptstr. 18",
+    "zip": "14554",
+    "city": "Seddiner See"
+  }
+}

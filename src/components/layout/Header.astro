@@ -1,0 +1,348 @@
+---
+import Logo from "@components/ui/Logo.astro";
+import Icon from "@components/ui/Icon.astro";
+import ThemeToggle from "@components/ui/ThemeToggle.astro";
+import MainMenu from "@components/navigation/MainMenu.astro";
+import MobileMenu from "@components/navigation/MobileMenu.astro";
+---
+
+<header
+  id="site-header"
+  class="
+    sticky
+    top-0
+    z-50
+    bg-white dark:bg-gray-900
+    border-b
+    border-gray-100 dark:border-gray-800
+    transition-all
+    duration-300
+  "
+>
+
+  <div class="container">
+
+    <div
+  id="header-inner"
+  class="
+    flex
+    h-20
+    items-center
+    justify-between
+    gap-8
+    transition-all
+    duration-300
+  "
+>
+
+
+      <!-- Brand -->
+
+      <Logo />
+
+
+
+      <!-- Navigation -->
+
+      <div
+        id="header-nav-row"
+        class="
+          hidden
+          items-center
+          gap-10
+          lg:flex
+        "
+      >
+
+        <MainMenu />
+
+
+        <!-- Search -->
+
+        <div class="relative">
+
+          <button
+            id="search-toggle"
+            type="button"
+            class="
+              flex
+              h-9
+              w-9
+              items-center
+              justify-center
+              rounded-full
+              bg-gray-100 dark:bg-gray-800
+              text-gray-700 dark:text-gray-300
+              transition
+              hover:bg-gray-200 dark:hover:bg-gray-700
+            "
+            aria-label="Suche"
+            aria-expanded="false"
+            aria-controls="header-search-panel"
+          >
+
+            <Icon name="search" class="h-5 w-5" />
+
+          </button>
+
+
+          <div
+            id="header-search-panel"
+            role="search"
+            aria-label="Website durchsuchen"
+            class="
+              hidden
+              absolute
+              right-0
+              top-full
+              z-50
+              mt-3
+              w-80
+              max-h-[70vh]
+              overflow-y-auto
+              rounded-2xl
+              border
+              border-gray-200 dark:border-gray-700
+              bg-white dark:bg-gray-900
+              p-4
+              shadow-lg
+              sm:w-96
+            "
+          >
+
+            <div class="relative">
+
+              <Icon name="search" class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+
+              <input
+                id="header-search-input"
+                type="search"
+                autocomplete="off"
+                placeholder="Suchbegriff eingeben …"
+                aria-label="Suchbegriff eingeben"
+                class="
+                  w-full
+                  rounded-full
+                  border
+                  border-gray-300 dark:border-gray-600
+                  bg-gray-100 dark:bg-gray-800
+                  py-2.5
+                  pl-9
+                  pr-4
+                  text-sm
+                  text-gray-900 dark:text-gray-100
+                  placeholder:text-gray-500 dark:placeholder:text-gray-400
+                  transition
+                  focus:border-primary
+                  focus:bg-white dark:focus:bg-gray-700
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-primary/30
+                "
+              />
+
+            </div>
+
+            <div id="header-search-results" class="mt-3 space-y-1"></div>
+
+            <p id="header-search-empty" class="hidden mt-3 px-3 text-sm text-gray-500 dark:text-gray-400"></p>
+
+            <a
+              href="/suche"
+              class="
+                mt-3
+                inline-flex
+                items-center
+                gap-1
+                px-3
+                text-sm
+                font-semibold
+                text-primary
+                hover:text-primary-dark
+              "
+            >
+              Erweiterte Suche <Icon name="arrow-right" class="h-4 w-4" />
+            </a>
+
+          </div>
+
+
+        </div>
+
+
+        <ThemeToggle />
+
+
+      </div>
+
+
+
+      <!-- Mobile -->
+
+      <div class="flex items-center gap-2 lg:hidden">
+
+        <ThemeToggle />
+
+        <MobileMenu />
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<style>
+  #header-search-results mark {
+    background: transparent;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+</style>
+
+
+<script>
+
+import { attachSearch } from "@lib/search";
+
+const header =
+document.querySelector("#site-header");
+
+const inner =
+document.querySelector("#header-inner");
+
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    if(window.scrollY > 30){
+
+      header?.classList.add(
+        "shadow-sm"
+      );
+
+      inner?.classList.remove(
+        "h-20"
+      );
+
+      inner?.classList.add(
+        "h-16"
+      );
+
+    } else {
+
+      header?.classList.remove(
+        "shadow-sm"
+      );
+
+      inner?.classList.remove(
+        "h-16"
+      );
+
+      inner?.classList.add(
+        "h-20"
+      );
+
+    }
+
+  }
+);
+
+
+const searchToggle =
+document.querySelector("#search-toggle");
+
+const searchPanel =
+document.querySelector("#header-search-panel");
+
+const searchInput =
+document.querySelector<HTMLInputElement>("#header-search-input");
+
+const searchResults =
+document.querySelector<HTMLElement>("#header-search-results");
+
+const searchEmpty =
+document.querySelector<HTMLElement>("#header-search-empty");
+
+const search =
+searchInput && searchResults && searchEmpty
+  ? attachSearch({ input: searchInput, results: searchResults, empty: searchEmpty })
+  : null;
+
+function openSearch() {
+
+  searchPanel?.classList.remove("hidden");
+
+  searchToggle?.setAttribute("aria-expanded", "true");
+  searchToggle?.setAttribute("aria-label", "Suche schließen");
+
+  requestAnimationFrame(() => {
+    searchInput?.focus();
+  });
+
+}
+
+function closeSearch() {
+
+  searchPanel?.classList.add("hidden");
+
+  searchToggle?.setAttribute("aria-expanded", "false");
+  searchToggle?.setAttribute("aria-label", "Suche");
+
+  search?.clear();
+
+}
+
+searchToggle?.addEventListener(
+  "click",
+  () => {
+
+    const isOpen =
+      searchToggle.getAttribute("aria-expanded") === "true";
+
+    if (isOpen) {
+      closeSearch();
+    } else {
+      openSearch();
+    }
+
+  }
+);
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (event.key === "Escape") {
+      closeSearch();
+    }
+
+  }
+);
+
+document.addEventListener(
+  "click",
+  (event) => {
+
+    const target = event.target as Node;
+
+    const isOpen =
+      searchToggle?.getAttribute("aria-expanded") === "true";
+
+    if (
+      isOpen &&
+      searchPanel &&
+      !searchPanel.contains(target) &&
+      !searchToggle?.contains(target)
+    ) {
+      closeSearch();
+    }
+
+  }
+);
+
+</script>

@@ -1,0 +1,431 @@
+---
+import { getCollection, getEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import PersonCard from "@components/people/PersonCard.astro";
+
+import { gemeindevertretung } from "@data/gemeindevertretung";
+import { getPageHero } from "@lib/pageHero";
+
+async function resolvePerson(id: string) {
+  const person = await getEntry("people", id);
+  return { ...person!.data, slug: person!.id };
+}
+
+const fraktionen = await Promise.all(
+  (await getCollection("fraktionen"))
+    .sort((a, b) => a.id.localeCompare(b.id))
+    .map(async (entry) => ({
+      slug: entry.id,
+      title: entry.data.title,
+      chairman: entry.data.chairman ? await resolvePerson(entry.data.chairman) : undefined,
+      members: await Promise.all(entry.data.members.map(resolvePerson))
+    }))
+);
+
+const ausschuesse = await Promise.all(
+  (await getCollection("ausschuesse"))
+    .sort((a, b) => a.id.localeCompare(b.id))
+    .map(async (entry) => ({
+      slug: entry.id,
+      title: entry.data.title,
+      chairman: entry.data.chairman ? await resolvePerson(entry.data.chairman) : undefined,
+      members: await Promise.all(entry.data.members.map(resolvePerson)),
+      sachkundigeEinwohner: entry.data.sachkundigeEinwohner
+        ? await Promise.all(entry.data.sachkundigeEinwohner.map(resolvePerson))
+        : undefined
+    }))
+);
+
+const hero = await getPageHero("gemeindevertretung");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+---
+
+
+<BaseLayout
+  title="Gemeindevertretung"
+  description="Gemeindevertretung Seddiner See"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Gemeindevertretung" }]} />
+
+<PageHero
+  title={hero?.title ?? "Gemeindevertretung"}
+  subtitle={hero?.subtitle ?? "Politische Vertretung"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+
+
+
+
+<section
+  class="
+    mt-8
+    rounded-3xl
+    bg-white dark:bg-gray-900
+    p-8
+    shadow-sm
+  "
+>
+
+
+<h2
+  class="
+    text-2xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Bürgerinformationssystem
+</h2>
+
+
+
+<p
+  class="
+    mt-4
+    text-gray-700 dark:text-gray-300
+  "
+>
+Hier finden Sie das Bürgerinformationssystem der Gemeinde Seddiner See.
+</p>
+
+
+
+<a
+  href={gemeindevertretung.informationSystem}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="
+    mt-5
+    inline-flex
+    rounded-xl
+    bg-primary
+    px-5
+    py-3
+    text-white
+    hover:bg-primary-dark
+  "
+>
+Zum Bürgerinformationssystem
+</a>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="mt-12">
+
+
+<h2
+  class="
+    mb-8
+    text-3xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Mitglieder der Gemeindevertretung
+</h2>
+
+
+
+
+{
+  fraktionen.map(fraktion => (
+
+<section
+  class="
+    mb-12
+  "
+>
+
+
+
+<h3
+  class="
+    mb-6
+    border-l-4
+    border-primary
+    pl-4
+    text-xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+{fraktion.title}
+</h3>
+
+
+
+
+<div
+  class="
+    grid
+    gap-6
+    md:grid-cols-2
+    lg:grid-cols-3
+  "
+>
+
+
+{
+fraktion.chairman && (
+
+<PersonCard
+  person={{
+    ...fraktion.chairman,
+    role: undefined,
+    group: undefined,
+    badge:
+      "Fraktionsvorsitzender"
+  }}
+  slug={`${fraktion.slug}-${fraktion.chairman.slug}`}
+/>
+
+)
+
+}
+
+
+
+{
+fraktion.members.map(member => (
+
+<PersonCard
+  person={{
+    ...member,
+    group: undefined
+  }}
+  slug={`${fraktion.slug}-${member.slug}`}
+/>
+
+))
+}
+
+
+</div>
+
+
+</section>
+
+
+))
+}
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="mt-16">
+
+
+<h2
+class="
+mb-8
+text-3xl
+font-bold
+text-gray-900 dark:text-gray-100
+"
+>
+Besetzung der Ausschüsse
+</h2>
+
+
+
+
+{
+  ausschuesse.map(ausschuss => (
+
+
+<section
+  class="
+    mb-12
+  "
+>
+
+
+
+<h3
+  class="
+    mb-6
+    border-l-4
+    border-primary
+    pl-4
+    text-xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+{ausschuss.title}
+</h3>
+
+
+
+
+
+<div
+class="
+grid
+gap-6
+md:grid-cols-2
+lg:grid-cols-3
+"
+>
+
+
+
+{
+ausschuss.chairman && (
+
+<PersonCard
+  person={{
+    ...ausschuss.chairman,
+    role: undefined,
+    badge:
+      "Vorsitzender"
+  }}
+  slug={`${ausschuss.slug}-${ausschuss.chairman.slug}`}
+/>
+
+)
+
+}
+
+
+
+
+{
+ausschuss.members.map(member => (
+
+<PersonCard
+  person={member}
+  slug={`${ausschuss.slug}-${member.slug}`}
+/>
+
+))
+
+}
+
+
+</div>
+
+
+
+
+
+
+
+{
+ausschuss.sachkundigeEinwohner && (
+
+<div
+class="
+mt-8
+"
+>
+
+
+<h3
+  class="
+    mb-6
+    border-l-4
+    border-primary
+    pl-4
+    text-xl
+    font-bold
+    text-gray-900 dark:text-gray-100
+  "
+>
+Sachkundige Einwohner
+</h3>
+
+
+
+
+<div
+class="
+grid
+gap-6
+md:grid-cols-2
+lg:grid-cols-3
+"
+>
+
+
+{
+ausschuss.sachkundigeEinwohner.map(person => (
+
+<PersonCard
+  person={person}
+  slug={`${ausschuss.slug}-${person.slug}`}
+/>
+
+))
+}
+
+
+</div>
+
+
+</div>
+
+)
+
+}
+
+
+
+</section>
+
+
+))
+
+}
+
+
+</section>
+
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

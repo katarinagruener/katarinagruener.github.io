@@ -1,0 +1,138 @@
+---
+import { navigation } from "@data/navigation";
+---
+
+<nav>
+
+  <ul class="flex items-center gap-7">
+
+    {
+      navigation.map(item => (
+
+        <li class="group relative">
+
+          {item.children ? (
+
+            <button
+              type="button"
+              aria-haspopup="true"
+              class="
+                relative
+                flex
+                items-center
+                py-7
+                text-[15px]
+                font-semibold
+                text-gray-700 dark:text-gray-300
+                transition
+                hover:text-primary
+              "
+            >
+
+              {item.title}
+
+              <span
+                class="
+                  absolute
+                  bottom-4
+                  left-0
+                  h-0.5
+                  w-full
+                  scale-x-0
+                  bg-primary
+                  transition-transform
+                  duration-200
+                  origin-left
+                  group-hover:scale-x-100
+                "
+              />
+
+            </button>
+
+          ) : (
+
+            <a
+              href={item.href}
+              class="
+                relative
+                flex
+                items-center
+                py-7
+                text-[15px]
+                font-semibold
+                text-gray-700 dark:text-gray-300
+                transition
+                hover:text-primary
+              "
+            >
+
+              {item.title}
+
+            </a>
+
+          )}
+
+
+
+          {
+            item.children && (
+
+              <div
+                class="
+                  absolute
+                  left-0
+                  top-full
+                  z-50
+                  min-w-[260px]
+                  border-t
+                  border-gray-100 dark:border-gray-800
+                  bg-white dark:bg-gray-900
+                  py-1
+                  shadow-sm
+                  opacity-0
+                  invisible
+                  translate-y-1
+                  transition-all
+                  duration-200
+                  group-hover:visible
+                  group-hover:opacity-100
+                  group-hover:translate-y-0
+                "
+              >
+
+                {
+                  item.children.map(child => (
+
+                    <a
+                      href={child.href}
+                      class="
+                        block
+                        px-5
+                        py-2
+                        text-sm
+                        text-gray-700 dark:text-gray-300
+                        transition
+                        hover:bg-gray-50 hover:dark:bg-gray-800
+                        hover:text-primary
+                      "
+                    >
+                      {child.title}
+                    </a>
+
+                  ))
+                }
+
+              </div>
+
+            )
+          }
+
+
+        </li>
+
+      ))
+    }
+
+  </ul>
+
+</nav>

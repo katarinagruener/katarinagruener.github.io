@@ -1,0 +1,29 @@
+---
+interface Props {
+  email: string;
+  class?: string;
+}
+
+const { email, class: className } = Astro.props;
+
+const [user, domain] = email.split("@");
+const placeholderText = `${user} (at) ${domain.replace(".", " (dot) ")}`;
+const encoded = btoa(email);
+---
+
+<a href="#" data-obfuscated-email={encoded} class={`min-w-0 break-words ${className ?? ""}`} rel="nofollow">
+  <slot />
+  <span data-obfuscated-email-text>{placeholderText}</span>
+</a>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>("[data-obfuscated-email]").forEach((el) => {
+    const email = atob(el.dataset.obfuscatedEmail ?? "");
+    if (!email) return;
+
+    const textEl = el.querySelector<HTMLElement>("[data-obfuscated-email-text]");
+    if (textEl) textEl.textContent = email;
+
+    el.href = `mailto:${email}`;
+  });
+</script>

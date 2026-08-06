@@ -1,0 +1,174 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import PageHero from "@components/ui/PageHero.astro";
+import Icon from "@components/ui/Icon.astro";
+import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
+
+import { groupBy } from "@lib/groupBy";
+import { getPageHero } from "@lib/pageHero";
+
+const entries = (await getCollection("buergerservice"))
+  .map((entry) => ({ ...entry.data, slug: entry.id }))
+  .sort((a, b) => a.topic.localeCompare(b.topic, "de"));
+
+const groups = groupBy(entries, (entry) => entry.topic[0].toUpperCase());
+const hero = await getPageHero("buergerservice");
+const hasImage = (hero?.images?.length ?? 0) > 0;
+---
+
+
+<BaseLayout
+  title="Bürgerservice"
+  description="Alphabetisches Verzeichnis: Wer ist wofür zuständig in der Gemeinde Seddiner See?"
+>
+
+
+<section class:list={["pb-12", !hasImage && "pt-6"]}>
+
+
+<div class="container">
+
+
+
+
+
+<div class:list={["flex flex-col gap-4", hasImage && "flex-col-reverse"]}>
+
+<Breadcrumbs items={[{ label: "Bürgerservice" }]} />
+
+<PageHero
+  title={hero?.title ?? "Bürgerservice"}
+  subtitle={hero?.subtitle ?? "Das Themenverzeichnis"}
+  images={hero?.images ?? []}
+  gradient
+  fullBleed={hasImage}
+/>
+
+</div>
+
+
+<!-- Buchstaben-Sprungnavigation -->
+
+<nav aria-label="Alphabetische Navigation" class="mt-8 flex flex-wrap gap-2">
+
+{
+  groups.map(({ key }) => (
+    <a
+      href={`#letter-${key}`}
+      class="
+        flex
+        h-9
+        w-9
+        items-center
+        justify-center
+        rounded-full
+        bg-gray-100 dark:bg-gray-800
+        text-sm
+        font-semibold
+        text-gray-700 dark:text-gray-300
+        transition
+        hover:bg-primary
+        hover:text-white
+      "
+    >
+      {key}
+    </a>
+  ))
+}
+
+</nav>
+
+
+<!-- Themen -->
+
+<div class="mt-10 space-y-12">
+
+{
+  groups.map(({ key, items }) => (
+    <section id={`letter-${key}`} class="scroll-mt-28">
+
+      <h2 class="mb-5 text-2xl font-bold text-primary">
+        {key}
+      </h2>
+
+      <div class="grid gap-4 md:grid-cols-2">
+
+      {
+        items.map((entry) => (
+          <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5 [&:has(:target)]:border-primary [&:has(:target)]:ring-2 [&:has(:target)]:ring-primary/50">
+
+            <h3 id={`card-${entry.slug}`} class="scroll-mt-24 font-bold text-gray-900 dark:text-gray-100 hyphens-auto" lang="de">{entry.topic}</h3>
+
+            <p class="mt-1 text-sm text-gray-700 dark:text-gray-300">{entry.office}</p>
+
+            {entry.department && (
+              <p class="text-sm text-gray-600 dark:text-gray-400">{entry.department}</p>
+            )}
+
+            {entry.address && (
+              <p class="text-sm text-gray-600 dark:text-gray-400">{entry.address}</p>
+            )}
+
+            <div class="mt-3 space-y-1 text-sm">
+
+              {entry.phone?.map((phone) => (
+                <p class="flex items-center gap-2">
+                  <Icon name="phone" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+                  <a href={`tel:${phone}`} class="hover:text-primary">{phone}</a>
+                </p>
+              ))}
+
+              {entry.fax && (
+                <p class="flex items-center gap-2">
+                  <Icon name="fax" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> {entry.fax}
+                </p>
+              )}
+
+              {entry.email && (
+                <p class="flex items-center gap-2">
+                  <Icon name="email" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+                  <ObfuscatedEmail email={entry.email} class="hover:text-primary" />
+                </p>
+              )}
+
+            </div>
+
+            {entry.note && (
+              <p class="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{entry.note}</p>
+            )}
+
+            {entry.link && (
+              <a
+                href={entry.link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark"
+              >
+                {entry.link.label} <Icon name="arrow-right" class="h-4 w-4" />
+              </a>
+            )}
+
+          </div>
+        ))
+      }
+
+      </div>
+
+    </section>
+  ))
+}
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>
