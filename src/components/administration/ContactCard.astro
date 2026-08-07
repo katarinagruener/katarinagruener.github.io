@@ -1,6 +1,7 @@
 ---
+import { getEntry } from "astro:content";
+
 import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
-import { site } from "@data/site";
 
 interface Props {
   title?: string;
@@ -10,16 +11,18 @@ interface Props {
   email?: string;
 }
 
+const kontakt = (await getEntry("site-kontakt", "main"))!.data;
+
 const {
-  title = site.contacts.organization,
+  title = kontakt.organization,
   addressLines = [
-    site.contacts.address.street,
-    `${site.contacts.address.zip} ${site.contacts.address.city}`,
-    site.contacts.address.district
+    kontakt.address.street,
+    `${kontakt.address.zip} ${kontakt.address.city}`,
+    kontakt.address.district
   ].filter(Boolean),
-  phone = site.contacts.phone,
-  fax = site.contacts.fax,
-  email = site.contacts.email
+  phone = kontakt.phone,
+  fax = kontakt.fax,
+  email = kontakt.email
 } = Astro.props;
 ---
 

@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -9,9 +9,9 @@ import Icon from "@components/ui/Icon.astro";
 import type { IconName } from "@components/ui/Icon.astro";
 import BusinessCard from "@components/leben/BusinessCard.astro";
 
-import { blutspende, notdienste } from "@data/gesundheit";
 import { getPageHero } from "@lib/pageHero";
 
+const { blutspende, notdienste } = (await getEntry("gesundheitsdienste", "main"))!.data;
 const entries = await getCollection("gesundheit");
 const hero = await getPageHero("gesundheit");
 const hasImage = (hero?.images?.length ?? 0) > 0;

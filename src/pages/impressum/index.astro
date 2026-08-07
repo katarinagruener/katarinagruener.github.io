@@ -1,11 +1,13 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
 import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
 import { site } from "@data/site";
+
+const kontakt = (await getEntry("site-kontakt", "main"))!.data;
 
 const peopleEntries = await getCollection("people");
 const buergermeisterin = peopleEntries.find(
@@ -47,19 +49,19 @@ Impressum
 <p>
 {site.name}
 <br />
-{site.contacts.address.district}
+{kontakt.address.district}
 <br />
-{site.contacts.address.street}
+{kontakt.address.street}
 <br />
-{site.contacts.address.zip} {site.contacts.address.city}
+{kontakt.address.zip} {kontakt.address.city}
 </p>
 
 <p class="mt-4">
-Tel.: <a href={`tel:${site.contacts.phone}`} class="hover:text-primary">{site.contacts.phone}</a>
+Tel.: <a href={`tel:${kontakt.phone}`} class="hover:text-primary">{kontakt.phone}</a>
 <br />
-Fax: {site.contacts.fax}
+Fax: {kontakt.fax}
 <br />
-E-Mail: <ObfuscatedEmail email={site.contacts.email} class="hover:text-primary" />
+E-Mail: <ObfuscatedEmail email={kontakt.email} class="hover:text-primary" />
 </p>
 </section>
 

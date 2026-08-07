@@ -7,9 +7,11 @@ import Icon from "@components/ui/Icon.astro";
 import ContactCard from "@components/administration/ContactCard.astro";
 import OpeningHours from "@components/administration/OpeningHours.astro";
 
-import { site } from "@data/site";
-import { openingHours } from "@data/verwaltung";
+import { getEntry } from "astro:content";
+
 import { getPageHero } from "@lib/pageHero";
+
+const { openingHours } = (await getEntry("verwaltung-info", "main"))!.data;
 
 const hero = await getPageHero("kontakt");
 const hasImage = (hero?.images?.length ?? 0) > 0;
@@ -47,17 +49,7 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
 
 <div class="mt-8 grid gap-8 lg:grid-cols-2">
 
-<ContactCard
-  title={site.contacts.organization}
-  addressLines={[
-    site.contacts.address.street,
-    `${site.contacts.address.zip} ${site.contacts.address.city}`,
-    site.contacts.address.district
-  ].filter((line): line is string => Boolean(line))}
-  phone={site.contacts.phone}
-  fax={site.contacts.fax}
-  email={site.contacts.email}
-/>
+<ContactCard />
 
 <div class="overflow-hidden rounded-3xl bg-white dark:bg-gray-900 shadow-sm">
 <iframe

@@ -3,23 +3,6 @@ export interface SiteConfig {
 
   description: string;
 
-  contacts: {
-    organization: string;
-
-    address: {
-      street: string;
-      zip: string;
-      city: string;
-      district?: string;
-    };
-
-    phone: string;
-
-    fax?: string;
-
-    email: string;
-  };
-
   legal: {
     imprint: string;
 

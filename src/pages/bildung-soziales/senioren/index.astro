@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -7,8 +7,9 @@ import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
 import PageHero from "@components/ui/PageHero.astro";
 import Icon from "@components/ui/Icon.astro";
 
-import { pflegestuetzpunkt } from "@data/soziales";
 import { getPageHero } from "@lib/pageHero";
+
+const pflegestuetzpunkt = (await getEntry("pflegestuetzpunkt", "main"))!.data;
 
 const treffs = (await getCollection("seniorentreffs")).map((entry) => ({ ...entry.data, slug: entry.id }));
 const hero = await getPageHero("senioren");

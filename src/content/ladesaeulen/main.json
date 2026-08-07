@@ -1,0 +1,13 @@
+{
+  "intro": "Seit Oktober 2020 haben Nutzerinnen und Nutzer von E-Autos bzw. Hybridfahrzeugen die Möglichkeit, Fahrzeuge an zwei öffentlichen Elektroladesäulen aufzuladen.",
+  "standorte": [
+    { "ortsteil": "Neuseddin", "location": "Kiefernweg (gegenüber der Gemeindeverwaltung, Kiefernweg 5)" },
+    { "ortsteil": "Seddin", "location": "DORV-Zentrum Seddin, Hauptstraße 17" }
+  ],
+  "note": "Vielnutzer können über den Betreiber EA EnergieArchitektur GmbH einen Rabatt bekommen. Der telefonische Kontakt hierzu und für eine allgemeine Kundenberatung lautet 0351 65683939.",
+  "pedelecNote": "Übrigens: Elektrofahrräder/Pedelecs dürfen kostenlos aufgeladen werden.",
+  "map": {
+    "label": "Onlinekarte der verfügbaren Ladesäulen",
+    "url": "https://www.carwow.de/elektroauto/ladesaeulenkarte"
+  }
+}

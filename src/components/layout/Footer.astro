@@ -1,7 +1,11 @@
 ---
+import { getEntry } from "astro:content";
+
 import Icon from "@components/ui/Icon.astro";
 import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
 import { site } from "@data/site";
+
+const kontakt = (await getEntry("site-kontakt", "main"))!.data;
 ---
 
 <footer class="border-t-4 border-accent bg-slate-950 text-gray-300">
@@ -38,18 +42,18 @@ import { site } from "@data/site";
 
         <p class="mb-4 text-sm leading-6">
 
-          {site.contacts.organization}
+          {kontakt.organization}
           <br />
 
-          {site.contacts.address.street}
+          {kontakt.address.street}
           <br />
 
-          {site.contacts.address.zip}
+          {kontakt.address.zip}
           {" "}
-          {site.contacts.address.city}
+          {kontakt.address.city}
           <br />
 
-          {site.contacts.address.district}
+          {kontakt.address.district}
 
         </p>
 
@@ -59,7 +63,7 @@ import { site } from "@data/site";
 
 
           <a
-            href={`tel:${site.contacts.phone}`}
+            href={`tel:${kontakt.phone}`}
             class="
               flex
               items-center
@@ -68,12 +72,12 @@ import { site } from "@data/site";
               hover:text-accent
             "
           >
-            <Icon name="phone" class="h-4 w-4 shrink-0 text-accent" /> {site.contacts.phone}
+            <Icon name="phone" class="h-4 w-4 shrink-0 text-accent" /> {kontakt.phone}
           </a>
 
 
           <ObfuscatedEmail
-            email={site.contacts.email}
+            email={kontakt.email}
             class="
               flex
               items-center

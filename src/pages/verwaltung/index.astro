@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -8,10 +8,10 @@ import PageHero from "@components/ui/PageHero.astro";
 import Icon from "@components/ui/Icon.astro";
 import EmployeeCard from "@components/administration/EmployeeCard.astro";
 
-import { bauhof } from "@data/verwaltung";
-
 import { groupBy } from "@lib/groupBy";
 import { getPageHero } from "@lib/pageHero";
+
+const { bauhof } = (await getEntry("verwaltung-info", "main"))!.data;
 
 const staff = (await getCollection("verwaltung-mitarbeiter")).sort((a, b) =>
   a.id.localeCompare(b.id)

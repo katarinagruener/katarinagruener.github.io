@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -9,8 +9,9 @@ import BusinessCard from "@components/leben/BusinessCard.astro";
 import Icon from "@components/ui/Icon.astro";
 import type { IconName } from "@components/ui/Icon.astro";
 
-import { ladesaeulen } from "@data/gemeinde";
 import { getPageHero } from "@lib/pageHero";
+
+const ladesaeulen = (await getEntry("ladesaeulen", "main"))!.data;
 
 const entries = (await getCollection("einkaufen")).map((entry) => ({ ...entry.data, slug: entry.id }));
 const hero = await getPageHero("einkaufen");

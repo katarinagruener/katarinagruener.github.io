@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -9,8 +9,9 @@ import Icon from "@components/ui/Icon.astro";
 import type { IconName } from "@components/ui/Icon.astro";
 import BusinessCard from "@components/leben/BusinessCard.astro";
 
-import { gemeindewehrfuehrung } from "@data/feuerwehr";
 import { getPageHero } from "@lib/pageHero";
+
+const { mitglieder: gemeindewehrfuehrung } = (await getEntry("feuerwehr-fuehrung", "main"))!.data;
 
 const entries = (await getCollection("feuerwehr")).map((entry) => ({ ...entry.data, slug: entry.id }));
 const hero = await getPageHero("feuerwehr");

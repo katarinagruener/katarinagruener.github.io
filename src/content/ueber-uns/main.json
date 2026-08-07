@@ -1,0 +1,53 @@
+{
+  "welcome": {
+    "title": "Herzlich willkommen!",
+    "paragraphs": [
+      "Unsere Gemeinde hat viel zu bieten: Der für die Gemeinde namensgebende Seddiner See lädt zum Wandern, Schwimmen oder Schlittschuhlaufen ein und die Wälder zu ausgiebigen Spaziergängen. Genießen Sie die Erholung und lassen Sie sich von den Gaststätten und Cafés kulinarisch verwöhnen. Machen Sie einen Rundgang durch den Findlingsgarten, besuchen Sie das DORV-Zentrum, die Ausstellungen in der Kulturscheune oder eines unserer Feste.",
+      "Für die Kinder und Jugendlichen gibt es u. a. zwei Kindertagesstätten, eine Grundschule mit Hort, einen Jugendtreff, viele Spielplätze. Für alle Altersklassen sind verschiedene Vereine und Gruppen vor Ort, die sich über Unterstützung und neue Mitglieder freuen.",
+      "Über die Jahre hinweg haben sich viele Unternehmen angesiedelt, so dass man bei uns nicht nur wohnen, sondern auch arbeiten kann. Neben einer medizinischen Grundversorgung finden Sie zudem verschiedene Einkaufsmöglichkeiten.",
+      "Durch die Nähe und verkehrstechnische Anbindung an Potsdam und Berlin müssen Sie auch nicht auf die Möglichkeiten verzichten, die eine Großstadt bietet.",
+      "Viele weitere Infos finden Sie hier auf unseren Seiten, klicken Sie sich durch und lernen Sie uns kennen."
+    ],
+    "mayor": "carinaSimmes"
+  },
+  "ortsteile": [
+    { "name": "Kähnsdorf", "size": "484 ha", "population": "430 Einwohner" },
+    { "name": "Neuseddin", "size": "1.409 ha", "population": "2.800 Einwohner" },
+    { "name": "Seddin", "size": "528 ha", "population": "1.200 Einwohner" }
+  ],
+  "namensgeber": "Der Große Seddiner See",
+  "wappen": {
+    "blazon": "In Blau eine eingebogene silberne Spitze, darin ein rotes Speichenrad, begleitet nach der Teilung rechts von einem gestürzten silbernen Boot in der Draufsicht, überdeckt von zwei schrägrechten silbernen Rudern, und links von einem gestürzten silbernen Fisch.",
+    "intro": "Das Wappen der Gemeinde Seddiner See steht für den Zusammenschluss der drei Ortsteile Kähnsdorf, Seddin und Neuseddin im Jahr 1993.",
+    "symbole": [
+      { "symbol": "Boot und Ruder (rechts)", "bedeutung": "Ortsteil Kähnsdorf (abgeleitet von „Kahn“)" },
+      { "symbol": "Fisch (links)", "bedeutung": "Ortsteil Seddin und die Nähe zum See" },
+      { "symbol": "Rotes Speichenrad (in der Spitze)", "bedeutung": "Ortsteil Neuseddin und der historische Eisenbahn- und Rangierbahnhof" },
+      { "symbol": "Blauer Hintergrund", "bedeutung": "Der namensgebende Seddiner See" }
+    ]
+  },
+  "ehrenbuerger": [
+    { "name": "Fritz Klewitz", "note": "Bürgermeister der Gemeinde Neuseddin von 1965 bis 1985" },
+    { "name": "Hanswerner Cimbal", "note": "Ortschronist, Ehrenbürger seit 2014" },
+    { "name": "Werner Kalle", "note": "Ortschronist, Ehrenbürger seit 2014" }
+  ],
+  "gemeindeInZahlen": [
+    { "label": "Umfang des Gemeindegebietes", "value": "ca. 24 km²" },
+    { "label": "Einwohnerzahl", "value": "4.430" },
+    { "label": "Höchste Erhebung", "value": "Rauher Berg, 78,5 m" },
+    { "label": "Durchschnittliche Höhenlage", "value": "55 m über NN" },
+    { "label": "Größte Wasserfläche", "value": "Großer Seddiner See, ca. 252 ha" }
+  ],
+  "geschichteTimeline": [
+    { "year": "1375", "text": "Erste Erwähnung Seddins und Kähnsdorfs im Landbuch Karls IV." },
+    { "year": "1915", "text": "Neuseddin entstand mit dem Ausbau der Eisenbahn im südlichen Bereich von Berlin." },
+    { "year": "1924", "text": "Internationale Eisenbahnausstellung in Neuseddin – der Bahnhof behielt als Besonderheit den Namen „Seddin\"." },
+    { "year": "1972", "text": "Das Gebiet rund um den Seddiner See wird zum Naherholungsgebiet erklärt." }
+  ],
+  "wlanHotspots": [
+    { "ortsteil": "Neuseddin", "location": "Sportplatz, Zum Sportplatz 1" },
+    { "ortsteil": "Seddin", "location": "Liegewiese am Seddiner See an der Hauptstraße" },
+    { "ortsteil": "Kähnsdorf", "location": "Findlingsgarten Kähnsdorf an der Seddiner Str." },
+    { "ortsteil": "Kähnsdorf", "location": "Kulturscheune Kähnsdorf, Dorfstraße 15" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "openingHours": [
+    { "day": "Montag", "time": "nach Terminvereinbarung" },
+    { "day": "Dienstag", "time": "09.00–12.00 und 14.00–18.00 Uhr" },
+    { "day": "Mittwoch", "time": "nach Terminvereinbarung" },
+    { "day": "Donnerstag", "time": "09.00–12.00 und 13.00–15.00 Uhr" },
+    { "day": "Freitag", "time": "nach Terminvereinbarung" }
+  ],
+  "bauhof": {
+    "title": "Bauhof / Reparaturstützpunkt",
+    "address": "Hans-Beimler-Str. 33a",
+    "phone": "62306 / 21583",
+    "fax": "21582"
+  }
+}

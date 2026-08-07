@@ -606,3 +606,162 @@ collections:
         value_field: "{{slug}}"
         multiple: true
         required: false
+
+  - name: "weitere-inhalte"
+    label: "Weitere Inhalte"
+    files:
+
+      - name: "site-kontakt"
+        label: "Kontaktdaten der Gemeinde"
+        file: "src/content/site-kontakt/main.json"
+        fields:
+          - { label: "Organisation", name: "organization", widget: "string" }
+          - label: "Adresse"
+            name: "address"
+            widget: "object"
+            fields:
+              - { label: "Straße", name: "street", widget: "string" }
+              - { label: "PLZ", name: "zip", widget: "string" }
+              - { label: "Ort", name: "city", widget: "string" }
+              - { label: "Ortsteil", name: "district", widget: "string", required: false }
+          - { label: "Telefon", name: "phone", widget: "string" }
+          - { label: "Fax", name: "fax", widget: "string", required: false }
+          - { label: "E-Mail", name: "email", widget: "string" }
+
+      - name: "verwaltung-info"
+        label: "Verwaltung – Sprechzeiten & Bauhof"
+        file: "src/content/verwaltung-info/main.json"
+        fields:
+          - label: "Sprechzeiten"
+            name: "openingHours"
+            widget: "list"
+            fields:
+              - { label: "Tag", name: "day", widget: "string" }
+              - { label: "Uhrzeit", name: "time", widget: "string" }
+          - label: "Bauhof"
+            name: "bauhof"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Adresse", name: "address", widget: "string" }
+              - { label: "Telefon", name: "phone", widget: "string" }
+              - { label: "Fax", name: "fax", widget: "string" }
+
+      - name: "gesundheitsdienste"
+        label: "Gesundheit – Hinweise"
+        file: "src/content/gesundheitsdienste/main.json"
+        fields:
+          - label: "Blutspende"
+            name: "blutspende"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Hinweis", name: "note", widget: "string" }
+          - label: "Notdienste"
+            name: "notdienste"
+            widget: "list"
+            fields:
+              - { label: "Bezeichnung", name: "label", widget: "string" }
+              - { label: "Telefon", name: "phone", widget: "string" }
+
+      - name: "feuerwehr-fuehrung"
+        label: "Feuerwehr – Gemeindewehrführung"
+        file: "src/content/feuerwehr-fuehrung/main.json"
+        fields:
+          - label: "Mitglieder"
+            name: "mitglieder"
+            widget: "list"
+            fields:
+              - { label: "Funktion", name: "label", widget: "string" }
+              - { label: "Name", name: "name", widget: "string" }
+
+      - name: "pflegestuetzpunkt"
+        label: "Pflegestützpunkt"
+        file: "src/content/pflegestuetzpunkt/main.json"
+        fields:
+          - { label: "Titel", name: "title", widget: "string" }
+          - { label: "Absätze", name: "paragraphs", widget: "list" }
+          - { label: "Adresse", name: "address", widget: "string" }
+          - { label: "Hinweis", name: "note", widget: "string" }
+
+      - name: "ueber-uns"
+        label: "Über uns"
+        file: "src/content/ueber-uns/main.json"
+        fields:
+          - label: "Begrüßung"
+            name: "welcome"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Absätze", name: "paragraphs", widget: "list" }
+              - label: "Bürgermeister(in) (Personen-Kennung)"
+                name: "mayor"
+                widget: "relation"
+                collection: "people"
+                search_fields: ["name"]
+                display_fields: ["name"]
+                value_field: "{{slug}}"
+          - label: "Ortsteile"
+            name: "ortsteile"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Fläche", name: "size", widget: "string" }
+              - { label: "Einwohner", name: "population", widget: "string" }
+          - { label: "Namensgeber", name: "namensgeber", widget: "string" }
+          - label: "Wappen"
+            name: "wappen"
+            widget: "object"
+            fields:
+              - { label: "Blasonierung", name: "blazon", widget: "text" }
+              - { label: "Einleitung", name: "intro", widget: "text" }
+              - label: "Symbolik"
+                name: "symbole"
+                widget: "list"
+                fields:
+                  - { label: "Symbol", name: "symbol", widget: "string" }
+                  - { label: "Bedeutung", name: "bedeutung", widget: "string" }
+          - label: "Ehrenbürger"
+            name: "ehrenbuerger"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Hinweis", name: "note", widget: "string" }
+          - label: "Gemeinde in Zahlen"
+            name: "gemeindeInZahlen"
+            widget: "list"
+            fields:
+              - { label: "Bezeichnung", name: "label", widget: "string" }
+              - { label: "Wert", name: "value", widget: "string" }
+          - label: "Geschichte (Zeitstrahl)"
+            name: "geschichteTimeline"
+            widget: "list"
+            fields:
+              - { label: "Jahr", name: "year", widget: "string" }
+              - { label: "Text", name: "text", widget: "string" }
+          - label: "WLAN-Hotspots"
+            name: "wlanHotspots"
+            widget: "list"
+            fields:
+              - { label: "Ortsteil", name: "ortsteil", widget: "string" }
+              - { label: "Standort", name: "location", widget: "string" }
+
+      - name: "ladesaeulen"
+        label: "Elektro-Ladesäulen"
+        file: "src/content/ladesaeulen/main.json"
+        fields:
+          - { label: "Einleitung", name: "intro", widget: "text" }
+          - label: "Standorte"
+            name: "standorte"
+            widget: "list"
+            fields:
+              - { label: "Ortsteil", name: "ortsteil", widget: "string" }
+              - { label: "Standort", name: "location", widget: "string" }
+          - { label: "Hinweis", name: "note", widget: "text" }
+          - { label: "Pedelec-Hinweis", name: "pedelecNote", widget: "string" }
+          - label: "Onlinekarte"
+            name: "map"
+            widget: "object"
+            fields:
+              - { label: "Beschriftung", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
