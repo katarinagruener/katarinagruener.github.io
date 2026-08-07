@@ -56,7 +56,8 @@ const siteKontakt = defineCollection({
     }),
     phone: z.string(),
     fax: z.string().optional(),
-    email: z.string()
+    email: z.string(),
+    datenschutzEmail: z.string().optional()
   })
 });
 

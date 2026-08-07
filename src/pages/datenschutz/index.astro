@@ -273,7 +273,7 @@ Wir setzen innerhalb unseres Onlineangebotes auf Grundlage unserer berechtigten 
 <section>
 <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Datenschutzbeauftragter</h2>
 <p>
-Bei Fragen zum Datenschutz erreichen Sie unseren Datenschutzbeauftragten per E-Mail unter <ObfuscatedEmail email="datenschutz@seddiner-see.de" class="text-primary hover:underline" /> oder per Telefon <a href={`tel:${kontakt.phone}`} class="text-primary hover:underline">{kontakt.phone}</a>.
+Bei Fragen zum Datenschutz erreichen Sie unseren Datenschutzbeauftragten per E-Mail unter <ObfuscatedEmail email={kontakt.datenschutzEmail ?? kontakt.email} class="text-primary hover:underline" /> oder per Telefon <a href={`tel:${kontakt.phone}`} class="text-primary hover:underline">{kontakt.phone}</a>.
 </p>
 </section>
 
