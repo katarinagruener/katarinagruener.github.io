@@ -97,7 +97,7 @@ export function initEventCalendar(container: HTMLElement, events: CalendarEvent[
       barEl.style.gridColumn = `${bar.startCol + 1} / ${bar.endCol + 2}`;
       barEl.style.gridRow = String(bar.row + 2);
       barEl.className = [
-        "cursor-pointer truncate bg-primary/15 px-2 text-left text-[11px] font-medium text-primary transition hover:bg-primary/25",
+        "cursor-pointer truncate bg-primary/15 px-2 text-left text-[11px] font-medium text-primary-dark dark:text-primary transition hover:bg-primary/25",
         bar.continuesBefore ? "" : "rounded-l",
         bar.continuesAfter ? "" : "rounded-r"
       ].filter(Boolean).join(" ");

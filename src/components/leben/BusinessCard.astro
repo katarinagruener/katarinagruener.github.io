@@ -58,7 +58,7 @@ const {
         <div class="space-y-1">
           {address && (
             <p class="flex items-start gap-2">
-              <Icon name="location" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <Icon name="location" class="mt-0.5 h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" />
               <span>
                 {address.split(", ").map((line, index, lines) => (
                   <>
@@ -71,7 +71,7 @@ const {
           )}
           {website && (
             <p class="flex items-start gap-2">
-              <Icon name="link" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <Icon name="link" class="mt-0.5 h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" />
               <a href={toAbsoluteUrl(website)} target="_blank" rel="noopener noreferrer" class="break-all hover:text-primary">
                 {website}
               </a>
@@ -79,7 +79,7 @@ const {
           )}
           {email && (
             <p class="flex items-start gap-2">
-              <Icon name="email" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <Icon name="email" class="mt-0.5 h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" />
               <a href={`mailto:${email}`} class="break-all hover:text-primary">{email}</a>
             </p>
           )}
@@ -87,24 +87,24 @@ const {
         <div class="space-y-1">
           {phone?.map((entry) => (
             <p class="flex items-center gap-2">
-              <Icon name="phone" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <Icon name="phone" class="h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" />
               <a href={`tel:${entry}`} class="hover:text-primary">{entry}</a>
             </p>
           ))}
           {mobile?.map((entry) => (
             <p class="flex items-center gap-2">
-              <Icon name="mobile" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <Icon name="mobile" class="h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" />
               <a href={`tel:${entry}`} class="hover:text-primary">{entry}</a>
             </p>
           ))}
           {fax && (
             <p class="flex items-center gap-2">
-              <Icon name="fax" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" /> {fax}
+              <Icon name="fax" class="h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" /> {fax}
             </p>
           )}
           {bookingUrl && (
             <p class="flex items-center gap-2">
-              <Icon name="calendar" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              <Icon name="calendar" class="h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" />
               <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
                 Termin vereinbaren
               </a>

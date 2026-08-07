@@ -28,7 +28,7 @@ const formattedDate = date?.toLocaleDateString("de-DE", {
   <span
     class:list={[
       "flex h-11 w-11 shrink-0 items-center justify-center rounded-full",
-      categoryMeta ? categoryMeta.badgeClasses : "bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500"
+      categoryMeta ? categoryMeta.badgeClasses : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
     ]}
   >
     <Icon name={categoryMeta?.icon ?? "document"} class="h-5 w-5" />
@@ -40,18 +40,18 @@ const formattedDate = date?.toLocaleDateString("de-DE", {
   </div>
 
   <div class="flex shrink-0 flex-col items-end gap-1">
-    {formattedDate && <span class="text-xs text-gray-400 dark:text-gray-500">{formattedDate}</span>}
+    {formattedDate && <span class="text-xs text-gray-500 dark:text-gray-400">{formattedDate}</span>}
     {file ? (
       <a
         href={file}
         download
-        class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark"
+        class="inline-flex items-center gap-1 text-sm font-semibold text-primary-dark hover:underline dark:text-primary"
       >
         <span class="hidden sm:inline">PDF herunterladen</span>
         <span class="sm:hidden">PDF</span>
       </a>
     ) : (
-      <span class="rounded-xl bg-gray-100 px-3 py-1.5 text-sm font-semibold text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+      <span class="rounded-xl bg-gray-100 px-3 py-1.5 text-sm font-semibold text-gray-600 dark:bg-gray-800 dark:text-gray-400">
         Dokument folgt
       </span>
     )}

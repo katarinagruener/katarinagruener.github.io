@@ -148,9 +148,9 @@ Zahnärzte
 {
   notdienste.map((item) => (
     <p class="flex items-start gap-2">
-      <Icon name="phone" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+      <Icon name="phone" class="mt-0.5 h-4 w-4 shrink-0 text-gray-500 dark:text-gray-400" />
       <span>
-        {item.label}: <a href={`tel:${item.phone}`} class="font-semibold text-primary hover:underline">{item.phone}</a>
+        {item.label}: <a href={`tel:${item.phone}`} class="font-semibold text-primary-dark hover:underline dark:text-primary">{item.phone}</a>
       </span>
     </p>
   ))
