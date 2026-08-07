@@ -1,0 +1,11 @@
+{
+  "sprechzeiten": [
+    { "day": "Mittwoch", "time": "16.00–18.30 Uhr", "ort": "Liegewiese Seddin" },
+    { "day": "Donnerstag", "time": "16.00–18.00 Uhr", "ort": "Spiel- und Bolzplatz Seddin" }
+  ],
+  "projekteLabel": "Aktuelle Projekte",
+  "projekte": [
+    { "day": "Mittwoch", "activity": "Calisthenics für Einsteiger", "time": "18.30–19.30 Uhr", "ort": "Liegewiese Seddin" },
+    { "day": "Samstag", "activity": "Graffiti-Projekt", "time": "14.00–19.00 Uhr", "ort": "Mehrzweckplatz Seddin" }
+  ]
+}

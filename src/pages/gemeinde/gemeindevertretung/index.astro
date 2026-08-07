@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -9,10 +9,10 @@ import PersonCard from "@components/people/PersonCard.astro";
 
 import { gemeindevertretung } from "@data/gemeindevertretung";
 import { getPageHero } from "@lib/pageHero";
+import { resolvePerson, type ResolvedPerson } from "@lib/people";
 
-async function resolvePerson(id: string) {
-  const person = await getEntry("people", id);
-  return { ...person!.data, slug: person!.id };
+function isResolved(person: ResolvedPerson | null): person is ResolvedPerson {
+  return person !== null;
 }
 
 const fraktionen = await Promise.all(
@@ -22,7 +22,7 @@ const fraktionen = await Promise.all(
       slug: entry.id,
       title: entry.data.title,
       chairman: entry.data.chairman ? await resolvePerson(entry.data.chairman) : undefined,
-      members: await Promise.all(entry.data.members.map(resolvePerson))
+      members: (await Promise.all(entry.data.members.map(resolvePerson))).filter(isResolved)
     }))
 );
 
@@ -33,9 +33,9 @@ const ausschuesse = await Promise.all(
       slug: entry.id,
       title: entry.data.title,
       chairman: entry.data.chairman ? await resolvePerson(entry.data.chairman) : undefined,
-      members: await Promise.all(entry.data.members.map(resolvePerson)),
+      members: (await Promise.all(entry.data.members.map(resolvePerson))).filter(isResolved),
       sachkundigeEinwohner: entry.data.sachkundigeEinwohner
-        ? await Promise.all(entry.data.sachkundigeEinwohner.map(resolvePerson))
+        ? (await Promise.all(entry.data.sachkundigeEinwohner.map(resolvePerson))).filter(isResolved)
         : undefined
     }))
 );

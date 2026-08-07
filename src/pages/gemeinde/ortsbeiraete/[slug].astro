@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -7,6 +7,7 @@ import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
 import PageHero from "@components/ui/PageHero.astro";
 import PersonCard from "@components/people/PersonCard.astro";
 
+import { resolvePerson, type ResolvedPerson } from "@lib/people";
 
 export async function getStaticPaths() {
 
@@ -15,11 +16,8 @@ export async function getStaticPaths() {
   return Promise.all(
     ortsbeiraete.map(async (entry) => {
 
-      const members = await Promise.all(
-        entry.data.members.map(async (id) => {
-          const person = await getEntry("people", id);
-          return { ...person!.data, slug: person!.id };
-        })
+      const members = (await Promise.all(entry.data.members.map(resolvePerson))).filter(
+        (person): person is ResolvedPerson => person !== null
       );
 
       return {

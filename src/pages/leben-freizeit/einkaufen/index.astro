@@ -68,19 +68,7 @@ Geschäfte
 
 <div class="grid gap-6 md:grid-cols-2">
   {geschaefte.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "bag")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "bag")} />
   ))}
 </div>
 
@@ -99,19 +87,7 @@ Tankstellen
 
 <div class="grid gap-6 md:grid-cols-2">
   {tankstellen.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "fuel")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "fuel")} />
   ))}
 </div>
 

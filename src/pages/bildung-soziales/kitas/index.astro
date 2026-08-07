@@ -11,6 +11,7 @@ import PhotoLightbox from "@components/ui/PhotoLightbox.astro";
 import HoursList from "@components/ui/HoursList.astro";
 
 import { getPageHero } from "@lib/pageHero";
+import { toAbsoluteUrl } from "@lib/url";
 
 const einrichtungen = (await getCollection("kitas")).map((entry) => ({ ...entry.data, slug: entry.id }));
 const hero = await getPageHero("kitas");
@@ -131,7 +132,7 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
         {einrichtung.website && (
           <p class="flex items-center gap-2">
             <Icon name="link" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
-            <a href={einrichtung.website.startsWith("http") ? einrichtung.website : `https://${einrichtung.website}`} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
+            <a href={toAbsoluteUrl(einrichtung.website)} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
               {einrichtung.website}
             </a>
           </p>

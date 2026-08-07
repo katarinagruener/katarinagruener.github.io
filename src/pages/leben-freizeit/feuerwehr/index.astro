@@ -92,15 +92,7 @@ Ortsfeuerwehren
 
 <div class="grid gap-6 md:grid-cols-2">
   {ortsfeuerwehren.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "fire")}
-      role={entry.roles}
-      phone={entry.phone}
-      email={entry.email}
-      website={entry.website}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "fire")} role={entry.roles} />
   ))}
 </div>
 
@@ -119,15 +111,7 @@ Jugend- und Kinderfeuerwehr
 
 <div class="grid gap-6 md:grid-cols-2">
   {jugendKinder.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "fire")}
-      role={entry.roles}
-      phone={entry.phone}
-      email={entry.email}
-      website={entry.website}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "fire")} role={entry.roles} />
   ))}
 </div>
 

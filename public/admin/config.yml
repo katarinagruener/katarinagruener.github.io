@@ -753,6 +753,27 @@ collections:
               - { label: "Ortsteil", name: "ortsteil", widget: "string" }
               - { label: "Standort", name: "location", widget: "string" }
 
+      - name: "stark-vor-ort"
+        label: "Stark vor Ort – Sprechzeiten & Projekte"
+        file: "src/content/stark-vor-ort/main.json"
+        fields:
+          - label: "Sprechzeiten / offenes Angebot"
+            name: "sprechzeiten"
+            widget: "list"
+            fields:
+              - { label: "Tag", name: "day", widget: "string" }
+              - { label: "Uhrzeit", name: "time", widget: "string" }
+              - { label: "Ort", name: "ort", widget: "string" }
+          - { label: "Überschrift für die Projektliste (z. B. „Aktuelle Projekte“ oder „Projekte im Juni“)", name: "projekteLabel", widget: "string" }
+          - label: "Projekte"
+            name: "projekte"
+            widget: "list"
+            fields:
+              - { label: "Tag", name: "day", widget: "string" }
+              - { label: "Aktion", name: "activity", widget: "string" }
+              - { label: "Uhrzeit", name: "time", widget: "string" }
+              - { label: "Ort", name: "ort", widget: "string" }
+
       - name: "ladesaeulen"
         label: "Elektro-Ladesäulen"
         file: "src/content/ladesaeulen/main.json"

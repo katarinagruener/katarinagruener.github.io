@@ -67,17 +67,7 @@ Sportvereine
 
 <div class="grid gap-6 md:grid-cols-2">
   {sport.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.roles}
-      address={entry.address}
-      phone={entry.phone}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} role={entry.roles} />
   ))}
 </div>
 
@@ -96,17 +86,7 @@ Angelvereine
 
 <div class="grid gap-6 md:grid-cols-2">
   {angeln.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.roles}
-      address={entry.address}
-      phone={entry.phone}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} role={entry.roles} />
   ))}
 </div>
 
@@ -125,17 +105,7 @@ Gartenvereine
 
 <div class="grid gap-6 md:grid-cols-2">
   {garten.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.roles}
-      address={entry.address}
-      phone={entry.phone}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} role={entry.roles} />
   ))}
 </div>
 
@@ -154,17 +124,7 @@ Weitere Vereine
 
 <div class="grid gap-6 md:grid-cols-2">
   {sonstige.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.roles}
-      address={entry.address}
-      phone={entry.phone}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} role={entry.roles} />
   ))}
 </div>
 
@@ -183,17 +143,7 @@ Freizeit und Sport
 
 <div class="grid gap-6 md:grid-cols-2">
   {freizeit.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.roles}
-      address={entry.address}
-      phone={entry.phone}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} role={entry.roles} />
   ))}
 </div>
 

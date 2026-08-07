@@ -53,17 +53,7 @@ function iconFor(entry: { icon?: string }): IconName {
 
 <div class="mt-8 grid gap-6 md:grid-cols-2">
   {entries.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      address={entry.address}
-      phone={entry.phone}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} />
   ))}
 </div>
 

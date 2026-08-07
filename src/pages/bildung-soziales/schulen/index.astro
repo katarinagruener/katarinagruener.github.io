@@ -11,6 +11,7 @@ import PhotoLightbox from "@components/ui/PhotoLightbox.astro";
 import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
 
 import { getPageHero } from "@lib/pageHero";
+import { toAbsoluteUrl } from "@lib/url";
 
 const schulen = (await getCollection("schulen")).map((entry) => ({ ...entry.data, slug: entry.id }));
 const hero = await getPageHero("schulen");
@@ -132,7 +133,7 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
         {schule.website && (
           <p class="flex items-center gap-2">
             <Icon name="link" class="h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
-            <a href={`https://${schule.website.replace(/^https?:\/\//, "")}`} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
+            <a href={toAbsoluteUrl(schule.website)} target="_blank" rel="noopener noreferrer" class="hover:text-primary">
               {schule.website}
             </a>
           </p>

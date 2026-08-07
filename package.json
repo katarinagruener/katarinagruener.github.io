@@ -10,7 +10,11 @@
     "build": "astro build && pagefind --site dist && node scripts/sync-pagefind-dev.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "covers": "node scripts/generate-covers.mjs"
+    "covers": "node scripts/generate-covers.mjs",
+    "check": "astro check",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -21,8 +25,19 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@types/node": "^26.1.2",
+    "eslint": "^10.8.0",
+    "eslint-plugin-astro": "^3.1.0",
     "pagefind": "^1.5.2",
     "pdf-to-img": "^6.2.0",
-    "typescript": "^6.0.3"
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.66.0"
+  },
+  "overrides": {
+    "pdf-to-img": {
+      "pdfjs-dist": "^6.2.108"
+    }
   }
 }

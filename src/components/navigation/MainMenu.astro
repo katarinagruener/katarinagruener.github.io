@@ -9,13 +9,15 @@ import { navigation } from "@data/navigation";
     {
       navigation.map(item => (
 
-        <li class="group relative">
+        <li class="relative">
 
           {item.children ? (
 
             <button
               type="button"
+              data-menu-trigger
               aria-haspopup="true"
+              aria-expanded="false"
               class="
                 relative
                 flex
@@ -32,6 +34,7 @@ import { navigation } from "@data/navigation";
               {item.title}
 
               <span
+                data-menu-underline
                 class="
                   absolute
                   bottom-4
@@ -43,7 +46,6 @@ import { navigation } from "@data/navigation";
                   transition-transform
                   duration-200
                   origin-left
-                  group-hover:scale-x-100
                 "
               />
 
@@ -78,7 +80,9 @@ import { navigation } from "@data/navigation";
             item.children && (
 
               <div
+                data-menu-panel
                 class="
+                  invisible
                   absolute
                   left-0
                   top-full
@@ -90,13 +94,9 @@ import { navigation } from "@data/navigation";
                   py-1
                   shadow-sm
                   opacity-0
-                  invisible
                   translate-y-1
                   transition-all
                   duration-200
-                  group-hover:visible
-                  group-hover:opacity-100
-                  group-hover:translate-y-0
                 "
               >
 
@@ -136,3 +136,90 @@ import { navigation } from "@data/navigation";
   </ul>
 
 </nav>
+
+<script>
+
+// Dropdowns are driven from JS (not pure CSS :hover) so aria-expanded stays
+// accurate and every trigger is openable via keyboard: Tab focuses the
+// button, Enter/Space opens it (native <button> behavior), Tab again moves
+// into the panel's links, and Escape or focus leaving the item closes it.
+const triggers = document.querySelectorAll<HTMLButtonElement>("[data-menu-trigger]");
+
+function panelOf(trigger: HTMLButtonElement) {
+  return trigger.nextElementSibling as HTMLElement | null;
+}
+
+function open(trigger: HTMLButtonElement) {
+  trigger.setAttribute("aria-expanded", "true");
+  trigger.querySelector("[data-menu-underline]")?.classList.add("scale-x-100");
+  panelOf(trigger)?.classList.remove("invisible", "opacity-0", "translate-y-1");
+}
+
+function close(trigger: HTMLButtonElement) {
+  trigger.setAttribute("aria-expanded", "false");
+  trigger.querySelector("[data-menu-underline]")?.classList.remove("scale-x-100");
+  panelOf(trigger)?.classList.add("invisible", "opacity-0", "translate-y-1");
+}
+
+function closeAll(except?: HTMLButtonElement) {
+  triggers.forEach((trigger) => {
+    if (trigger !== except) close(trigger);
+  });
+}
+
+triggers.forEach((trigger) => {
+
+  const item = trigger.closest("li");
+
+  trigger.addEventListener("click", () => {
+    const isOpen = trigger.getAttribute("aria-expanded") === "true";
+    closeAll();
+    if (!isOpen) open(trigger);
+  });
+
+  item?.addEventListener("mouseenter", () => {
+    closeAll(trigger);
+    open(trigger);
+  });
+
+  item?.addEventListener("mouseleave", () => {
+    close(trigger);
+  });
+
+  item?.addEventListener("focusout", (event) => {
+    const next = (event as FocusEvent).relatedTarget as Node | null;
+    if (!next || !item.contains(next)) {
+      close(trigger);
+    }
+  });
+
+});
+
+document.addEventListener("keydown", (event) => {
+
+  if (event.key !== "Escape") return;
+
+  const openTrigger = Array.from(triggers).find(
+    (trigger) => trigger.getAttribute("aria-expanded") === "true"
+  );
+
+  if (openTrigger) {
+    close(openTrigger);
+    openTrigger.focus();
+  }
+
+});
+
+document.addEventListener("click", (event) => {
+
+  const target = event.target as Node;
+
+  const clickedInsideAMenu = Array.from(triggers).some((trigger) =>
+    trigger.closest("li")?.contains(target)
+  );
+
+  if (!clickedInsideAMenu) closeAll();
+
+});
+
+</script>

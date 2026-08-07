@@ -6,6 +6,9 @@
   <title>Gemeinde Seddiner See – Inhaltsverwaltung</title>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Pinned to an exact version: a bare "^3.0.0" range would let unpkg silently
+       serve a newer decap-cms release on every admin page load with no commit
+       to review or roll back. Bump deliberately when upgrading. -->
+  <script src="https://unpkg.com/decap-cms@3.15.1/dist/decap-cms.js"></script>
 </body>
 </html>

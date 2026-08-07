@@ -71,18 +71,7 @@ Apotheke
 
 <div class="grid gap-6 md:grid-cols-2">
   {apotheken.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.role}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      website={entry.website}
-      hours={entry.hours}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} />
   ))}
 </div>
 
@@ -99,21 +88,7 @@ Apotheke
 
 <div class="grid gap-6 md:grid-cols-2">
   {aerzte.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.role}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      website={entry.website}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-      hoursLabel="Sprechzeiten"
-      bookingUrl={entry.bookingUrl}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} hoursLabel="Sprechzeiten" />
   ))}
 </div>
 
@@ -132,21 +107,7 @@ Physiotherapie
 
 <div class="grid gap-6 md:grid-cols-2">
   {physiotherapeuten.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.role}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      website={entry.website}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-      hoursLabel="Sprechzeiten"
-      bookingUrl={entry.bookingUrl}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} hoursLabel="Sprechzeiten" />
   ))}
 </div>
 
@@ -165,21 +126,7 @@ Zahnärzte
 
 <div class="grid gap-6 md:grid-cols-2">
   {zahnaerzte.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry)}
-      role={entry.role}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      website={entry.website}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-      hoursLabel="Sprechzeiten"
-      bookingUrl={entry.bookingUrl}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry)} hoursLabel="Sprechzeiten" />
   ))}
 </div>
 

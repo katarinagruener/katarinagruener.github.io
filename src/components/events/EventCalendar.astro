@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 
+import { toJsonScript } from "@lib/jsonScript";
+
 interface Props {
   showUpcoming?: boolean;
 }
@@ -29,7 +31,7 @@ const events = entries
   <div id="event-calendar" data-show-upcoming={showUpcoming ? "true" : "false"}></div>
 </div>
 
-<script type="application/json" id="event-calendar-data" set:html={JSON.stringify(events)} is:inline />
+<script type="application/json" id="event-calendar-data" set:html={toJsonScript(events)} is:inline />
 
 <script>
   import { initEventCalendar } from "@lib/eventCalendar";

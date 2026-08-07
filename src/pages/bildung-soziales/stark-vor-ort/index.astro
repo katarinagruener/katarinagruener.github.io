@@ -74,15 +74,7 @@ const mobileQA = [
   }
 ];
 
-const sprechzeiten = [
-  { day: "Mittwoch", time: "16.00–18.30 Uhr", ort: "Liegewiese Seddin" },
-  { day: "Donnerstag", time: "16.00–18.00 Uhr", ort: "Spiel- und Bolzplatz Seddin" }
-];
-
-const projekteJuni = [
-  { day: "Mittwoch", activity: "Calisthenics für Einsteiger", time: "18.30–19.30 Uhr", ort: "Liegewiese Seddin" },
-  { day: "Samstag", activity: "Graffiti-Projekt", time: "14.00–19.00 Uhr", ort: "Mehrzweckplatz Seddin" }
-];
+const { sprechzeiten, projekteLabel, projekte } = (await getEntry("stark-vor-ort", "main"))!.data;
 ---
 
 
@@ -340,9 +332,9 @@ Mein Ziel ist es, einen Bauwagen aufzustellen, als Treffpunkt und Rückzugsort f
       ))
     }
 
-    <p class="col-span-3 mt-3 text-sm font-semibold text-gray-900 dark:text-gray-100">Projekte im Juni</p>
+    <p class="col-span-3 mt-3 text-sm font-semibold text-gray-900 dark:text-gray-100">{projekteLabel}</p>
     {
-      projekteJuni.map((item) => (
+      projekte.map((item) => (
         <>
           <span class="col-span-3 mt-1 inline-block w-fit rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
             {item.activity}

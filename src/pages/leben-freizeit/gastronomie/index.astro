@@ -71,20 +71,7 @@ Restaurants & Cafés
 
 <div class="grid gap-6 md:grid-cols-2">
   {restaurants.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "restaurant")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "restaurant")} />
   ))}
 </div>
 
@@ -103,20 +90,7 @@ Imbisse & Kantinen
 
 <div class="grid gap-6 md:grid-cols-2">
   {imbisseKantinen.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "fastfood")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "fastfood")} />
   ))}
 </div>
 

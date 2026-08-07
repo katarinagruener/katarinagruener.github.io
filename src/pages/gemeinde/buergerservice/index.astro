@@ -15,7 +15,7 @@ const entries = (await getCollection("buergerservice"))
   .map((entry) => ({ ...entry.data, slug: entry.id }))
   .sort((a, b) => a.topic.localeCompare(b.topic, "de"));
 
-const groups = groupBy(entries, (entry) => entry.topic[0].toUpperCase());
+const groups = groupBy(entries, (entry) => (entry.topic.trim()[0] ?? "#").toUpperCase());
 const hero = await getPageHero("buergerservice");
 const hasImage = (hero?.images?.length ?? 0) > 0;
 ---

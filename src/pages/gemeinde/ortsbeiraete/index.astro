@@ -81,9 +81,12 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
     relative
     h-56
     overflow-hidden
+    bg-gray-100 dark:bg-gray-800
   "
 >
 
+
+{item.data.images[0] && (
 
 <img
   src={item.data.images[0].src}
@@ -97,6 +100,8 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
     group-hover:scale-105
   "
 />
+
+)}
 
 
 <div

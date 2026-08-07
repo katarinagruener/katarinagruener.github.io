@@ -79,20 +79,7 @@ Post
 
 <div class="grid gap-6 md:grid-cols-2">
   {post.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "post")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "post")} />
   ))}
 </div>
 
@@ -111,20 +98,7 @@ Friseure
 
 <div class="grid gap-6 md:grid-cols-2">
   {friseure.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "scissors")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "scissors")} />
   ))}
 </div>
 
@@ -143,20 +117,7 @@ Massage
 
 <div class="grid gap-6 md:grid-cols-2">
   {massagen.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "massage")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "massage")} />
   ))}
 </div>
 
@@ -175,20 +136,7 @@ Tierpflege
 
 <div class="grid gap-6 md:grid-cols-2">
   {tierpflege.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "paw")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "paw")} />
   ))}
 </div>
 
@@ -207,20 +155,7 @@ Versicherungen
 
 <div class="grid gap-6 md:grid-cols-2">
   {versicherungen.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "briefcase")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "briefcase")} />
   ))}
 </div>
 
@@ -239,20 +174,7 @@ Haushaltshilfe & Seniorenbetreuung
 
 <div class="grid gap-6 md:grid-cols-2">
   {haushaltshilfe.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "helping-hand")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "helping-hand")} />
   ))}
 </div>
 
@@ -271,20 +193,7 @@ Immobilien
 
 <div class="grid gap-6 md:grid-cols-2">
   {immobilien.map((entry) => (
-    <BusinessCard
-      name={entry.name}
-      slug={entry.slug}
-      icon={iconFor(entry, "briefcase")}
-      address={entry.address}
-      phone={entry.phone}
-      mobile={entry.mobile}
-      fax={entry.fax}
-      email={entry.email}
-      website={entry.website}
-      note={entry.note}
-      hours={entry.hours}
-      hoursNote={entry.hoursNote}
-    />
+    <BusinessCard {...entry} icon={iconFor(entry, "briefcase")} />
   ))}
 </div>
 

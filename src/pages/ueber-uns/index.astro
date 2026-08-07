@@ -10,6 +10,14 @@ import seddinerSeeStrand from "@assets/images/hero/seddiner-see-strand.jpg";
 import findlingsgarten from "@assets/images/hero/findlingsgarten.jpg";
 import wappenImage from "@assets/images/branding/logo.png";
 
+import { resolvePerson } from "@lib/people";
+
+const ueberUnsEntry = await getEntry("ueber-uns", "main");
+
+if (!ueberUnsEntry) {
+  throw new Error('Content collection "ueber-uns" is missing its required "main.json" entry.');
+}
+
 const {
   welcome,
   ortsteile,
@@ -19,9 +27,9 @@ const {
   gemeindeInZahlen,
   geschichteTimeline,
   wlanHotspots
-} = (await getEntry("ueber-uns", "main"))!.data;
+} = ueberUnsEntry.data;
 
-const mayor = (await getEntry("people", welcome.mayor))!.data;
+const mayor = (await resolvePerson(welcome.mayor)) ?? { name: welcome.mayor, role: undefined };
 ---
 
 

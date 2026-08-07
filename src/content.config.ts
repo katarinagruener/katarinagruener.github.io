@@ -35,7 +35,7 @@ const ortsbeiraete = defineCollection({
   schema: z.object({
     title: z.string(),
     subtitle: z.string().optional(),
-    images: z.array(z.object({ src: z.string(), alt: z.string() })),
+    images: z.array(z.object({ src: z.string(), alt: z.string() })).min(1),
     members: z.array(z.string()),
     history: z.array(z.string()).optional()
   })
@@ -118,6 +118,17 @@ const ueberUns = defineCollection({
     gemeindeInZahlen: z.array(z.object({ label: z.string(), value: z.string() })),
     geschichteTimeline: z.array(z.object({ year: z.string(), text: z.string() })),
     wlanHotspots: z.array(z.object({ ortsteil: z.string(), location: z.string() }))
+  })
+});
+
+const starkVorOrt = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./src/content/stark-vor-ort" }),
+  schema: z.object({
+    sprechzeiten: z.array(z.object({ day: z.string(), time: z.string(), ort: z.string() })),
+    projekteLabel: z.string(),
+    projekte: z.array(
+      z.object({ day: z.string(), activity: z.string(), time: z.string(), ort: z.string() })
+    )
   })
 });
 
@@ -222,7 +233,7 @@ const verwaltungMitarbeiter = defineCollection({
 const buergerservice = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/buergerservice" }),
   schema: z.object({
-    topic: z.string(),
+    topic: z.string().min(1),
     office: z.string(),
     department: z.string().optional(),
     address: z.string().optional(),
@@ -429,6 +440,7 @@ export const collections = {
   "feuerwehr-fuehrung": feuerwehrFuehrung,
   pflegestuetzpunkt,
   "ueber-uns": ueberUns,
+  "stark-vor-ort": starkVorOrt,
   ladesaeulen,
   links
 };

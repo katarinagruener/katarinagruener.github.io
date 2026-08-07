@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 
 import Icon from "@components/ui/Icon.astro";
 import { getUpcomingEvents, parseCalendarEvent, formatEventDate, formatEventTime } from "@lib/calendar";
+import { toJsonScript } from "@lib/jsonScript";
 
 const entries = await getCollection("veranstaltungen");
 
@@ -89,7 +90,7 @@ function formatRange(event: (typeof events)[number]) {
 
 </div>
 
-<script type="application/json" id="event-list-data" set:html={JSON.stringify(rawEvents)} is:inline />
+<script type="application/json" id="event-list-data" set:html={toJsonScript(rawEvents)} is:inline />
 
 <script>
   import { initEventModal } from "@lib/eventModal";

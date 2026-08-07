@@ -1,5 +1,6 @@
 ---
 import Icon from "@components/ui/Icon.astro";
+import { toJsonScript } from "@lib/jsonScript";
 
 interface Props {
   id: string;
@@ -62,6 +63,6 @@ const { id, images } = Astro.props;
 
 </div>
 
-<script type="application/json" id={`photo-gallery-data-${id}`} set:html={JSON.stringify(images)} is:inline />
+<script type="application/json" id={`photo-gallery-data-${id}`} set:html={toJsonScript(images)} is:inline />
 
 )}

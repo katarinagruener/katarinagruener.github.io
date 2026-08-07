@@ -1,11 +1,20 @@
 import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
+import { createRequire } from "node:module";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { pdf } from "pdf-to-img";
 
 const rootDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const publicDir = path.join(rootDir, "public");
+
+// pdf-to-img doesn't pass a `wasmUrl` (it targets pdfjs-dist's Node API as of
+// pdfjs-dist 5.x, before wasmUrl existed) — without it, pdfjs-dist 6.x's WASM
+// JPEG2000 (JPX) decoder silently fails to load and any JPX-encoded photo in
+// the PDF (common in InDesign exports) renders as a blank area instead of
+// throwing. Pointing it at pdfjs-dist's own bundled wasm/ dir restores that.
+const pdfjsDir = path.dirname(createRequire(import.meta.url).resolve("pdfjs-dist/package.json"));
+const wasmUrl = pathToFileURL(path.join(pdfjsDir, "wasm") + path.sep).href;
 
 const targets = [
   {
@@ -33,7 +42,7 @@ async function findJsonFiles(dir) {
 }
 
 async function generateCover(pdfAbsPath, outAbsPath) {
-  const doc = await pdf(pdfAbsPath, { scale: 2 });
+  const doc = await pdf(pdfAbsPath, { scale: 2, docInitParams: { wasmUrl } });
   const page = await doc.getPage(1);
   await writeFile(outAbsPath, page);
   await doc.destroy();
