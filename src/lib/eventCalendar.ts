@@ -46,7 +46,7 @@ export function initEventCalendar(container: HTMLElement, events: CalendarEvent[
       ${showUpcoming ? `
         <div class="mt-8 lg:mt-0 lg:flex-[2]">
           <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-100">Nächste Termine</h4>
-          <div data-cal-upcoming class="mt-3 space-y-2"></div>
+          <div data-cal-upcoming class="mt-3 divide-y divide-gray-100 dark:divide-gray-800"></div>
         </div>
       ` : ""}
 
@@ -160,17 +160,26 @@ export function initEventCalendar(container: HTMLElement, events: CalendarEvent[
 
       const item = document.createElement("button");
       item.type = "button";
-      item.className = "flex w-full cursor-pointer flex-col items-start gap-0.5 rounded-xl border border-gray-200 px-4 py-3 text-left transition hover:border-primary hover:bg-primary/5 dark:border-gray-700";
+      item.className = "group flex w-full cursor-pointer items-center justify-between gap-3 py-3 text-left transition";
+
+      const textWrap = document.createElement("span");
+      textWrap.className = "flex min-w-0 flex-col items-start gap-0.5";
 
       const titleEl = document.createElement("span");
-      titleEl.className = "text-sm font-semibold text-gray-900 dark:text-gray-100";
+      titleEl.className = "text-sm font-semibold text-gray-900 dark:text-gray-100 transition group-hover:text-primary";
       titleEl.textContent = event.title;
 
       const meta = document.createElement("span");
       meta.className = "text-xs text-gray-500 dark:text-gray-400";
       meta.textContent = `${formatEventDate(event.start)} · ${formatEventTime(event.start)} Uhr`;
 
-      item.append(titleEl, meta);
+      textWrap.append(titleEl, meta);
+
+      const arrow = document.createElement("span");
+      arrow.className = "shrink-0 text-gray-300 transition group-hover:translate-x-0.5 group-hover:text-primary dark:text-gray-600";
+      arrow.innerHTML = iconSvg(ARROW_RIGHT_PATH);
+
+      item.append(textWrap, arrow);
       item.addEventListener("click", () => onSelect(event));
 
       upcomingEl.appendChild(item);
