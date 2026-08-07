@@ -39,7 +39,7 @@ const formattedDate = date.toLocaleDateString("de-DE", {
   class="
     group
     flex
-    h-36
+    h-38
     gap-4
     overflow-hidden
     rounded-2xl
@@ -48,7 +48,7 @@ const formattedDate = date.toLocaleDateString("de-DE", {
     transition
     hover:-translate-y-1
     hover:shadow-lg
-    sm:h-36
+    sm:h-38
     sm:gap-6
     md:h-40
   "
@@ -88,12 +88,12 @@ const formattedDate = date.toLocaleDateString("de-DE", {
       <span class="shrink-0 text-xs text-gray-400 dark:text-gray-500">{formattedDate}</span>
     </div>
 
-    <h3 class="line-clamp-2 font-bold leading-snug text-gray-900 dark:text-gray-100 transition group-hover:text-primary sm:text-lg">
+    <h3 class="line-clamp-2 break-words hyphens-auto font-bold leading-snug text-gray-900 dark:text-gray-100 transition group-hover:text-primary sm:text-lg" lang="de">
       {title}
     </h3>
 
     {description?.[0] && (
-      <p class="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+      <p class="mt-1 line-clamp-2 break-words hyphens-auto text-sm leading-relaxed text-gray-600 dark:text-gray-400" lang="de">
         {description[0]}
       </p>
     )}
