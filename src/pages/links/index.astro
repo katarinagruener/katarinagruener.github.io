@@ -1,6 +1,11 @@
 ---
+import { getEntry } from "astro:content";
+
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import Icon from "@components/ui/Icon.astro";
+
+const { groups } = (await getEntry("links", "main"))!.data;
 ---
 
 <BaseLayout
@@ -30,8 +35,37 @@ Links
 
 
 <p class="mt-4 max-w-2xl text-gray-700 dark:text-gray-300">
-Diese Seite befindet sich im Aufbau. Hier finden Sie in Kürze weiterführende Links zu Behörden und Partnern der Gemeinde.
+Weiterführende Links zu Behörden, Nachbargemeinden und regionalen Medien.
 </p>
+
+
+<div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+{
+  groups.map((group) => (
+    <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-6 shadow-sm">
+
+      <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100">{group.title}</h2>
+
+      <ul class="mt-4 space-y-3">
+        {group.items.map((item) => (
+          <li>
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-primary"
+            >
+              <Icon name="link" class="mt-0.5 h-4 w-4 shrink-0 text-gray-400 dark:text-gray-500" />
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+    </div>
+  ))
+}
+</div>
 
 
 </div>

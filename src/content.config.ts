@@ -131,6 +131,18 @@ const ladesaeulen = defineCollection({
   })
 });
 
+const links = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./src/content/links" }),
+  schema: z.object({
+    groups: z.array(
+      z.object({
+        title: z.string(),
+        items: z.array(z.object({ label: z.string(), url: z.string() }))
+      })
+    )
+  })
+});
+
 const fraktionen = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/fraktionen" }),
   schema: z.object({
@@ -416,5 +428,6 @@ export const collections = {
   "feuerwehr-fuehrung": feuerwehrFuehrung,
   pflegestuetzpunkt,
   "ueber-uns": ueberUns,
-  ladesaeulen
+  ladesaeulen,
+  links
 };

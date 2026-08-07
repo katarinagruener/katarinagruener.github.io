@@ -121,6 +121,12 @@ collections:
           - { label: "PLZ", name: "zip", widget: "string", required: false }
           - { label: "Ort", name: "city", widget: "string", required: false }
       - { label: "Eintritt / Hinweise", name: "admission", widget: "list", required: false }
+      - label: "Bild"
+        name: "image"
+        widget: "image"
+        required: false
+        media_folder: "/public/images/veranstaltungen"
+        public_folder: "/images/veranstaltungen"
 
   - name: "verwaltung-mitarbeiter"
     label: "Verwaltung – Mitarbeitende"
@@ -765,3 +771,19 @@ collections:
             fields:
               - { label: "Beschriftung", name: "label", widget: "string" }
               - { label: "URL", name: "url", widget: "string" }
+
+      - name: "links"
+        label: "Links-Seite"
+        file: "src/content/links/main.json"
+        fields:
+          - label: "Gruppen"
+            name: "groups"
+            widget: "list"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - label: "Links"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Beschriftung", name: "label", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }

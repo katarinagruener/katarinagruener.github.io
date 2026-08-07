@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "title": "Links",
+      "items": [
+        { "label": "Informationsbroschüre der Gemeinde Seddiner See", "url": "https://www.total-lokal.de/publikationen/projekt/1455405003" },
+        { "label": "Land Brandenburg", "url": "http://www.brandenburg.de" },
+        { "label": "Landratsamt Potsdam-Mittelmark", "url": "http://www.potsdam-mittelmark.de" },
+        { "label": "Grundschule \"Friedrich List\" in Neuseddin", "url": "http://schule.neuseddin.de" },
+        { "label": "Tourismusverband Fläming e.V.", "url": "http://www.reiseregion-flaeming.de" },
+        { "label": "Koordinierungsstelle für Freiwilligenarbeit & Bürgerengagement Potsdam-Mittelmark", "url": "http://www.freiwilligenarbeit-pm.de" },
+        { "label": "Maerker Seddiner See", "url": "https://maerker.brandenburg.de/bb/seddiner-see" }
+      ]
+    },
+    {
+      "title": "Nachbarn",
+      "items": [
+        { "label": "Stadt Beelitz", "url": "http://www.beelitz.de" },
+        { "label": "Gemeinde Michendorf", "url": "http://www.michendorf.de" },
+        { "label": "Gemeinde Nuthetal", "url": "http://www.nuthetal.de" },
+        { "label": "Stadt Potsdam", "url": "http://www.potsdam.de" },
+        { "label": "Gemeinde Schwielowsee", "url": "http://www.schwielowsee.de/" },
+        { "label": "Stadt Werder (Havel)", "url": "http://www.werder-havel.de" },
+        { "label": "Gemeinde Groß Kreutz", "url": "http://www.gross-kreutz.de/" },
+        { "label": "WAZ Wasser- und Abwasserzweckverband \"Nieplitz\"", "url": "http://www.waz-nieplitz.de" },
+        { "label": "Wasser- und Bodenverband Nuthe - Nieplitz", "url": "http://www.wbv-nuthe-nieplitz.de/" }
+      ]
+    },
+    {
+      "title": "Regionale Presse",
+      "items": [
+        { "label": "Märkische Allgemeine Zeitung", "url": "http://www.maerkischeallgemeine.de/" },
+        { "label": "Potsdamer Neueste Nachrichten", "url": "http://www.pnn.de" }
+      ]
+    }
+  ]
+}
