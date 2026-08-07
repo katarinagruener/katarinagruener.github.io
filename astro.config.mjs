@@ -1,11 +1,14 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
   site: 'https://katarinagruener.github.io',
+
+  integrations: [sitemap()],
 
   vite: {
     plugins: [

@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Icon from "@components/ui/Icon.astro";
+import Button from "@components/ui/Button.astro";
+---
+
+
+<BaseLayout
+  title="Seite nicht gefunden"
+  description="Diese Seite existiert nicht oder wurde verschoben."
+>
+
+
+<section class="py-20">
+
+<div class="container flex flex-col items-center text-center">
+
+<span class="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+  <Icon name="signpost" class="h-8 w-8" />
+</span>
+
+<p class="mt-6 text-sm font-semibold text-primary">Fehler 404</p>
+
+<h1 class="mt-2 text-3xl font-bold text-gray-900 dark:text-gray-100 md:text-4xl">
+  Seite nicht gefunden
+</h1>
+
+<p class="mt-4 max-w-md text-gray-600 dark:text-gray-400">
+  Die aufgerufene Seite existiert nicht oder wurde verschoben. Möglicherweise hat sich die Adresse geändert.
+</p>
+
+<Button href="/" size="lg" class="mt-8">
+  Zur Startseite
+</Button>
+
+</div>
+
+</section>
+
+
+</BaseLayout>
