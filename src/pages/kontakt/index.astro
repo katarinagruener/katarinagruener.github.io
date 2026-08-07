@@ -6,6 +6,7 @@ import PageHero from "@components/ui/PageHero.astro";
 import Icon from "@components/ui/Icon.astro";
 import ContactCard from "@components/administration/ContactCard.astro";
 import OpeningHours from "@components/administration/OpeningHours.astro";
+import ConsentMap from "@components/ui/ConsentMap.astro";
 
 import { getEntry } from "astro:content";
 
@@ -51,15 +52,11 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
 
 <ContactCard />
 
-<div class="overflow-hidden rounded-3xl bg-white dark:bg-gray-900 shadow-sm">
-<iframe
-  src="https://www.google.com/maps?q=Kiefernweg+5+14554+Seddiner+See&output=embed"
-  class="h-full min-h-[300px] w-full border-0"
-  loading="lazy"
+<ConsentMap
+  id="kontakt"
+  query="Kiefernweg 5 14554 Seddiner See"
   title="Standort der Gemeindeverwaltung Seddiner See"
->
-</iframe>
-</div>
+/>
 
 </div>
 

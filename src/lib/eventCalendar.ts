@@ -36,7 +36,7 @@ export function initEventCalendar(container: HTMLElement, events: CalendarEvent[
       <div class="${showUpcoming ? "lg:flex-[3]" : ""}">
         <div class="flex items-center justify-between">
           <button type="button" data-cal-prev aria-label="Vorheriger Monat" class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-100 text-gray-700 transition hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">${iconSvg(ARROW_LEFT_PATH)}</button>
-          <h3 data-cal-label class="text-lg font-bold text-gray-900 dark:text-gray-100"></h3>
+          <h3 data-cal-label aria-live="polite" class="text-lg font-bold text-gray-900 dark:text-gray-100"></h3>
           <button type="button" data-cal-next aria-label="Nächster Monat" class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-100 text-gray-700 transition hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">${iconSvg(ARROW_RIGHT_PATH)}</button>
         </div>
         <div data-cal-weekdays class="mt-4 grid grid-cols-7 gap-1 text-center text-xs font-semibold text-gray-500 dark:text-gray-400"></div>

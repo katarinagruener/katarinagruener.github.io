@@ -1,0 +1,116 @@
+---
+import { getEntry } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
+import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
+import { site } from "@data/site";
+
+const kontakt = (await getEntry("site-kontakt", "main"))!.data;
+---
+
+<BaseLayout
+  title="Erklärung zur Barrierefreiheit"
+  description={`Erklärung zur Barrierefreiheit der ${site.name}`}
+>
+
+
+<section class="py-12">
+
+
+<div class="container">
+
+
+<Breadcrumbs items={[{ label: "Barrierefreiheit" }]} />
+
+
+<h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100">
+Erklärung zur Barrierefreiheit
+</h1>
+
+
+<div class="mt-6 max-w-3xl rounded-2xl border border-accent/30 bg-accent/5 p-5 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+<p class="font-bold text-accent">Hinweis für die Redaktion — vor Veröffentlichung ausfüllen</p>
+<p class="mt-2">
+Diese Seite ist ein Gerüst, kein geprüfter Rechtstext. Alle mit <code class="rounded bg-gray-900/5 px-1 dark:bg-gray-100/10">[PLATZHALTER]</code> markierten Stellen müssen von der Gemeinde inhaltlich bestätigt bzw. ergänzt werden — insbesondere der Vereinbarkeits-Status, die Liste bekannter Barrieren und die Kontaktdaten der Schlichtungsstelle des Landes Brandenburg. Bitte vor dem Live-Schalten mit der/dem Beauftragten für Barrierefreiheit bzw. der Kommunalaufsicht abstimmen.
+</p>
+</div>
+
+
+<div class="mt-8 max-w-3xl space-y-8 text-gray-700 dark:text-gray-300">
+
+
+<p>
+{site.name} ist bemüht, ihre Website im Einklang mit den Bestimmungen des Behindertengleichstellungsgesetzes Brandenburg (BbgBGG) und der Brandenburgischen Barrierefreie-Informationstechnik-Verordnung (BbgBITV) sowie der Richtlinie (EU) 2016/2102 barrierefrei zugänglich zu machen.
+</p>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Stand der Vereinbarkeit mit den Anforderungen</h2>
+<p>
+Diese Website ist <strong>[PLATZHALTER: vollständig / teilweise]</strong> mit den Anforderungen der BITV 2.0 (basierend auf EN 301 549 bzw. WCAG 2.1, Konformitätsstufe AA) vereinbar. Die Einschätzung beruht auf einer <strong>[PLATZHALTER: Selbstbewertung / externen Prüfung durch …]</strong> vom <strong>[PLATZHALTER: Datum]</strong>.
+</p>
+</section>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Nicht barrierefreie Inhalte</h2>
+<p>
+Die nachfolgend aufgeführten Inhalte sind aus den genannten Gründen noch nicht vollständig barrierefrei:
+</p>
+<ul class="mt-3 list-disc space-y-2 pl-5">
+<li>
+<strong>PDF-Dokumente</strong> im Dokumentenportal, im See-Kurier und bei Meldungen (z.&nbsp;B. Satzungen, Bekanntmachungen, Formulare): Ein Teil dieser Dateien wurde vor Inkrafttreten der Barrierefreiheitsanforderungen erstellt und ist nicht oder nicht vollständig für Screenreader zugänglich (fehlende Tags, fehlende alternative Beschreibungen für Grafiken). <em>[PLATZHALTER: bitte prüfen/ergänzen, sobald ein Überblick über den tatsächlichen Bestand vorliegt.]</em>
+</li>
+<li>
+[PLATZHALTER: weitere bekannte Ausnahmen ergänzen, z.&nbsp;B. eingebettete Kartenausschnitte, Drittanbieterinhalte.]
+</li>
+</ul>
+</section>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Erstellung dieser Erklärung</h2>
+<p>
+Diese Erklärung wurde am <strong>[PLATZHALTER: Datum]</strong> erstellt und zuletzt am <strong>[PLATZHALTER: Datum]</strong> überprüft. Sie wird regelmäßig aktualisiert, insbesondere nach größeren inhaltlichen oder technischen Änderungen der Website.
+</p>
+</section>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Feedback und Kontaktangaben</h2>
+<p>
+Sollten Ihnen Mängel hinsichtlich der barrierefreien Gestaltung dieser Website auffallen, teilen Sie uns dies bitte mit:
+</p>
+<p class="mt-3">
+{kontakt.organization}
+<br />
+E-Mail: <ObfuscatedEmail email={kontakt.email} class="text-primary-dark hover:underline dark:text-primary" />
+<br />
+Telefon: <a href={`tel:${kontakt.phone}`} class="text-primary-dark hover:underline dark:text-primary">{kontakt.phone}</a>
+</p>
+</section>
+
+
+<section>
+<h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Schlichtungsverfahren</h2>
+<p>
+Wenn auch nach Ihrer Rückmeldung an uns keine zufriedenstellende Lösung gefunden wurde, können Sie sich an die Schlichtungsstelle nach § 12 BbgBGG wenden:
+</p>
+<p class="mt-3">
+[PLATZHALTER: Name, Anschrift, Telefon, E-Mail und/oder Website der zuständigen Schlichtungsstelle bzw. Landesbeauftragten für die Belange von Menschen mit Behinderungen des Landes Brandenburg eintragen.]
+</p>
+</section>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</BaseLayout>

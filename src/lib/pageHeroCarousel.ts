@@ -30,6 +30,23 @@ export function initPageHeroCarousels() {
       });
     });
 
+    // Listens on the container (not the dots themselves) and relies on
+    // keydown bubbling — fires whenever a dot inside has focus, no extra
+    // tabindex needed since the dots are already real <button>s. Moves
+    // focus along with the slide so a screen reader announces the dot
+    // ("Bild 2 von 2") that actually matches what's now showing.
+    hero.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      if (!dots.includes(document.activeElement as HTMLButtonElement)) return;
+
+      index = event.key === "ArrowLeft"
+        ? (index - 1 + slides.length) % slides.length
+        : (index + 1) % slides.length;
+
+      render();
+      dots[index]?.focus();
+    });
+
     let touchStartX = 0;
 
     hero.addEventListener("touchstart", (event) => {

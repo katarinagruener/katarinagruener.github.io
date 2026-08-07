@@ -1,0 +1,70 @@
+---
+import Icon from "@components/ui/Icon.astro";
+
+interface Props {
+  id: string;
+  query: string;
+  title: string;
+}
+
+const { id, query, title } = Astro.props;
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+---
+
+<div
+  data-consent-map={id}
+  data-map-src={mapSrc}
+  data-map-title={title}
+  class="flex min-h-[300px] flex-col items-center justify-center gap-3 rounded-3xl border border-gray-200 bg-gray-50 p-6 text-center dark:border-gray-700 dark:bg-gray-800"
+>
+  <span class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary-dark dark:text-primary">
+    <Icon name="location" class="h-6 w-6" />
+  </span>
+
+  <p class="max-w-sm text-sm text-gray-600 dark:text-gray-400">
+    Hier würde eine interaktive Karte von Google Maps geladen. Beim Laden werden Daten (u.&nbsp;a. Ihre IP-Adresse) an Google LLC in die USA übertragen.
+  </p>
+
+  <button
+    type="button"
+    data-consent-map-load
+    class="inline-flex rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark"
+  >
+    Karte laden und akzeptieren
+  </button>
+</div>
+
+<script>
+  // BITV/DSGVO: Google Maps must not load (and so must not phone home to
+  // Google) before the visitor actively agrees to it — this gates the
+  // embed behind a click and remembers that choice for return visits.
+  const STORAGE_KEY = "consent-google-maps";
+
+  function loadMap(container: HTMLElement) {
+    const src = container.dataset.mapSrc;
+    const title = container.dataset.mapTitle;
+    if (!src) return;
+
+    container.innerHTML = "";
+    container.className = "overflow-hidden rounded-3xl bg-white shadow-sm dark:bg-gray-900";
+
+    const iframe = document.createElement("iframe");
+    iframe.src = src;
+    iframe.title = title ?? "Karte";
+    iframe.loading = "lazy";
+    iframe.className = "h-full min-h-[300px] w-full border-0";
+    container.appendChild(iframe);
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-consent-map]").forEach((container) => {
+    if (localStorage.getItem(STORAGE_KEY) === "true") {
+      loadMap(container);
+      return;
+    }
+
+    container.querySelector("[data-consent-map-load]")?.addEventListener("click", () => {
+      localStorage.setItem(STORAGE_KEY, "true");
+      loadMap(container);
+    });
+  });
+</script>

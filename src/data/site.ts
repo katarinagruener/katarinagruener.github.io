@@ -9,6 +9,8 @@ export const site: SiteConfig = {
   legal: {
     imprint: "/impressum",
 
-    privacy: "/datenschutz"
+    privacy: "/datenschutz",
+
+    accessibility: "/barrierefreiheit"
   }
 };

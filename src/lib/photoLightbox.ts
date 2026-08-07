@@ -34,6 +34,11 @@ export function initPhotoLightbox() {
     }
   });
 
+  dialog.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") show(currentIndex - 1);
+    if (event.key === "ArrowRight") show(currentIndex + 1);
+  });
+
   function open(newImages: GalleryImage[], index: number) {
     images = newImages;
     show(index);

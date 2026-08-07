@@ -7,5 +7,7 @@ export interface SiteConfig {
     imprint: string;
 
     privacy: string;
+
+    accessibility: string;
   };
 }
