@@ -138,7 +138,14 @@ Mitglieder des Ortsbeirates
     text-gray-900 dark:text-gray-100
   "
 >
-  Geschichte und Wissenswertes
+  <!--
+    Pagefind splits a page's search results at headings that carry an id
+    (each PersonCard's own <h2 id="card-...">) — without one here too, this
+    section had no heading of its own, so any match inside its free-text
+    history paragraphs below got attributed to whichever member card
+    happened to be last in the grid above it, instead of to this section.
+  -->
+  <h2 id="geschichte-und-wissenswertes">Geschichte und Wissenswertes</h2>
   <span class="text-base font-semibold text-primary-dark dark:text-primary group-open:hidden">Aufklappen</span>
   <span class="hidden text-base font-semibold text-primary-dark dark:text-primary group-open:inline">Zuklappen</span>
 </summary>
