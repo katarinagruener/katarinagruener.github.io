@@ -1,4 +1,5 @@
 import { formatEventDate, formatEventTime, type CalendarEvent } from "./calendar";
+import { trapTabFocus } from "./focusTrap";
 
 function formatDateTime(date: Date): string {
   return `${formatEventDate(date)}, ${formatEventTime(date)} Uhr`;
@@ -32,6 +33,8 @@ export function initEventModal() {
   const locationAddress = dialog.querySelector<HTMLElement>("#event-modal-location-address");
   const admissionWrap = dialog.querySelector<HTMLElement>("#event-modal-admission");
   const closeButtons = dialog.querySelectorAll<HTMLElement>("[data-event-modal-close]");
+
+  trapTabFocus(dialog);
 
   closeButtons.forEach((button) => {
     button.addEventListener("click", () => dialog.close());

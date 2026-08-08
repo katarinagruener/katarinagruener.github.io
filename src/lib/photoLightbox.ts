@@ -1,3 +1,5 @@
+import { trapTabFocus } from "./focusTrap";
+
 export interface GalleryImage {
   src: string;
   alt: string;
@@ -12,6 +14,8 @@ export function initPhotoLightbox() {
   if (!dialog || !image) {
     return null;
   }
+
+  trapTabFocus(dialog);
 
   let images: GalleryImage[] = [];
   let currentIndex = 0;

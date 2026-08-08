@@ -340,17 +340,11 @@ toggle?.querySelector("[data-icon-close]");
 const siteHeader =
 document.querySelector<HTMLElement>("#site-header");
 
-toggle?.addEventListener(
-"click",
-()=>{
+function openMobileMenu() {
 
-const willOpen = menu?.classList.contains("invisible");
-
-if (menu && siteHeader) {
-  menu.style.top = `${siteHeader.getBoundingClientRect().height}px`;
-}
-
-if (willOpen) {
+  if (menu && siteHeader) {
+    menu.style.top = `${siteHeader.getBoundingClientRect().height}px`;
+  }
 
   menu?.classList.remove("invisible");
 
@@ -359,7 +353,17 @@ if (willOpen) {
     menu?.classList.remove("translate-y-2");
   });
 
-} else {
+  document.body.classList.add("overflow-hidden");
+
+  toggle?.setAttribute("aria-expanded", "true");
+  toggle?.setAttribute("aria-label", "Menü schließen");
+
+  iconMenu?.classList.add("hidden");
+  iconClose?.classList.remove("hidden");
+
+}
+
+function closeMobileMenu() {
 
   menu?.classList.add("opacity-0");
   menu?.classList.add("translate-y-2");
@@ -369,21 +373,41 @@ if (willOpen) {
     closeAllSubmenus();
   }, 200);
 
+  document.body.classList.remove("overflow-hidden");
+
+  toggle?.setAttribute("aria-expanded", "false");
+  toggle?.setAttribute("aria-label", "Menü öffnen");
+
+  iconMenu?.classList.remove("hidden");
+  iconClose?.classList.add("hidden");
+
 }
 
+toggle?.addEventListener(
+"click",
+()=>{
 
-document.body.classList.toggle(
-  "overflow-hidden"
-);
+const willOpen = menu?.classList.contains("invisible");
 
+if (willOpen) {
+  openMobileMenu();
+} else {
+  closeMobileMenu();
+}
 
-const isOpen = !!willOpen;
+});
 
-toggle.setAttribute("aria-expanded", String(isOpen));
-toggle.setAttribute("aria-label", isOpen ? "Menü schließen" : "Menü öffnen");
+// Escape closes the full-screen mobile menu overlay and returns focus to
+// the toggle button, matching the desktop dropdown's Escape behavior —
+// without this, keyboard users had no way to dismiss it besides tabbing
+// all the way through every menu link first.
+document.addEventListener("keydown", (event) => {
 
-iconMenu?.classList.toggle("hidden", isOpen);
-iconClose?.classList.toggle("hidden", !isOpen);
+  if (event.key !== "Escape") return;
+  if (!menu || menu.classList.contains("invisible")) return;
+
+  closeMobileMenu();
+  (toggle as HTMLElement | null)?.focus();
 
 });
 

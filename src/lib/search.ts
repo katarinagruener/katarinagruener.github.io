@@ -68,6 +68,12 @@ function renderResult(entry: any, query: string) {
 
 export function attachSearch({ input, results, empty, maxResults = 8 }: AttachSearchOptions) {
 
+  // Results replace their content as the user types, with no page navigation
+  // or focus change to announce the update — without an ARIA live region,
+  // screen reader users get no feedback that a search even ran (WCAG 4.1.3).
+  results.setAttribute("role", "status");
+  empty.setAttribute("role", "status");
+
   let debounceTimer: ReturnType<typeof setTimeout>;
 
   async function runSearch() {
