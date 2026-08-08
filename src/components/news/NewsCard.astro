@@ -34,8 +34,15 @@ const formattedDate = date.toLocaleDateString("de-DE", {
 });
 ---
 
+<!--
+  NewsCard renders on the homepage preview, /meldungen, and every
+  /meldungen/kategorie/* page — so without data-pagefind-ignore, the same
+  Meldung shows up as 2-3 separate, identical-looking search results.
+  The canonical, fuller version lives at /meldungen/{slug} and stays indexed.
+-->
 <a
   href={`/meldungen/${slug}`}
+  data-pagefind-ignore
   class="
     group
     flex

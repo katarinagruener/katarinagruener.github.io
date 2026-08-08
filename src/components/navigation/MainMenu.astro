@@ -171,16 +171,32 @@ triggers.forEach((trigger) => {
 
   const item = trigger.closest("li");
 
-  // Not a toggle: a real mouse click is always preceded by the mouseenter
-  // handler below, which already opens this item — a naive toggle would read
+  // A real mouse click is always preceded by the mouseenter handler below,
+  // which already opens this item — toggling on every click would read
   // aria-expanded="true" at that point and immediately close what hover just
-  // opened, making the dropdown unclickable with a mouse. Click only needs to
-  // guarantee "open" (mouseleave/Escape/outside-click handle closing); it's
-  // what actually opens the menu for keyboard (Enter/Space) and touch, where
-  // there's no preceding hover.
-  trigger.addEventListener("click", () => {
+  // opened, making the dropdown unclickable with a mouse. So mouse clicks
+  // only ever guarantee "open" (mouseleave/Escape/outside-click close it).
+  //
+  // Enter/Space on a focused button fires a "click" event too, but with no
+  // preceding hover — and per spec its PointerEvent/MouseEvent has
+  // `detail === 0` (a real click's detail is its click count, always >= 1),
+  // which is how we tell the two apart. Keyboard users get a proper toggle:
+  // Enter opens, Enter again on the same button closes — without that,
+  // Escape/Tabbing-past-the-end would be the only way to close it.
+  trigger.addEventListener("click", (event) => {
+
+    const isKeyboardActivation = (event as MouseEvent).detail === 0;
+
+    if (isKeyboardActivation) {
+      const isOpen = trigger.getAttribute("aria-expanded") === "true";
+      closeAll();
+      if (!isOpen) open(trigger);
+      return;
+    }
+
     closeAll(trigger);
     open(trigger);
+
   });
 
   item?.addEventListener("mouseenter", () => {

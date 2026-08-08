@@ -11,8 +11,10 @@ const latest = entries
   .sort((a, b) => b.date.getTime() - a.date.getTime())[0];
 ---
 
+<!-- This same document is also indexed via /gemeinde/dokumentenportal
+     (its canonical listing) — ignored here so search doesn't show it twice. -->
 {latest && (
-  <div class="flex h-full flex-col rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+  <div data-pagefind-ignore class="flex h-full flex-col rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
 
     <div>
 

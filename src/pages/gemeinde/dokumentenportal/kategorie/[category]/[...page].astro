@@ -54,7 +54,12 @@ const hasImage = (hero?.images?.length ?? 0) > 0;
 
 
 
-<section class:list={["pb-12", !hasImage && "pt-6"]}>
+<!-- Every document shown on this filtered view is also indexed via the
+     unfiltered /gemeinde/dokumentenportal listing — once everything below
+     is excluded, all that's left here is generic page chrome (heading,
+     breadcrumb), which isn't worth surfacing as its own search result,
+     so the whole page is ignored. -->
+<section data-pagefind-ignore class:list={["pb-12", !hasImage && "pt-6"]}>
 
 
 <div class="container">

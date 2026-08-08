@@ -10,7 +10,11 @@ interface Props {
 const { categories, active } = Astro.props;
 ---
 
-<div class="mt-8 flex flex-wrap gap-2">
+<!-- Navigation, not content: without this, Pagefind indexes the category
+     pill labels (e.g. "Satzungen") on every listing page, and search's
+     "first highlighted match" logic then surfaces this generic nav instead
+     of the actual matching document further down the page. -->
+<div data-pagefind-ignore class="mt-8 flex flex-wrap gap-2">
 
   <a
     href="/gemeinde/dokumentenportal"
