@@ -1,18 +1,21 @@
 ---
-import { getCollection, getEntry } from "astro:content";
+import { getEntry } from "astro:content";
 
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 import Breadcrumbs from "@components/ui/Breadcrumbs.astro";
 import ObfuscatedEmail from "@components/ui/ObfuscatedEmail.astro";
 import { site } from "@data/site";
+import { resolvePerson } from "@lib/people";
 
 const kontakt = (await getEntry("site-kontakt", "main"))!.data;
 
-const peopleEntries = await getCollection("people");
-const buergermeisterin = peopleEntries.find(
-  (entry) => entry.data.role === "Bürgermeisterin"
-)?.data;
+// Same "Bürgermeister(in)" relation the Über-uns page uses (src/content/ueber-uns
+// welcome.mayor) — one CMS-editable source of truth instead of a second,
+// independent lookup that could silently drift out of sync with it.
+const ueberUnsEntry = await getEntry("ueber-uns", "main");
+const mayor = await resolvePerson(ueberUnsEntry!.data.welcome.mayor);
+const mayorName = mayor?.name ?? "Carina Simmes";
 ---
 
 <BaseLayout
@@ -68,7 +71,7 @@ E-Mail: <ObfuscatedEmail email={kontakt.email} class="hover:text-primary" />
 
 <section>
 <p>
-Die Gemeinde Seddiner See ist eine Körperschaft des öffentlichen Rechts. Sie wird vertreten durch die Bürgermeisterin {buergermeisterin?.name ?? "Carina Simmes"}.
+Die Gemeinde Seddiner See ist eine Körperschaft des öffentlichen Rechts. Sie wird vertreten durch die Bürgermeisterin {mayorName}.
 </p>
 </section>
 
@@ -76,7 +79,7 @@ Die Gemeinde Seddiner See ist eine Körperschaft des öffentlichen Rechts. Sie w
 <section>
 <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-gray-100">Verantwortlich für den Inhalt</h2>
 <p>
-Verantwortlich gemäß § 18 Abs. 2 MStV: {buergermeisterin?.name ?? "Carina Simmes"}
+Verantwortlich gemäß § 18 Abs. 2 MStV: {mayorName}
 </p>
 </section>
 
