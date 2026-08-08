@@ -102,6 +102,9 @@ export function initEventCalendar(container: HTMLElement, events: CalendarEvent[
         bar.continuesAfter ? "" : "rounded-r"
       ].filter(Boolean).join(" ");
       barEl.textContent = bar.event.title;
+      // The bar's grid position conveys the date visually; a screen reader
+      // linearizes it away, so state the date explicitly for that audience.
+      barEl.setAttribute("aria-label", `${bar.event.title}, ${formatEventDate(bar.event.start)}`);
       barEl.addEventListener("click", () => onSelect(bar.event));
 
       weekGrid.appendChild(barEl);
